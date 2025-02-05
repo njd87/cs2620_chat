@@ -1,0 +1,22 @@
+04/24/2025
+Today was the "testing phase" of the project. From what I can tell, Waldo sourced his code (or the reverse) from:
+https://realpython.com/python-sockets/
+
+Two files were created today:
+- server.py
+    - main loop
+    - accept wrapper
+    - service connection
+- client.py
+    - main loop
+    - start connection
+    - server connection
+
+Logging has been set up with time stamps.
+
+You run each with the following commands for testing:
+"python3 server.py 127.0.0.1 65432"
+"python3 client.py 127.0.0.1 65432"
+
+You are currently able to send messages from client to server, and the server can respond.
+It might be worth spending time abstracting a lot for our protocol and creating a "protocol.py" file for parsing functions.

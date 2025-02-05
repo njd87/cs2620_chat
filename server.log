@@ -1,0 +1,7 @@
+INFO:root:Listening on 127.0.0.1:65432
+INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:22:34
+INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:42:03
+INFO:root:Accepted connection from ('127.0.0.1', 55445) at 2025-02-04 23:42:08
+INFO:root:Echoing b'hello' to ('127.0.0.1', 55445) at 2025-02-04 23:42:09
+INFO:root:Closing connection to ('127.0.0.1', 55445) at 2025-02-04 23:42:10
+ERROR:root:KeyboardInterrupt, exiting at 2025-02-04 23:42:12
