@@ -1,4 +1,4 @@
-04/24/2025
+02/04/2025
 Today was the "testing phase" of the project. From what I can tell, Waldo sourced his code (or the reverse) from:
 https://realpython.com/python-sockets/
 
@@ -20,3 +20,25 @@ You run each with the following commands for testing:
 
 You are currently able to send messages from client to server, and the server can respond.
 It might be worth spending time abstracting a lot for our protocol and creating a "protocol.py" file for parsing functions.
+
+02/05/2025
+Started today's work by creating "setup.py"
+This will reset our database and set up schema for use. We decided on two tables:
+- users
+  - user_id (primary)
+  - username
+  - pass_hash
+
+- messages
+ - message_id (primary)
+ - sender_id
+ - recipient_id
+ - message
+ - time (defaults to current time)
+
+We decided to work on JSON first. We can still send messages to the server from multiple clients and echo it back,
+but we really want to start testing out saving messages to the database via requests from the user.
+
+We're going to work first on making sure that sign up works correctly, which will also let us test whether our
+preliminary database strategy works. We'll start working on the client UI in a separate Python file at first,
+and we can potentially merge files later if necessary/helpful.

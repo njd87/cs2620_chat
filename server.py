@@ -5,9 +5,12 @@ import types
 import logging
 import os
 import time
+import sqlite3
 
 # log to a file
-log_file = 'server.log'
+log_file = 'logs/server.log'
+db_file = 'data/messenger.db'
+
 # if the file does not exist in the current directory, create it
 if not os.path.exists(log_file):
     with open(log_file, 'w') as f:
@@ -23,6 +26,11 @@ def setup():
     # check if the log file exists
     if not os.path.exists(log_file):
         logging.error("Log file does not exist, exiting at %s", time.strftime("%Y-%m-%d %H:%M:%S"))
+        sys.exit(1)
+
+    # check if the database file exists
+    if not os.path.exists(db_file):
+        logging.error("Database file does not exist, exiting at %s", time.strftime("%Y-%m-%d %H:%M:%S"))
         sys.exit(1)
 
     # create basic selector

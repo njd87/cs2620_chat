@@ -57,7 +57,7 @@ def service_connection(key, mask):
     mask : int
         The mask of events that occurred on the connection.
     '''
-    # ge the socket
+    # get the socket
     sock = key.fileobj
     data = key.data
     if mask & selectors.EVENT_READ:
