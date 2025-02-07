@@ -3,6 +3,7 @@ import json
 import selectors
 import struct
 import sys
+import socket
 
 class Bolt:
     '''
@@ -27,7 +28,7 @@ class Bolt:
         # where to store data either coming in or going out
         # necessary for storage before protocol encoding/decoding
         self.instream = b""
-        self.outsream = b""
+        self.outstream = b""
 
         self.protocol_type = protocol_type
         
@@ -40,19 +41,27 @@ class Bolt:
 
     def process_events(self, mask):
         if mask & selectors.EVENT_READ:
+            print("hi")
             self.read()
         if mask & selectors.EVENT_WRITE:
             self.write()
 
     def read(self):
+
+        print("hi1")
         self._read()
+        print("hi2")
 
         if self._header_len is None:
             self.process_header_len()
+
+        print("1")
         
         if self._header_len is not None:
             if self.header is None:
                 self.process_header()
+
+        print("2")
         
         if self.header is not None:
             if self.request is None:
@@ -60,11 +69,15 @@ class Bolt:
     
     def _read(self):
         try:
+            print("here?")
             data = self.sock.recv(4096) # KG: why this amount
+            print("hi3")
         except BlockingIOError:
+            print("WRONG")
             pass
         else:
             if data:
+                print("hi4")
                 self.instream += data 
             else:
                 raise RuntimeError("Peer closed.")
@@ -81,9 +94,9 @@ class Bolt:
         hdrlen = self._header_len
         if len(self.instream) >= hdrlen:
             self.header = self._json_decode(
-                self.insteam[:hdrlen], "utf-8"
+                self.instream[:hdrlen], "utf-8"
             )
-            self.insteam = self.insteam[hdrlen:]
+            self.instream = self.instream[hdrlen:]
             for reqhdr in (
                 "byteorder",
                 "content-length",
@@ -114,14 +127,14 @@ class Bolt:
         self._write()
 
     def _write(self):
-        if self._send_buffer:
+        if self.outstream:
             try:
-                sent_bytes = self.sock.send(self._send_buffer)
+                sent_bytes = self.sock.send(self.outstream)
             except BlockingIOError:
                 pass
             else:
-                self._send_buffer = self._send_buffer[sent_bytes:]
-                if sent_bytes and not self._send_buffer:
+                self.outstream = self.outstream[sent_bytes:]
+                if sent_bytes and not self.outstream:
                     self.close()
 
     def create_response(self):
@@ -182,12 +195,12 @@ class Bolt:
             events = selectors.EVENT_READ | selectors.EVENT_WRITE
         else:
             raise ValueError(f"Invalid events mask mode {mode!r}.")
-        self.selector.modify(self.sock, events, data=self)
+        self.sel.modify(self.sock, events, data=self)
 
     def close(self):
         print(f"Closing connection to {self.addr}")
         try:
-            self.selector.unregister(self.sock)
+            self.sel.unregister(self.sock)
         except Exception as e:
             print(
                 f"Error: selector.unregister() exception for "

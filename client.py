@@ -4,6 +4,7 @@ import selectors
 import types
 import threading
 import tkinter as tk
+from comm_client import Bolt
 
 class ClientUI:
     def __init__(self, host, port, sel):
@@ -15,9 +16,34 @@ class ClientUI:
         self.conn, self.conn_data = start_connection(host, port, sel)
         threading.Thread(target=event_loop, daemon=True).start()
 
-        self.setup_delete()
+        self.setup_register()
 
         self.root.mainloop()
+        
+    def send_register_request(self, username, password):
+        # create a request
+        self.conn_data.request = {
+            "action": "register",
+            "username": username,
+            "passhash": password,
+            "encoding": "utf-8"
+        }
+
+    def setup_register(self):
+        self.login_frame = tk.Frame(self.root)
+        self.login_frame.pack()
+        self.login_label = tk.Label(self.login_frame, text="Enter your username:")
+        self.login_label.pack()
+        self.login_entry = tk.Entry(self.login_frame)
+        self.login_entry.pack()
+        self.login_password_label = tk.Label(self.login_frame, text="Enter your password:")
+        self.login_password_label.pack()
+        self.login_password_entry = tk.Entry(self.login_frame)
+        self.login_password_entry.pack()
+        self.login_button = tk.Button(self.login_frame, text="Register", command=lambda: self.send_register_request(self.login_entry.get(), self.login_password_entry.get()))
+        self.login_button.pack()
+
+
 
     def setup_main(self):
         '''
@@ -63,16 +89,6 @@ class ClientUI:
         self.send_button.pack()
         self.settings_button = tk.Button(self.chat_entry_frame, text="Settings")
         self.settings_button.pack()
-
-    def setup_login(self):
-        self.login_frame = tk.Frame(self.root)
-        self.login_frame.pack()
-        self.login_label = tk.Label(self.login_frame, text="Enter your username:")
-        self.login_label.pack()
-        self.login_entry = tk.Entry(self.login_frame)
-        self.login_entry.pack()
-        self.login_button = tk.Button(self.login_frame, text="Login")
-        self.login_button.pack()
 
     def setup_delete(self):
         self.delete_frame = tk.Frame(self.root)
@@ -129,41 +145,42 @@ def start_connection(
     
     # Register the socket with the selector to send events.
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    data = types.SimpleNamespace(addr=server_addr, inb=b"", outb=b"")
+    data = Bolt(sel=selector, sock=sock, addr=server_addr)
     selector.register(sock, events, data=data)
     return sock, data
 
-def service_connection(key, mask):
-    '''
-    Service a connection.
+# def service_connection(key, mask):
+#     '''
+#     Service a connection.
 
-    Parameters
-    key : selectors.SelectorKey
-        The key for the connection.
-    mask : int
-        The mask of events that occurred on the connection.
-    '''
-    # get the socket
-    sock = key.fileobj
-    data = key.data
-    if mask & selectors.EVENT_READ:
-        recv_data = sock.recv(4096)
-        if recv_data:
-            print("Received:", recv_data.decode())
-        else:
-            print("Closing connection to", data.addr)
-            sel.unregister(sock)
-            sock.close()
-    if mask & selectors.EVENT_WRITE and data.outb:
-        sent = sock.send(data.outb)
-        data.outb = data.outb[sent:]
+#     Parameters
+#     key : selectors.SelectorKey
+#         The key for the connection.
+#     mask : int
+#         The mask of events that occurred on the connection.
+#     '''
+#     # get the socket
+#     sock = key.fileobj
+#     data = key.data
+#     if mask & selectors.EVENT_READ:
+#         recv_data = sock.recv(4096)
+#         if recv_data:
+#             print("Received:", recv_data.decode())
+#         else:
+#             print("Closing connection to", data.addr)
+#             sel.unregister(sock)
+#             sock.close()
+#     if mask & selectors.EVENT_WRITE and data.outb:
+#         sent = sock.send(data.outb)
+#         data.outb = data.outb[sent:]
 
 def event_loop():
     try:
         while True:
             events = sel.select(timeout=1)
             for key, mask in events:
-                service_connection(key, mask)
+                if key.data:
+                    key.data.process_events(mask)
     except KeyboardInterrupt:
         print("Interrupted, exiting")
     finally:

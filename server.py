@@ -70,7 +70,7 @@ def accept_wrapper(sock: socket.socket) -> None:
     conn.setblocking(False)
 
     # register the connection with the selector
-    data = types.SimpleNamespace(addr=addr, inb=b"", outb=b"")
+    data = Bolt(sel=sel, sock=sock, addr=addr)
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
     sel.register(conn, events, data=data)
 
