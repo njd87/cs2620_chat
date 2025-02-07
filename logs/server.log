@@ -17,3 +17,80 @@ INFO:root:Echoing b'TESTESTSET' to ('127.0.0.1', 57706) at 2025-02-05 15:43:19
 ERROR:root:Closing connection to ('127.0.0.1', 57710) at 2025-02-05 15:44:50
 ERROR:root:Closing connection to ('127.0.0.1', 57706) at 2025-02-05 15:44:51
 ERROR:root:KeyboardInterrupt, exiting at 2025-02-05 15:44:52
+2025-02-06 21:54:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 21:54:31
+2025-02-06 21:55:00 - INFO - Accepted connection from ('127.0.0.1', 51998) at 2025-02-06 21:55:00
+2025-02-06 21:55:02 - INFO - Echoing b'hello' to ('127.0.0.1', 51998) at 2025-02-06 21:55:02
+2025-02-06 21:55:26 - INFO - Echoing b'jaskd;fjkals;jfkl;asjfkl;asdjfkl;asjfkl;asjflwfjpiowpoijpaiojspjioajopiapjoafwojawfjpofwpjofwepjofwejpioawefjpiofwepijofwejpifweqjpiowfqejpiofweqjpioqwfjiopqfwjiopqwefjpioqwefjiopwefqjpiofweqjiofqwejiofqwejo' to ('127.0.0.1', 51998) at 2025-02-06 21:55:26
+2025-02-06 21:55:42 - ERROR - Closing connection to ('127.0.0.1', 51998) at 2025-02-06 21:55:42
+2025-02-06 21:55:44 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 21:55:44
+2025-02-06 21:55:45 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 21:55:45
+2025-02-06 21:55:46 - INFO - Accepted connection from ('127.0.0.1', 52003) at 2025-02-06 21:55:46
+2025-02-06 21:55:48 - INFO - Echoing b'asjkdf;ajs' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
+2025-02-06 21:55:48 - INFO - Echoing b'kd;fjaksl;' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
+2025-02-06 21:55:48 - INFO - Echoing b'dfjk;lasdf' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
+2025-02-06 21:57:24 - ERROR - Closing connection to ('127.0.0.1', 52003) at 2025-02-06 21:57:24
+2025-02-06 21:57:26 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 21:57:26
+2025-02-06 23:26:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:26:10
+2025-02-06 23:26:13 - INFO - Accepted connection from ('127.0.0.1', 52648) at 2025-02-06 23:26:13
+2025-02-06 23:26:15 - INFO - Accepted connection from ('127.0.0.1', 52650) at 2025-02-06 23:26:15
+2025-02-06 23:26:16 - ERROR - Closing connection to ('127.0.0.1', 52650) at 2025-02-06 23:26:16
+2025-02-06 23:26:16 - ERROR - Closing connection to ('127.0.0.1', 52648) at 2025-02-06 23:26:16
+2025-02-06 23:27:32 - INFO - Accepted connection from ('127.0.0.1', 52668) at 2025-02-06 23:27:32
+2025-02-06 23:27:32 - ERROR - Closing connection to ('127.0.0.1', 52668) at 2025-02-06 23:27:32
+2025-02-06 23:27:46 - INFO - Accepted connection from ('127.0.0.1', 52671) at 2025-02-06 23:27:46
+2025-02-06 23:27:46 - INFO - Accepted connection from ('127.0.0.1', 52672) at 2025-02-06 23:27:46
+2025-02-06 23:27:59 - ERROR - Closing connection to ('127.0.0.1', 52672) at 2025-02-06 23:27:59
+2025-02-06 23:27:59 - ERROR - Closing connection to ('127.0.0.1', 52671) at 2025-02-06 23:27:59
+2025-02-06 23:28:31 - INFO - Accepted connection from ('127.0.0.1', 52680) at 2025-02-06 23:28:31
+2025-02-06 23:28:31 - ERROR - Closing connection to ('127.0.0.1', 52680) at 2025-02-06 23:28:31
+2025-02-06 23:28:40 - INFO - Accepted connection from ('127.0.0.1', 52684) at 2025-02-06 23:28:40
+2025-02-06 23:28:40 - INFO - Accepted connection from ('127.0.0.1', 52685) at 2025-02-06 23:28:40
+2025-02-06 23:30:31 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:30:31
+2025-02-06 23:31:30 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:31:30
+2025-02-06 23:31:33 - INFO - Accepted connection from ('127.0.0.1', 52715) at 2025-02-06 23:31:33
+2025-02-06 23:31:33 - INFO - Accepted connection from ('127.0.0.1', 52716) at 2025-02-06 23:31:33
+2025-02-06 23:31:38 - INFO - Echoing b'hello' to ('127.0.0.1', 52716) at 2025-02-06 23:31:38
+2025-02-06 23:32:42 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:32:42
+2025-02-06 23:32:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:32:43
+2025-02-06 23:33:30 - INFO - Accepted connection from ('127.0.0.1', 52732) at 2025-02-06 23:33:30
+2025-02-06 23:33:44 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:33:44
+2025-02-06 23:34:09 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:34:09
+2025-02-06 23:34:12 - INFO - Accepted connection from ('127.0.0.1', 52741) at 2025-02-06 23:34:12
+2025-02-06 23:34:19 - ERROR - Closing connection to ('127.0.0.1', 52741) at 2025-02-06 23:34:19
+2025-02-06 23:34:20 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:34:20
+2025-02-06 23:37:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:37:44
+2025-02-06 23:37:46 - INFO - Accepted connection from ('127.0.0.1', 52766) at 2025-02-06 23:37:46
+2025-02-06 23:37:49 - INFO - Echoing b'send' to ('127.0.0.1', 52766) at 2025-02-06 23:37:49
+2025-02-06 23:39:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:39:19
+2025-02-06 23:39:21 - INFO - Accepted connection from ('127.0.0.1', 52824) at 2025-02-06 23:39:21
+2025-02-06 23:39:24 - INFO - Echoing b'send' to ('127.0.0.1', 52824) at 2025-02-06 23:39:24
+2025-02-06 23:39:26 - INFO - Echoing b'asdfasdfas' to ('127.0.0.1', 52824) at 2025-02-06 23:39:26
+2025-02-06 23:39:26 - INFO - Echoing b'df' to ('127.0.0.1', 52824) at 2025-02-06 23:39:26
+2025-02-06 23:39:29 - INFO - Echoing b'asdfasdf' to ('127.0.0.1', 52824) at 2025-02-06 23:39:29
+2025-02-06 23:39:37 - ERROR - Closing connection to ('127.0.0.1', 52824) at 2025-02-06 23:39:37
+2025-02-07 00:12:34 - INFO - Accepted connection from ('127.0.0.1', 55376) at 2025-02-07 00:12:34
+2025-02-07 00:12:34 - ERROR - Closing connection to ('127.0.0.1', 55376) at 2025-02-07 00:12:34
+2025-02-07 00:12:42 - INFO - Accepted connection from ('127.0.0.1', 55380) at 2025-02-07 00:12:42
+2025-02-07 00:12:48 - ERROR - Closing connection to ('127.0.0.1', 55380) at 2025-02-07 00:12:48
+2025-02-07 00:16:31 - INFO - Accepted connection from ('127.0.0.1', 55653) at 2025-02-07 00:16:31
+2025-02-07 00:16:45 - ERROR - Closing connection to ('127.0.0.1', 55653) at 2025-02-07 00:16:45
+2025-02-07 00:17:05 - INFO - Accepted connection from ('127.0.0.1', 55676) at 2025-02-07 00:17:05
+2025-02-07 00:17:19 - ERROR - Closing connection to ('127.0.0.1', 55676) at 2025-02-07 00:17:19
+2025-02-07 00:17:42 - INFO - Accepted connection from ('127.0.0.1', 55708) at 2025-02-07 00:17:42
+2025-02-07 00:17:42 - ERROR - Closing connection to ('127.0.0.1', 55708) at 2025-02-07 00:17:42
+2025-02-07 00:17:48 - INFO - Accepted connection from ('127.0.0.1', 55717) at 2025-02-07 00:17:48
+2025-02-07 00:17:48 - ERROR - Closing connection to ('127.0.0.1', 55717) at 2025-02-07 00:17:48
+2025-02-07 00:17:52 - INFO - Accepted connection from ('127.0.0.1', 55719) at 2025-02-07 00:17:52
+2025-02-07 00:17:52 - ERROR - Closing connection to ('127.0.0.1', 55719) at 2025-02-07 00:17:52
+2025-02-07 00:18:00 - INFO - Accepted connection from ('127.0.0.1', 55727) at 2025-02-07 00:18:00
+2025-02-07 00:18:04 - ERROR - Closing connection to ('127.0.0.1', 55727) at 2025-02-07 00:18:04
+2025-02-07 00:18:24 - INFO - Accepted connection from ('127.0.0.1', 55746) at 2025-02-07 00:18:24
+2025-02-07 00:18:30 - ERROR - Closing connection to ('127.0.0.1', 55746) at 2025-02-07 00:18:30
+2025-02-07 00:19:34 - INFO - Accepted connection from ('127.0.0.1', 55838) at 2025-02-07 00:19:34
+2025-02-07 00:19:37 - ERROR - Closing connection to ('127.0.0.1', 55838) at 2025-02-07 00:19:37
+2025-02-07 00:19:51 - INFO - Accepted connection from ('127.0.0.1', 55857) at 2025-02-07 00:19:51
+2025-02-07 00:19:57 - ERROR - Closing connection to ('127.0.0.1', 55857) at 2025-02-07 00:19:57
+2025-02-07 00:20:07 - INFO - Accepted connection from ('127.0.0.1', 55862) at 2025-02-07 00:20:07
+2025-02-07 00:20:10 - ERROR - Closing connection to ('127.0.0.1', 55862) at 2025-02-07 00:20:10
+2025-02-07 00:20:14 - INFO - Accepted connection from ('127.0.0.1', 55865) at 2025-02-07 00:20:14
+2025-02-07 00:20:17 - ERROR - Closing connection to ('127.0.0.1', 55865) at 2025-02-07 00:20:17

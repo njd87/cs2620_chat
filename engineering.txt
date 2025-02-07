@@ -42,3 +42,19 @@ but we really want to start testing out saving messages to the database via requ
 We're going to work first on making sure that sign up works correctly, which will also let us test whether our
 preliminary database strategy works. We'll start working on the client UI in a separate Python file at first,
 and we can potentially merge files later if necessary/helpful.
+
+02/06/2025
+We made a more cohesive gameplan for how to start making concrete progress toward the goal listed yesterday.
+We have a very basic UI --- which we found out should be (we think) in client.py --- and we've set up
+threading/sockets so that we can successfully send the input to the UI to the server. Now, we're
+working on creating a Bolt class to more systematically handling different kinds of actions.
+
+In addition to populating the Bolt class with necessary protocol helper functions (to read the header length, get the message, etc.), we also
+worked on designing the UI of different pages (Login, Main, and Delete).
+
+MINIGOAL:
+- Register from client UI to write to database, then have the server send back list of all users (TO UI).
+- All done in JSON protocol
+
+This minigoal should keep us on track to have everything set up correctly.
+At this point, we have not considered all unit tests yet (we think getting a prototype up and running first is priority).

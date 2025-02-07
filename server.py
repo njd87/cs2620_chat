@@ -6,6 +6,7 @@ import logging
 import os
 import time
 import sqlite3
+from comm_server import Bolt
 
 # log to a file
 log_file = 'logs/server.log'
@@ -15,7 +16,14 @@ db_file = 'data/messenger.db'
 if not os.path.exists(log_file):
     with open(log_file, 'w') as f:
         pass
-logging.basicConfig(filename=log_file, level=logging.INFO)
+
+
+logging.basicConfig(
+    filename=log_file, 
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 def setup():
     '''
@@ -41,6 +49,7 @@ def setup():
 
     # set up socket
     lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    lsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     lsock.bind((host, port))
     lsock.listen()
     logging.info("Listening on %s:%d at %s", host, port, time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -65,43 +74,43 @@ def accept_wrapper(sock: socket.socket) -> None:
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
     sel.register(conn, events, data=data)
 
-def service_connection(key, mask: int) -> None:
-    '''
-    Takes a key and mask from the selector and handles the connection.
+# def service_connection(key, mask: int) -> None:
+#     '''
+#     Takes a key and mask from the selector and handles the connection.
 
-    Parameters
-    ----------
-    key : selectors.SelectorKey
-       Contains the file object, events, and data for the connection.
+#     Parameters
+#     ----------
+#     key : selectors.SelectorKey
+#        Contains the file object, events, and data for the connection.
 
-    mask : int
-        The mask of events that occurred on the connection.
-        1 = read
-        2 = write
-        3 = read and write
-    '''
+#     mask : int
+#         The mask of events that occurred on the connection.
+#         1 = read
+#         2 = write
+#         3 = read and write
+#     '''
 
-    # get the socket and data from the key
-    sock = key.fileobj
-    data = key.data
+#     # get the socket and data from the key
+#     sock = key.fileobj
+#     data = key.data
 
-    if mask & selectors.EVENT_READ:
-        # read the data that was sent and parse it
-        # for now, it just echos back the data
-        recv_data = sock.recv(4096)
-        if recv_data:
-            data.outb += recv_data
-        else:
-            # some error occurred, close the connection
-            logging.error('Closing connection to %s at %s', data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
-            sel.unregister(sock)
-            sock.close()
-    if mask & selectors.EVENT_WRITE:
-        # if there is data to send, send it
-        if data.outb:
-            logging.info("Echoing %r to %s at %s", data.outb, data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
-            sent = sock.send(data.outb)
-            data.outb = data.outb[sent:]
+#     if mask & selectors.EVENT_READ:
+#         # read the data that was sent and parse it
+#         # for now, it just echos back the data
+#         recv_data = sock.recv(10)
+#         if recv_data:
+#             data.outb += recv_data
+#         else:
+#             # some error occurred, close the connection
+#             logging.error('Closing connection to %s at %s', data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
+#             sel.unregister(sock)
+#             sock.close()
+#     if mask & selectors.EVENT_WRITE:
+#         # if there is data to send, send it
+#         if data.outb:
+#             logging.info("Echoing %r to %s at %s", data.outb, data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
+#             sent = sock.send(data.outb)
+#             data.outb = data.outb[sent:]
 
 def main_loop() -> None:
     '''
@@ -112,12 +121,11 @@ def main_loop() -> None:
             # listen for events
             events = sel.select(timeout=None)
             for key, mask in events:
-                # if the key is the listening socket, accept the connection
                 if key.data is None:
                     accept_wrapper(key.fileobj)
                 # else just service the connection
                 else:
-                    service_connection(key, mask)
+                    key.data.process_events(mask)
                     
     except KeyboardInterrupt:
         logging.error("KeyboardInterrupt, exiting at %s", time.strftime("%Y-%m-%d %H:%M:%S"))
