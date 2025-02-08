@@ -73,44 +73,6 @@ def accept_wrapper(sock: socket.socket) -> None:
     data = Bolt(sel=sel, sock=conn, addr=addr)
     sel.register(conn, selectors.EVENT_READ, data=data)
 
-# def service_connection(key, mask: int) -> None:
-#     '''
-#     Takes a key and mask from the selector and handles the connection.
-
-#     Parameters
-#     ----------
-#     key : selectors.SelectorKey
-#        Contains the file object, events, and data for the connection.
-
-#     mask : int
-#         The mask of events that occurred on the connection.
-#         1 = read
-#         2 = write
-#         3 = read and write
-#     '''
-
-#     # get the socket and data from the key
-#     sock = key.fileobj
-#     data = key.data
-
-#     if mask & selectors.EVENT_READ:
-#         # read the data that was sent and parse it
-#         # for now, it just echos back the data
-#         recv_data = sock.recv(10)
-#         if recv_data:
-#             data.outb += recv_data
-#         else:
-#             # some error occurred, close the connection
-#             logging.error('Closing connection to %s at %s', data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
-#             sel.unregister(sock)
-#             sock.close()
-#     if mask & selectors.EVENT_WRITE:
-#         # if there is data to send, send it
-#         if data.outb:
-#             logging.info("Echoing %r to %s at %s", data.outb, data.addr, time.strftime("%Y-%m-%d %H:%M:%S"))
-#             sent = sock.send(data.outb)
-#             data.outb = data.outb[sent:]
-
 def main_loop() -> None:
     '''
     Main loop for the server.

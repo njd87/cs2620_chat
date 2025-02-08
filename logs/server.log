@@ -224,3 +224,114 @@ ERROR:root:KeyboardInterrupt, exiting at 2025-02-05 15:44:52
 2025-02-07 20:09:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:09:40
 2025-02-07 20:09:42 - INFO - Accepted connection from ('127.0.0.1', 58522) at 2025-02-07 20:09:42
 2025-02-07 20:09:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:09:49
+2025-02-07 20:31:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:31:39
+2025-02-07 20:32:26 - INFO - Accepted connection from ('127.0.0.1', 62727) at 2025-02-07 20:32:26
+2025-02-07 20:34:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:34:38
+2025-02-07 20:34:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:34:39
+2025-02-07 20:34:41 - INFO - Accepted connection from ('127.0.0.1', 63143) at 2025-02-07 20:34:41
+2025-02-07 20:35:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:35:06
+2025-02-07 20:35:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:35:11
+2025-02-07 20:35:13 - INFO - Accepted connection from ('127.0.0.1', 63245) at 2025-02-07 20:35:13
+2025-02-07 20:40:19 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:40:19
+2025-02-07 20:40:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:40:20
+2025-02-07 20:40:21 - INFO - Accepted connection from ('127.0.0.1', 64208) at 2025-02-07 20:40:21
+2025-02-07 20:40:43 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:40:43
+2025-02-07 20:43:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:43:21
+2025-02-07 20:43:22 - INFO - Accepted connection from ('127.0.0.1', 64770) at 2025-02-07 20:43:22
+2025-02-07 20:43:38 - INFO - Accepted connection from ('127.0.0.1', 64819) at 2025-02-07 20:43:38
+2025-02-07 20:43:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:43:43
+2025-02-07 20:43:46 - INFO - Accepted connection from ('127.0.0.1', 64845) at 2025-02-07 20:43:46
+2025-02-07 20:45:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:45:48
+2025-02-07 20:45:49 - INFO - Accepted connection from ('127.0.0.1', 65232) at 2025-02-07 20:45:49
+2025-02-07 20:46:16 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:46:16
+2025-02-07 21:10:12 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:10:12
+2025-02-07 21:10:13 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:10:13
+2025-02-07 21:17:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:17:01
+2025-02-07 21:17:03 - INFO - Accepted connection from ('127.0.0.1', 54746) at 2025-02-07 21:17:03
+2025-02-07 21:17:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:17:21
+2025-02-07 21:17:25 - INFO - Accepted connection from ('127.0.0.1', 54814) at 2025-02-07 21:17:25
+2025-02-07 21:18:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:18:49
+2025-02-07 21:18:52 - INFO - Accepted connection from ('127.0.0.1', 55090) at 2025-02-07 21:18:52
+2025-02-07 21:19:47 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:19:47
+2025-02-07 21:19:50 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:19:50
+2025-02-07 21:19:52 - INFO - Accepted connection from ('127.0.0.1', 55280) at 2025-02-07 21:19:52
+2025-02-07 21:19:56 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:19:56
+2025-02-07 21:20:29 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:29
+2025-02-07 21:20:33 - INFO - Accepted connection from ('127.0.0.1', 55406) at 2025-02-07 21:20:33
+2025-02-07 21:20:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:48
+2025-02-07 21:20:58 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:20:58
+2025-02-07 21:20:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:59
+2025-02-07 21:21:01 - INFO - Accepted connection from ('127.0.0.1', 55495) at 2025-02-07 21:21:01
+2025-02-07 21:21:08 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:21:08
+2025-02-07 21:21:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:21:43
+2025-02-07 21:21:45 - INFO - Accepted connection from ('127.0.0.1', 55637) at 2025-02-07 21:21:45
+2025-02-07 21:22:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:22:19
+2025-02-07 21:22:20 - INFO - Accepted connection from ('127.0.0.1', 55747) at 2025-02-07 21:22:20
+2025-02-07 21:22:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:22:38
+2025-02-07 21:22:40 - INFO - Accepted connection from ('127.0.0.1', 55811) at 2025-02-07 21:22:40
+2025-02-07 21:23:15 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:23:15
+2025-02-07 21:23:16 - INFO - Accepted connection from ('127.0.0.1', 55922) at 2025-02-07 21:23:16
+2025-02-07 21:23:56 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:23:56
+2025-02-07 21:23:57 - INFO - Accepted connection from ('127.0.0.1', 56056) at 2025-02-07 21:23:57
+2025-02-07 21:25:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:25:11
+2025-02-07 21:25:12 - INFO - Accepted connection from ('127.0.0.1', 56305) at 2025-02-07 21:25:12
+2025-02-07 21:28:23 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:28:23
+2025-02-07 21:28:24 - INFO - Accepted connection from ('127.0.0.1', 56898) at 2025-02-07 21:28:24
+2025-02-07 21:34:22 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:34:22
+2025-02-07 21:34:24 - INFO - Accepted connection from ('127.0.0.1', 58020) at 2025-02-07 21:34:24
+2025-02-07 21:35:27 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:35:27
+2025-02-07 21:35:28 - INFO - Accepted connection from ('127.0.0.1', 58225) at 2025-02-07 21:35:28
+2025-02-07 21:36:35 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:36:35
+2025-02-07 21:36:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:36:40
+2025-02-07 21:36:41 - INFO - Accepted connection from ('127.0.0.1', 58455) at 2025-02-07 21:36:41
+2025-02-07 21:37:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:37:19
+2025-02-07 21:37:20 - INFO - Accepted connection from ('127.0.0.1', 58579) at 2025-02-07 21:37:20
+2025-02-07 21:38:04 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:38:04
+2025-02-07 21:38:05 - INFO - Accepted connection from ('127.0.0.1', 58716) at 2025-02-07 21:38:05
+2025-02-07 21:38:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:38:20
+2025-02-07 21:38:21 - INFO - Accepted connection from ('127.0.0.1', 58768) at 2025-02-07 21:38:21
+2025-02-07 21:39:05 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:39:05
+2025-02-07 21:39:09 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:39:09
+2025-02-07 21:39:11 - INFO - Accepted connection from ('127.0.0.1', 58921) at 2025-02-07 21:39:11
+2025-02-07 21:40:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:40:38
+2025-02-07 21:40:39 - INFO - Accepted connection from ('127.0.0.1', 59194) at 2025-02-07 21:40:39
+2025-02-07 21:40:46 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:40:46
+2025-02-07 21:40:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:40:58
+2025-02-07 21:41:01 - INFO - Accepted connection from ('127.0.0.1', 59263) at 2025-02-07 21:41:01
+2025-02-07 21:41:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:41:31
+2025-02-07 21:41:32 - INFO - Accepted connection from ('127.0.0.1', 59364) at 2025-02-07 21:41:32
+2025-02-07 21:43:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:43:02
+2025-02-07 21:43:04 - INFO - Accepted connection from ('127.0.0.1', 59647) at 2025-02-07 21:43:04
+2025-02-07 21:43:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:43:20
+2025-02-07 21:43:22 - INFO - Accepted connection from ('127.0.0.1', 59706) at 2025-02-07 21:43:22
+2025-02-07 21:45:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:45:38
+2025-02-07 21:45:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:45:44
+2025-02-07 21:45:45 - INFO - Accepted connection from ('127.0.0.1', 60146) at 2025-02-07 21:45:45
+2025-02-07 21:45:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:45:54
+2025-02-07 21:47:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:47:49
+2025-02-07 21:47:51 - INFO - Accepted connection from ('127.0.0.1', 60538) at 2025-02-07 21:47:51
+2025-02-07 21:48:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:48:40
+2025-02-07 21:48:41 - INFO - Accepted connection from ('127.0.0.1', 60694) at 2025-02-07 21:48:41
+2025-02-07 21:48:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:48:59
+2025-02-07 21:49:01 - INFO - Accepted connection from ('127.0.0.1', 60755) at 2025-02-07 21:49:01
+2025-02-07 21:49:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:49:06
+2025-02-07 21:50:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:50:37
+2025-02-07 21:50:38 - INFO - Accepted connection from ('127.0.0.1', 61057) at 2025-02-07 21:50:38
+2025-02-07 21:52:15 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:52:15
+2025-02-07 21:52:18 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:52:18
+2025-02-07 21:52:20 - INFO - Accepted connection from ('127.0.0.1', 61380) at 2025-02-07 21:52:20
+2025-02-07 21:52:26 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:52:26
+2025-02-07 21:55:17 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:55:17
+2025-02-07 21:55:20 - INFO - Accepted connection from ('127.0.0.1', 61950) at 2025-02-07 21:55:20
+2025-02-07 21:55:28 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:55:28
+2025-02-07 21:55:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:55:52
+2025-02-07 21:55:55 - INFO - Accepted connection from ('127.0.0.1', 62062) at 2025-02-07 21:55:55
+2025-02-07 21:58:51 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:58:51
+2025-02-07 21:58:52 - INFO - Accepted connection from ('127.0.0.1', 62614) at 2025-02-07 21:58:52
+2025-02-07 21:59:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:59:28
+2025-02-07 21:59:29 - INFO - Accepted connection from ('127.0.0.1', 62722) at 2025-02-07 21:59:29
+2025-02-07 21:59:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:59:57
+2025-02-07 21:59:57 - INFO - Accepted connection from ('127.0.0.1', 62810) at 2025-02-07 21:59:57
+2025-02-07 22:00:34 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 22:00:34
+2025-02-07 22:00:35 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 22:00:35
+2025-02-07 22:00:37 - INFO - Accepted connection from ('127.0.0.1', 62940) at 2025-02-07 22:00:37

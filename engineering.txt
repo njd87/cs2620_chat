@@ -67,3 +67,19 @@ We now have the client/server to a point where we can submit a username and pass
 will process them, and the client will print the server's response in its terminal. Now, we need to work on
 transfering these results to the UI --- maybe even just printing anything on the UI (then we can work on
 getting all users to the UI).
+
+I think that root.after is the correct function to perform this loop: it seems like we need a separate root.after loop
+for each screen, but that shouldn't be too big of an issue. I now have it setup so that the response takes you to the main
+page, though I guess we want to do something with SQL now for actually registering/logging users in.
+
+We need to think now about when/how to close sockets, since I think that we keep sockets open during the entire time that
+the user UI is on (though we should time them out after a certain amount of time has passed). Right now, I'll just change
+it to set the event mask to `r' on the server side once it's written everything --- I think this is right?
+
+I'll start working on the SQL stuff until something breaks...
+
+Not 100% sure where the SQL connection goes: I think it should be for each creation of a response on the server side.
+I'll do it for each action for now, but the create_repsonse() function will need to be refactored eventually.
+
+Got the SQL working for now. It's able to compare the SQL-stored hash to the hash of the user input. Obviously, it'll
+never match yet because there's no way to register users yet. That's the next step.

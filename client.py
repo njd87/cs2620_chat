@@ -18,20 +18,35 @@ class ClientUI:
         self.conn, self.conn_data = start_connection(host, port)
         threading.Thread(target=event_loop, daemon=True).start()
 
-        self.setup_register()
+        self.setup_login()
+
+        self.root.after(100, self.check_login_response)
 
         self.root.mainloop()
+
+    def check_login_response(self):
+        if self.conn_data.response:
+            # logged in successfully - passhash matches
+            if self.conn_data.response["result"]:
+                self.conn_data.response = None
+                self.setup_main()
+            else:
+                self.conn_data.response = None
+                print("failed to log in")
+                self.setup_main()
+            
+        self.root.after(100, self.check_login_response)
         
-    def send_register_request(self, username, password):
+    def send_logreg_request(self, action, username, password):
         # create a request
         self.conn_data.request = {
-            "action": "register",
+            "action": action,
             "username": username,
             "passhash": password,
             "encoding": "utf-8"
         }
 
-    def setup_register(self):
+    def setup_login(self):
         self.login_frame = tk.Frame(self.root)
         self.login_frame.pack()
         self.login_label = tk.Label(self.login_frame, text="Enter your username:")
@@ -42,10 +57,9 @@ class ClientUI:
         self.login_password_label.pack()
         self.login_password_entry = tk.Entry(self.login_frame)
         self.login_password_entry.pack()
-        self.login_button = tk.Button(self.login_frame, text="Register", command=lambda: self.send_register_request(self.login_entry.get(), self.login_password_entry.get()))
+        self.login_button = tk.Button(self.login_frame, text="Login", 
+                                      command=lambda: self.send_logreg_request("login", self.login_entry.get(), self.login_password_entry.get()))
         self.login_button.pack()
-
-
 
     def setup_main(self):
         '''

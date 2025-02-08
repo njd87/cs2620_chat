@@ -126,12 +126,12 @@ class Bolt:
 
     def create_request(self):
         action = self.request.get("action")
-        if action == "register":
+        if action == "login":
             username = self.request.get("username") # KG: what if doesn't match
             passhash = self.request.get("passhash")
             content = {"username": username, 
                        "passhash": passhash,
-                       "action": "register"}
+                       "action": "login"}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")

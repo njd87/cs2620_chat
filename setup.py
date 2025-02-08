@@ -30,7 +30,7 @@ def structure_tables() -> None:
             CREATE TABLE users (
                 user_id INTEGER PRIMARY KEY,
                 username TEXT NOT NULL,
-                pass_hash TEXT NOT NULL
+                passhash TEXT NOT NULL
             );
         """)
 

@@ -3,6 +3,7 @@ import json
 import selectors
 import struct
 import sys
+import sqlite3
 import socket
 
 class Bolt:
@@ -127,19 +128,28 @@ class Bolt:
             else:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
-                    print("closing server!")
-                    self.close()
+                    self._set_selector_events_mask("r")
 
     def create_response(self):
         action = self.request.get("action")
-        if action == "register":
+        if action == "login":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
             user = self.request.get("username") # KG: what if doesn't match
             passhash = self.request.get("passhash")
-            # do some kind of checking
-            if not user == passhash:
-                content = {"result": True}
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+
+            result = sqlcur.fetchone()
+            if result:
+                if result[0] == passhash:
+                    content = {"result": True}
+                else:
+                    content = {"result": False}
             else:
                 content = {"result": False}
+
+            sqlcon.close()
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"
