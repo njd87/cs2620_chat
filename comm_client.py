@@ -136,6 +136,9 @@ class Bolt:
             content = {"username": username, 
                        "passhash": passhash,
                        "action": action}
+        elif action == "check_username":
+            username = self.request.get("username")
+            content = {"username": username, "action": action}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")

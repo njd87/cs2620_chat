@@ -5,6 +5,8 @@ import struct
 import sys
 import sqlite3
 import socket
+# import sha256 password hashing
+import hashlib
 
 class Bolt:
     '''
@@ -141,6 +143,7 @@ class Bolt:
 
             user = self.request.get("username") # KG: what if doesn't match
             passhash = self.request.get("passhash") # KG: need to hash
+            passhash = hashlib.sha256(passhash.encode()).hexdigest()
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
 
             result = sqlcur.fetchone()
@@ -165,9 +168,24 @@ class Bolt:
             if result:
                 content = {"result": False}
             else:
+                passhash = hashlib.sha256(passhash.encode()).hexdigest()
                 sqlcur.execute("INSERT INTO users (username, passhash) VALUES (?, ?)", (user, passhash))
                 sqlcon.commit()
                 content = {"result": True}
+            
+            sqlcon.close()
+        elif action == "check_username":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user = self.request.get("username")
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+
+            result = sqlcur.fetchone()
+            if result:
+                content = {"result": True}
+            else:
+                content = {"result": False}
             
             sqlcon.close()
         else:

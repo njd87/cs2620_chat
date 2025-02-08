@@ -18,9 +18,25 @@ class ClientUI:
         self.conn, self.conn_data = start_connection(host, port)
         threading.Thread(target=event_loop, daemon=True).start()
 
-        self.setup_login()
+        self.setup_user_entry()
 
         self.root.mainloop()
+    
+    def check_user_entry_response(self):
+        if self.conn_data.response:
+            self.destroy_user_entry()
+            # username exists
+            if self.conn_data.response["result"]:
+                self.conn_data.response = None
+                self.setup_login()
+                return
+            else:
+                self.conn_data.response = None
+                print("username available")
+                self.setup_register()
+                return
+
+        self.root.after(100, self.check_user_entry_response)
 
     def check_login_response(self):
         if self.conn_data.response:
@@ -40,21 +56,22 @@ class ClientUI:
         
     def check_register_response(self):
         if self.conn_data.response:
-            # registered successfully - new account
-            self.register_frame.destroy()
             if self.conn_data.response["result"]:
                 self.conn_data.response = None
+                self.register_frame.destroy()
                 self.setup_main()
-                return 
+                return
             else:
                 self.conn_data.response = None
-                print("failed to register")
-                self.setup_register()
-                return 
+                self.register_username_exists_label.pack()
+                self.register_passwords_do_not_match_label.forget_pack()
+                return
             
         self.root.after(100, self.check_register_response)
 
-    def send_logreg_request(self, action, username, password):
+    def send_logreg_request(self, action, username, password, confirm_password=None):
+        if action == "register" and password != confirm_password:
+            self.register_passwords_do_not_match_label.pack()
         # create a request
         self.conn_data.request = {
             "action": action,
@@ -62,6 +79,31 @@ class ClientUI:
             "passhash": password,
             "encoding": "utf-8"
         }
+    
+    def send_user_check_request(self, username):
+        # create a request
+        if not username:
+            return
+        self.conn_data.request = {
+            "action": "check_username",
+            "username": username,
+            "encoding": "utf-8"
+        }
+
+    def setup_user_entry(self):
+        self.user_entry_frame = tk.Frame(self.root)
+        self.user_entry_frame.pack()
+        self.user_entry_label = tk.Label(self.user_entry_frame, text="Enter username:")
+        self.user_entry_label.pack()
+        self.user_entry = tk.Entry(self.user_entry_frame)
+        self.user_entry.pack()
+        self.user_entry_button = tk.Button(self.user_entry_frame, text="Enter", 
+                                      command=lambda: self.send_user_check_request(self.user_entry.get()))
+        self.user_entry_button.pack()
+        self.root.after(100, self.check_user_entry_response)
+
+    def destroy_user_entry(self):
+        self.user_entry_frame.destroy()
 
     def setup_login(self):
         self.login_frame = tk.Frame(self.root)
@@ -79,6 +121,9 @@ class ClientUI:
         self.login_button.pack()
         self.root.after(100, self.check_login_response)
 
+    def destroy_login(self):
+        self.login_frame.destroy()
+
     def setup_register(self):
         self.register_frame = tk.Frame(self.root)
         self.register_frame.pack()
@@ -90,10 +135,20 @@ class ClientUI:
         self.register_password_label.pack()
         self.register_password_entry = tk.Entry(self.register_frame)
         self.register_password_entry.pack()
+        self.register_password_confirm_label = tk.Label(self.register_frame, text="Confirm your password - reg:")
+        self.register_password_confirm_label.pack()
+        self.register_password_confirm_entry = tk.Entry(self.register_frame)
+        self.register_password_confirm_entry.pack()
         self.register_button = tk.Button(self.register_frame, text="Register", 
                                       command=lambda: self.send_logreg_request("register", self.register_entry.get(), self.register_password_entry.get()))
         self.register_button.pack()
+        self.register_passwords_do_not_match_label = tk.Label(self.register_frame, text="Passwords do not match")
+        self.register_username_exists_label = tk.Label(self.register_frame, text="Username already exists")
+
         self.root.after(100, self.check_register_response)
+
+    def destroy_register(self):
+        self.register_frame.destroy()
 
     def setup_main(self):
         '''
@@ -139,6 +194,9 @@ class ClientUI:
         self.send_button.pack()
         self.settings_button = tk.Button(self.chat_entry_frame, text="Settings")
         self.settings_button.pack()
+    
+    def destroy_main(self):
+        self.main_frame.destroy()
 
     def setup_delete(self):
         self.delete_frame = tk.Frame(self.root)

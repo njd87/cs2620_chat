@@ -84,10 +84,21 @@ def main_loop() -> None:
             for key, mask in events:
                 if key.data is None:
                     accept_wrapper(key.fileobj)
-                # else just service the connection
                 else:
-                    key.data.process_events(mask)
-                    
+                    try:
+                        key.data.process_events(mask)
+                    except Exception as e:
+                        # If the connection is closed by the peer, log and clean up without breaking the loop.
+                        logging.info("Connection closed by peer: %s at %s", key.fileobj, time.strftime("%Y-%m-%d %H:%M:%S"))
+                        try:
+                            sel.unregister(key.fileobj)
+                        except Exception:
+                            pass
+                        try:
+                            key.fileobj.close()
+                        except Exception:
+                            pass
+            # Continue looping for new connections
     except KeyboardInterrupt:
         logging.error("KeyboardInterrupt, exiting at %s", time.strftime("%Y-%m-%d %H:%M:%S"))
     finally:

@@ -83,3 +83,30 @@ I'll do it for each action for now, but the create_repsonse() function will need
 
 Got the SQL working for now. It's able to compare the SQL-stored hash to the hash of the user input. Obviously, it'll
 never match yet because there's no way to register users yet. That's the next step.
+
+02/08/2025
+
+Fixed the server.py so that when a client closes, it just unregister's their selector and doesn't exit!
+So, now multiple clients can easily access the server and leave when they want!
+
+Perfect: time to start implementing full logic!
+
+Let's start with login/register. When someone opens the application, they should first be prompted to enter a username.
+If the username exists, ask for the password. Do not let them in until password is correct.
+
+If the username doesn't exist, ask for password and confirmation password to add them to the database.
+Logic should look like this:
+
+- Enter username
+  - Username exists -> prompt for password
+    - If password doesn't match: don't log them in
+    - If password match: bring to main back
+    - If "back" button pressed, bring back to original page
+  - Username doesn't exist --> prompt for password
+    - If password + confirmation match: add to database and log in
+    - If password doesn't match confirmation: tell them
+    - If back pressed: bring back to original page
+
+Will attempt implementation now; need to add more actions.
+
+Got it working! Now passwords are hashed and we can get to the main messaging board.
