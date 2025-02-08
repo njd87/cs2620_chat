@@ -108,6 +108,8 @@ class Bolt:
         print(f"Received request {self.request!r} from {self.addr}")
         
         # Set selector to listen for write events, we're done reading.
+        self._header_len = None
+        self.header = None
         self._set_selector_events_mask("w")
 
             
@@ -128,6 +130,7 @@ class Bolt:
             else:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
+                    self.response_created = False
                     self._set_selector_events_mask("r")
 
     def create_response(self):
@@ -137,7 +140,7 @@ class Bolt:
             sqlcur = sqlcon.cursor()
 
             user = self.request.get("username") # KG: what if doesn't match
-            passhash = self.request.get("passhash")
+            passhash = self.request.get("passhash") # KG: need to hash
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
 
             result = sqlcur.fetchone()
@@ -150,6 +153,23 @@ class Bolt:
                 content = {"result": False}
 
             sqlcon.close()
+        elif action == "register":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user = self.request.get("username") # KG: what if doesn't match
+            passhash = self.request.get("passhash")
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+
+            result = sqlcur.fetchone()
+            if result:
+                content = {"result": False}
+            else:
+                sqlcur.execute("INSERT INTO users (username, passhash) VALUES (?, ?)", (user, passhash))
+                sqlcon.commit()
+                content = {"result": True}
+            
+            sqlcon.close()
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"
@@ -161,6 +181,7 @@ class Bolt:
 
         message = self._create_message(**response)
         self.response_created = True
+        self.request = None
         self.outstream += message
 
     def _create_message(

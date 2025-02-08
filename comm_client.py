@@ -103,12 +103,15 @@ class Bolt:
         print(f"Received response {self.response!r} from {self.addr}")
         
         # Set selector to listen for write events, we're done reading.
+        self._header_len = None
+        self.header = None
         self._set_selector_events_mask("w")
 
             
     def write(self):
         if self.request:
             if not self.request_created:
+                print("here!", self.request)
                 self.create_request()
 
         self._write()
@@ -122,27 +125,29 @@ class Bolt:
             else:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
+                    self.request_created = False
                     self._set_selector_events_mask("r")
 
     def create_request(self):
         action = self.request.get("action")
-        if action == "login":
+        if action in ["login", "register"]:
             username = self.request.get("username") # KG: what if doesn't match
             passhash = self.request.get("passhash")
             content = {"username": username, 
                        "passhash": passhash,
-                       "action": "login"}
+                       "action": action}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")
-        request = {
+        temp_request = {
             "content_bytes": self._json_encode(content, content_encoding),
             "content_type": "text/json",
             "content_encoding": content_encoding,
         }
 
-        message = self._create_message(**request)
+        message = self._create_message(**temp_request)
         self.request_created = True
+        self.request = None
         self.outstream += message
 
     def _create_message(

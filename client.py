@@ -20,23 +20,40 @@ class ClientUI:
 
         self.setup_login()
 
-        self.root.after(100, self.check_login_response)
-
         self.root.mainloop()
 
     def check_login_response(self):
         if self.conn_data.response:
             # logged in successfully - passhash matches
+            self.login_frame.destroy()
             if self.conn_data.response["result"]:
                 self.conn_data.response = None
                 self.setup_main()
+                return 
             else:
                 self.conn_data.response = None
                 print("failed to log in")
-                self.setup_main()
+                self.setup_register()
+                return 
             
         self.root.after(100, self.check_login_response)
         
+    def check_register_response(self):
+        if self.conn_data.response:
+            # registered successfully - new account
+            self.register_frame.destroy()
+            if self.conn_data.response["result"]:
+                self.conn_data.response = None
+                self.setup_main()
+                return 
+            else:
+                self.conn_data.response = None
+                print("failed to register")
+                self.setup_register()
+                return 
+            
+        self.root.after(100, self.check_register_response)
+
     def send_logreg_request(self, action, username, password):
         # create a request
         self.conn_data.request = {
@@ -60,6 +77,23 @@ class ClientUI:
         self.login_button = tk.Button(self.login_frame, text="Login", 
                                       command=lambda: self.send_logreg_request("login", self.login_entry.get(), self.login_password_entry.get()))
         self.login_button.pack()
+        self.root.after(100, self.check_login_response)
+
+    def setup_register(self):
+        self.register_frame = tk.Frame(self.root)
+        self.register_frame.pack()
+        self.register_label = tk.Label(self.register_frame, text="Enter your username - reg:")
+        self.register_label.pack()
+        self.register_entry = tk.Entry(self.register_frame)
+        self.register_entry.pack()
+        self.register_password_label = tk.Label(self.register_frame, text="Enter your password - reg:")
+        self.register_password_label.pack()
+        self.register_password_entry = tk.Entry(self.register_frame)
+        self.register_password_entry.pack()
+        self.register_button = tk.Button(self.register_frame, text="Register", 
+                                      command=lambda: self.send_logreg_request("register", self.register_entry.get(), self.register_password_entry.get()))
+        self.register_button.pack()
+        self.root.after(100, self.check_register_response)
 
     def setup_main(self):
         '''
