@@ -110,3 +110,9 @@ Logic should look like this:
 Will attempt implementation now; need to add more actions.
 
 Got it working! Now passwords are hashed and we can get to the main messaging board.
+
+Next, we want to introduce texting. For now, we will have a list of users on the RHS,
+and we can select one to message. Users can now load and a user can select one of the users to start messaging,
+however we are currently running into an issue when trying to write from the server to the client.
+
+Possibly an error due to the selector mode. For now, pushing to main.

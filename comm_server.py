@@ -149,7 +149,10 @@ class Bolt:
             result = sqlcur.fetchone()
             if result:
                 if result[0] == passhash:
-                    content = {"result": True}
+                    content = {
+                        "result": True,
+                        "users": sqlcur.execute("SELECT username FROM users WHERE username != ?", (user,)).fetchall()
+                        }
                 else:
                     content = {"result": False}
             else:
@@ -171,7 +174,10 @@ class Bolt:
                 passhash = hashlib.sha256(passhash.encode()).hexdigest()
                 sqlcur.execute("INSERT INTO users (username, passhash) VALUES (?, ?)", (user, passhash))
                 sqlcon.commit()
-                content = {"result": True}
+                content = {
+                    "result": True,
+                    "users": sqlcur.execute("SELECT username FROM users WHERE username != ?", (user,)).fetchall()
+                    }
             
             sqlcon.close()
         elif action == "check_username":
@@ -186,6 +192,18 @@ class Bolt:
                 content = {"result": True}
             else:
                 content = {"result": False}
+            
+            sqlcon.close()
+        elif action == "load_chat":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user1 = self.request.get("user1")
+            user2 = self.request.get("user2")
+            sqlcur.execute("SELECT (sender, recipient, message, message_id) FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY timestamp", (user1, user2, user2, user1))
+
+            result = sqlcur.fetchall()
+            content = {"messages": result}
             
             sqlcon.close()
         else:
