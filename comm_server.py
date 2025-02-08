@@ -115,7 +115,7 @@ class Bolt:
         self._set_selector_events_mask("w")
 
             
-    def write(self):
+    def write(self): # ND: current issue in this block, no bytes being transferred to client
         if self.request:
             if not self.response_created:
                 self.create_response()
@@ -194,7 +194,7 @@ class Bolt:
                 content = {"result": False}
             
             sqlcon.close()
-        elif action == "load_chat":
+        elif action == "load_chat": # ND: current issue here in this block, not sure where it is
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
