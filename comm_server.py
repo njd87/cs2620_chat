@@ -41,27 +41,21 @@ class Bolt:
 
     def process_events(self, mask):
         if mask & selectors.EVENT_READ:
-            print("hi")
+            print("reading")
             self.read()
         if mask & selectors.EVENT_WRITE:
+            print("writing")
             self.write()
 
     def read(self):
-
-        print("hi1")
         self._read()
-        print("hi2")
 
         if self._header_len is None:
             self.process_header_len()
-
-        print("1")
         
         if self._header_len is not None:
             if self.header is None:
                 self.process_header()
-
-        print("2")
         
         if self.header is not None:
             if self.request is None:
@@ -69,16 +63,13 @@ class Bolt:
     
     def _read(self):
         try:
-            print("here?")
             data = self.sock.recv(4096) # KG: why this amount
-            print("hi3")
         except BlockingIOError:
-            print("WRONG")
             pass
         else:
             if data:
-                print("hi4")
                 self.instream += data 
+                print("instream", self.instream)
             else:
                 raise RuntimeError("Peer closed.")
 
@@ -124,6 +115,7 @@ class Bolt:
             if not self.response_created:
                 self.create_response()
 
+        print(f"Preparing to write {self.outstream!r} to {self.addr}")
         self._write()
 
     def _write(self):
@@ -135,6 +127,7 @@ class Bolt:
             else:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
+                    print("closing server!")
                     self.close()
 
     def create_response(self):
@@ -158,7 +151,7 @@ class Bolt:
 
         message = self._create_message(**response)
         self.response_created = True
-        self._send_buffer += message
+        self.outstream += message
 
     def _create_message(
         self, *, content_bytes, content_type, content_encoding

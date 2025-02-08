@@ -58,3 +58,12 @@ MINIGOAL:
 
 This minigoal should keep us on track to have everything set up correctly.
 At this point, we have not considered all unit tests yet (we think getting a prototype up and running first is priority).
+
+02/07/2025
+There are some issues with recv on the server side.
+
+It turns out that it's because we were creating the Bolt object with the listening socket, instead of the new socket.
+We now have the client/server to a point where we can submit a username and password on the client UI, the server
+will process them, and the client will print the server's response in its terminal. Now, we need to work on
+transfering these results to the UI --- maybe even just printing anything on the UI (then we can work on
+getting all users to the UI).

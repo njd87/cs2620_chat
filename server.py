@@ -70,9 +70,8 @@ def accept_wrapper(sock: socket.socket) -> None:
     conn.setblocking(False)
 
     # register the connection with the selector
-    data = Bolt(sel=sel, sock=sock, addr=addr)
-    events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    sel.register(conn, events, data=data)
+    data = Bolt(sel=sel, sock=conn, addr=addr)
+    sel.register(conn, selectors.EVENT_READ, data=data)
 
 # def service_connection(key, mask: int) -> None:
 #     '''

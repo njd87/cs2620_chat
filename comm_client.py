@@ -81,9 +81,9 @@ class Bolt:
         hdrlen = self._header_len
         if len(self.instream) >= hdrlen:
             self.header = self._json_decode(
-                self.insteam[:hdrlen], "utf-8"
+                self.instream[:hdrlen], "utf-8"
             )
-            self.insteam = self.insteam[hdrlen:]
+            self.instream = self.instream[hdrlen:]
             for reqhdr in (
                 "byteorder",
                 "content-length",
@@ -129,7 +129,9 @@ class Bolt:
         if action == "register":
             username = self.request.get("username") # KG: what if doesn't match
             passhash = self.request.get("passhash")
-            content = {"username": username, "passhash": passhash}
+            content = {"username": username, 
+                       "passhash": passhash,
+                       "action": "register"}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")

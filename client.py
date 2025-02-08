@@ -6,14 +6,16 @@ import threading
 import tkinter as tk
 from comm_client import Bolt
 
+sel = selectors.DefaultSelector()
+
 class ClientUI:
-    def __init__(self, host, port, sel):
+    def __init__(self, host, port):
         self.root = tk.Tk()
         self.root.title("Messenger")
         self.root.geometry("400x400")
 
         # start connection
-        self.conn, self.conn_data = start_connection(host, port, sel)
+        self.conn, self.conn_data = start_connection(host, port)
         threading.Thread(target=event_loop, daemon=True).start()
 
         self.setup_register()
@@ -116,8 +118,7 @@ class ClientUI:
 
 def start_connection(
                     host: str,
-                    port: int,
-                    selector: selectors.DefaultSelector
+                    port: int
                     ) -> tuple[socket.socket, types.SimpleNamespace]:
     '''
     Start a connection to the server.
@@ -145,34 +146,9 @@ def start_connection(
     
     # Register the socket with the selector to send events.
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    data = Bolt(sel=selector, sock=sock, addr=server_addr)
-    selector.register(sock, events, data=data)
+    data = Bolt(sel=sel, sock=sock, addr=server_addr)
+    sel.register(sock, events, data=data)
     return sock, data
-
-# def service_connection(key, mask):
-#     '''
-#     Service a connection.
-
-#     Parameters
-#     key : selectors.SelectorKey
-#         The key for the connection.
-#     mask : int
-#         The mask of events that occurred on the connection.
-#     '''
-#     # get the socket
-#     sock = key.fileobj
-#     data = key.data
-#     if mask & selectors.EVENT_READ:
-#         recv_data = sock.recv(4096)
-#         if recv_data:
-#             print("Received:", recv_data.decode())
-#         else:
-#             print("Closing connection to", data.addr)
-#             sel.unregister(sock)
-#             sock.close()
-#     if mask & selectors.EVENT_WRITE and data.outb:
-#         sent = sock.send(data.outb)
-#         data.outb = data.outb[sent:]
 
 def event_loop():
     try:
@@ -190,11 +166,8 @@ if len(sys.argv) != 3:
     print("Usage: python client.py <host> <port>")
     sys.exit(1)
 
-sel = selectors.DefaultSelector()
-
 host = sys.argv[1]
 port = int(sys.argv[2])
 
 if __name__ == "__main__":
-    # root = tk.Tk()
-    client_ui = ClientUI(host, port, sel)
+    client_ui = ClientUI(host, port)
