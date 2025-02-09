@@ -107,6 +107,8 @@ class ClientUI:
             else:
                 self.conn_data.response = None
                 self.login_failed_label.pack()
+                self.login_frame.destroy()
+                self.setup_login()
                 return 
             
         self.root.after(100, self.check_login_response)
