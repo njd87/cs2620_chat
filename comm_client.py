@@ -103,12 +103,11 @@ class Bolt:
         # Set selector to listen for write events, we're done reading.
         self._header_len = None
         self.header = None
-        self._set_selector_events_mask("w")
+        self._set_selector_events_mask("rw")
 
     def write(self):
         if self.request:
             if not self.request_created:
-                print("here!", self.request)
                 self.create_request()
 
         self._write()
@@ -123,7 +122,7 @@ class Bolt:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
                     self.request_created = False
-                    self._set_selector_events_mask("r")
+                    self._set_selector_events_mask("rw")
 
     def create_request(self):
         action = self.request.get("action")
@@ -147,6 +146,11 @@ class Bolt:
                 "recipient": recipient,
                 "message": message,
                 "action": action,
+            }
+        elif action == "ping":
+            content = {
+                "sender": self.request.get("sender"),
+                "sent_message": self.request.get("sent_message")
             }
         else:
             content = {"result": f"Error: invalid action '{action}'."}

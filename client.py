@@ -178,13 +178,7 @@ class ClientUI:
         """
         Check for a response to the new message request.
         """
-        print("Checking...")
-        if self.conn_data.response:
-            print('GOTHERE FOR A RESPONSE:\n', self.conn_data.response)
-        else:
-            print('NO RESPONSE')
         if self.conn_data.response and "sent_message" in self.conn_data.response:
-            print("GOTHERE FOR NEW MESSAGE")
             self.loaded_messages += [
                 (self.connected_to, self.credentials, self.conn_data.response["sent_message"])
             ]

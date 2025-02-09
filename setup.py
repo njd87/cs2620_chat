@@ -46,6 +46,7 @@ def structure_tables() -> None:
                 sender TEXT NOT NULL,
                 recipient TEXT NOT NULL,
                 message TEXT NOT NULL,
+                delivered BOOLEAN DEFAULT 0,
                 time DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         """

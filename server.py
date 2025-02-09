@@ -114,19 +114,19 @@ def main_loop() -> None:
                                 }
                                 logging.info("Connected users: %s", connected_users)
                             elif "new_message" in back_to_server:
-                                print("HEEEERRRRREEEEE")
                                 logging.info(
                                     "Message from %s to %s at %s",
                                     back_to_server["new_message"]["sender"],
                                     back_to_server["new_message"]["recipient"],
                                     time.strftime("%Y-%m-%d %H:%M:%S"),
                                 )
-                                print("HEEEERRRRREEEEE2")
                                 # TODO: let recipient know they have a message if they are connected
                                 if back_to_server["new_message"]["recipient"] in connected_users:
-                                    connected_users[back_to_server["new_message"]["recipient"]]["bolt"].create_response(new_message=back_to_server["new_message"]["sent_message"])
-                                    connected_users[back_to_server["new_message"]["recipient"]]["bolt"].write()
-                                    print("HEEEERRRRREEEEE3")
+                                    connected_users[back_to_server["new_message"]["recipient"]]["bolt"].request = {
+                                        "action": "ping",
+                                        "sender": back_to_server["new_message"]["sender"],
+                                        "sent_message": back_to_server["new_message"]["sent_message"]
+                                    }
                     except Exception as e:
                         # If the connection is closed by the peer, log and clean up without breaking the loop.
                         logging.error(

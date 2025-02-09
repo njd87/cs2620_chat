@@ -47,10 +47,8 @@ class Bolt:
 
     def process_events(self, mask):
         if mask & selectors.EVENT_READ:
-            print("reading")
             self.read()
         if mask & selectors.EVENT_WRITE:
-            print("writing")
             return self.write()
 
     def read(self):
@@ -75,7 +73,6 @@ class Bolt:
         else:
             if data:
                 self.instream += data
-                print("instream", self.instream)
             else:
                 raise RuntimeError("Peer closed.")
 
@@ -111,22 +108,20 @@ class Bolt:
         # Set selector to listen for write events, we're done reading.
         self._header_len = None
         self.header = None
-        self._set_selector_events_mask("w")
+        self._set_selector_events_mask("rw")
 
     def write(self):  # ND: need to relay create_response back to user
         back_to_server = None
         if self.request:
             if not self.response_created:
-                print("got here")
                 back_to_server = self.create_response()
-                print("past here")
 
-        print(f"Preparing to write {self.outstream!r} to {self.addr}")
         self._write()
         return back_to_server
 
     def _write(self):
         if self.outstream:
+            print(f"Preparing to write {self.outstream!r} to {self.addr}")
             try:
                 sent_bytes = self.sock.send(self.outstream)
             except BlockingIOError:
@@ -135,59 +130,26 @@ class Bolt:
                 self.outstream = self.outstream[sent_bytes:]
                 if sent_bytes and not self.outstream:
                     self.response_created = False
-                    self._set_selector_events_mask("r")
+                    self._set_selector_events_mask("rw")
 
     def create_response(self, new_message=None):
         # back to server is a dictionary that is sent back to the backend for logic
         # regarding text sending and mapping ports to users
         back_to_server = {}
-        if new_message:
-            content = {"sent_message": new_message}
-        else:
-            action = self.request.get("action")
-            if action == "login":
-                sqlcon = sqlite3.connect("data/messenger.db")
-                sqlcur = sqlcon.cursor()
+        action = self.request.get("action")
+        if action == "login":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
 
-                user = self.request.get("username")  # KG: what if doesn't match
-                passhash = self.request.get("passhash")  # KG: need to hash
-                passhash = hashlib.sha256(passhash.encode()).hexdigest()
-                sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+            user = self.request.get("username")  # KG: what if doesn't match
+            passhash = self.request.get("passhash")  # KG: need to hash
+            passhash = hashlib.sha256(passhash.encode()).hexdigest()
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
 
-                result = sqlcur.fetchone()
-                if result:
-                    if result[0] == passhash:
-                        content = {
-                            "result": True,
-                            "users": sqlcur.execute(
-                                "SELECT username FROM users WHERE username != ?", (user,)
-                            ).fetchall(),
-                        }
-                        back_to_server["new_user"] = user
-                    else:
-                        content = {"result": False}
-                else:
-                    content = {"result": False}
-
-                sqlcon.close()
-            elif action == "register":
-                sqlcon = sqlite3.connect("data/messenger.db")
-                sqlcur = sqlcon.cursor()
-
-                user = self.request.get("username")  # KG: what if doesn't match
-                passhash = self.request.get("passhash")
-                sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
-
-                result = sqlcur.fetchone()
-                if result:
-                    content = {"result": False}
-                else:
-                    passhash = hashlib.sha256(passhash.encode()).hexdigest()
-                    sqlcur.execute(
-                        "INSERT INTO users (username, passhash) VALUES (?, ?)",
-                        (user, passhash),
-                    )
-                    sqlcon.commit()
+            result = sqlcur.fetchone()
+            if result:
+                # username exists and passhash matches
+                if result[0] == passhash:
                     content = {
                         "result": True,
                         "users": sqlcur.execute(
@@ -195,70 +157,106 @@ class Bolt:
                         ).fetchall(),
                     }
                     back_to_server["new_user"] = user
-
-                sqlcon.close()
-            elif action == "check_username":
-                sqlcon = sqlite3.connect("data/messenger.db")
-                sqlcur = sqlcon.cursor()
-
-                user = self.request.get("username")
-                sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
-
-                result = sqlcur.fetchone()
-                if result:
-                    content = {"result": True}
+                # username exists but passhash is wrong
                 else:
                     content = {"result": False}
-
-                sqlcon.close()
-            elif (
-                action == "load_chat"
-            ):  # ND: current issue here in this block, not sure where it is
-                sqlcon = sqlite3.connect("data/messenger.db")
-                sqlcur = sqlcon.cursor()
-
-                user1 = self.request.get("user1")
-                user2 = self.request.get("user2")
-                print(user1)
-                print(user2)
-                try:
-                    sqlcur.execute(
-                        "SELECT sender, recipient, message, message_id FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY time",
-                        (user1, user2, user2, user1),
-                    )
-                    result = sqlcur.fetchall()
-                except Exception as e:
-                    print("Error:", e)
-                    result = []
-                content = {"messages": result}
-
-                sqlcon.close()
-            elif action == "send_message":
-                sqlcon = sqlite3.connect("data/messenger.db")
-                sqlcur = sqlcon.cursor()
-
-                sender = self.request.get("sender")
-                recipient = self.request.get("recipient")
-                message = self.request.get("message")
-                try:
-                    sqlcur.execute(
-                        "INSERT INTO messages (sender, recipient, message) VALUES (?, ?, ?)",
-                        (sender, recipient, message),
-                    )
-                    sqlcon.commit()
-                    content = {"result": True}
-
-                    back_to_server["new_message"] = {
-                        "sender": sender,
-                        "recipient": recipient,
-                        "sent_message": message,
-                    }
-                except:
-                    content = {"result": False}
-
-                sqlcon.close()
             else:
-                content = {"result": f"Error: invalid action '{action}'."}
+                # username doesn't exist
+                content = {"result": False}
+
+            sqlcon.close()
+        elif action == "register":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user = self.request.get("username")  # KG: what if doesn't match
+            passhash = self.request.get("passhash")
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+
+            result = sqlcur.fetchone()
+            if result:
+                content = {"result": False}
+            else:
+                passhash = hashlib.sha256(passhash.encode()).hexdigest()
+                sqlcur.execute(
+                    "INSERT INTO users (username, passhash) VALUES (?, ?)",
+                    (user, passhash),
+                )
+                sqlcon.commit()
+                content = {
+                    "result": True,
+                    "users": sqlcur.execute(
+                        "SELECT username FROM users WHERE username != ?", (user,)
+                    ).fetchall(),
+                }
+                back_to_server["new_user"] = user
+
+            sqlcon.close()
+        elif action == "check_username":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user = self.request.get("username")
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+
+            result = sqlcur.fetchone()
+            if result:
+                content = {"result": True}
+            else:
+                content = {"result": False}
+
+            sqlcon.close()
+        elif action == "load_chat":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user1 = self.request.get("user1")
+            user2 = self.request.get("user2")
+            print(user1)
+            print(user2)
+            try:
+                sqlcur.execute(
+                    "SELECT sender, recipient, message, message_id FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY time",
+                    (user1, user2, user2, user1),
+                )
+                result = sqlcur.fetchall()
+            except Exception as e:
+                print("Error:", e)
+                result = []
+            content = {"messages": result}
+
+            sqlcon.close()
+        elif action == "send_message":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            sender = self.request.get("sender")
+            recipient = self.request.get("recipient")
+            message = self.request.get("message")
+            try:
+                sqlcur.execute(
+                    "INSERT INTO messages (sender, recipient, message) VALUES (?, ?, ?)",
+                    (sender, recipient, message),
+                )
+                sqlcon.commit()
+                content = {"result": True}
+
+                back_to_server["new_message"] = {
+                    "sender": sender,
+                    "recipient": recipient,
+                    "sent_message": message,
+                }
+            except:
+                content = {"result": False}
+
+            sqlcon.close()
+        elif action == "ping":
+            content = {
+                "sender": self.request.get("sender"),
+                "sent_message": self.request.get("sent_message")
+            }
+        else:
+            content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"
         response = {
             "content_bytes": self._json_encode(content, content_encoding),
