@@ -148,6 +148,21 @@ class ClientUI:
         
         self.root.after(100, self.check_load_chat_request)
 
+    def check_send_message_request(self):
+        '''
+        Check for a response to the send message request.
+        '''
+        if self.conn_data.response:
+            self.conn_data.response = None
+            self.loaded_messages += [
+                (self.credentials, self.connected_to, self.chat_entry.get())
+            ]
+            self.destroy_main()
+            self.setup_main()
+            return
+        
+        self.root.after(100, self.check_send_message_request)
+
     '''
     Functions starting with "send_" are used to send requests to the server.
 
@@ -217,7 +232,26 @@ class ClientUI:
         self.connected_to = username
 
         self.root.after(100, self.check_load_chat_request)
-        
+    
+    def send_message_request(self, message):
+        '''
+        Send a request to send a message to the connected user.
+
+        Parameters
+        ----------
+        message : str
+            The message to send.
+        '''
+        # create a request
+        self.conn_data.request = {
+            "action": "send_message",
+            "sender": self.credentials,
+            "recipient": self.connected_to,
+            "message": message,
+            "encoding": "utf-8"
+        }
+
+        self.root.after(100, self.check_send_message_request)
 
 
     '''
@@ -363,7 +397,7 @@ class ClientUI:
         self.users_listbox.pack()
         self.users_prev_button = tk.Button(self.users_frame, text="Prev")
         self.users_prev_button.pack(side=tk.LEFT)
-        self.message_button = tk.Button(self.users_frame, text="Message", command=lambda: self.send_chat_load_request(self.users_listbox.get(tk.ACTIVE)))
+        self.message_button = tk.Button(self.users_frame, text="Message", command=lambda: self.send_chat_load_request(self.users_listbox.get(tk.ACTIVE)[0]))
         self.message_button.pack(side=tk.LEFT)
         self.users_next_button = tk.Button(self.users_frame, text="Next")
         self.users_next_button.pack(side=tk.RIGHT)
@@ -380,24 +414,19 @@ class ClientUI:
             self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
             self.chat_text.config(state=tk.DISABLED)
 
-        for message in self.loaded_messages:
-            self.chat_text.config(state=tk.NORMAL)
-            self.chat_text.insert(tk.END, f"{message[0]}: {message[1]}\n")
-            self.chat_text.config(state=tk.DISABLED)
-
         self.chat_text.pack()
 
         # add text to chat frame
         for message in self.loaded_messages:
             self.chat_text.config(state=tk.NORMAL)
-            self.chat_text.insert(tk.END, f"{message[0]}: {message[1]}\n")
+            self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
             self.chat_text.config(state=tk.DISABLED)
 
         self.chat_entry_frame = tk.Frame(self.main_frame)
         self.chat_entry_frame.pack(side=tk.RIGHT)
         self.chat_entry = tk.Entry(self.chat_entry_frame)
         self.chat_entry.pack()
-        self.send_button = tk.Button(self.chat_entry_frame, text="Send")
+        self.send_button = tk.Button(self.chat_entry_frame, text="Send", command=lambda: self.send_message_request(self.chat_entry.get()))
         self.send_button.pack()
         self.settings_button = tk.Button(self.chat_entry_frame, text="Settings")
         self.settings_button.pack()

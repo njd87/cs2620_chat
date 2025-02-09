@@ -118,7 +118,9 @@ class Bolt:
     def write(self): # ND: current issue in this block, no bytes being transferred to client
         if self.request:
             if not self.response_created:
+                print('got here')
                 self.create_response()
+                print('past here')
 
         print(f"Preparing to write {self.outstream!r} to {self.addr}")
         self._write()
@@ -200,10 +202,30 @@ class Bolt:
 
             user1 = self.request.get("user1")
             user2 = self.request.get("user2")
-            sqlcur.execute("SELECT (sender, recipient, message, message_id) FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY timestamp", (user1, user2, user2, user1))
-
-            result = sqlcur.fetchall()
+            print(user1)
+            print(user2)
+            try:
+                sqlcur.execute("SELECT sender, recipient, message, message_id FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY time", (user1, user2, user2, user1))
+                result = sqlcur.fetchall()
+            except Exception as e:
+                print('Error:', e)
+                result = []
             content = {"messages": result}
+            
+            sqlcon.close()
+        elif action == "send_message":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            sender = self.request.get("sender")
+            recipient = self.request.get("recipient")
+            message = self.request.get("message")
+            try:
+                sqlcur.execute("INSERT INTO messages (sender, recipient, message) VALUES (?, ?, ?)", (sender, recipient, message))
+                sqlcon.commit()
+                content = {"result": True}
+            except:
+                content = {"result": False}
             
             sqlcon.close()
         else:

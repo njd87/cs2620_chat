@@ -49,29 +49,5 @@ def structure_tables() -> None:
         print(f"Created messages table.")
 
 if __name__ == "__main__":
-    # reset_database()
-    # structure_tables()
-
-    # connect to the database
-    conn = sqlite3.connect(database_path)
-
-    # create a cursor object
-    cursor = conn.cursor()
-
-    # insert a message from sender nick to recipient nick2 with message "Hello, nick2!"
-    cursor.execute("""
-        INSERT INTO messages (sender, recipient, message)
-        VALUES ('nick', 'nick2', 'Hello, nick2!');
-    """)
-
-    # commit the transaction
-    conn.commit()
-
-    # select all messages from the messages table
-    cursor.execute("SELECT * FROM messages")
-
-    # fetch all the results
-    results = cursor.fetchall()
-
-    # print the results
-    print(results)
+    reset_database()
+    structure_tables()

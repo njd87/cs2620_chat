@@ -143,6 +143,11 @@ class Bolt:
             user1 = self.request.get("user1")
             user2 = self.request.get("user2")
             content = {"user1": user1, "user2": user2, "action": action}
+        elif action == "send_message":
+            sender = self.request.get("sender")
+            recipient = self.request.get("recipient")
+            message = self.request.get("message")
+            content = {"sender": sender, "recipient": recipient, "message": message, "action": action}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")
