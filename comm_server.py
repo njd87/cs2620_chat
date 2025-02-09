@@ -48,7 +48,7 @@ class Bolt:
             self.read()
         if mask & selectors.EVENT_WRITE:
             print("writing")
-            self.write()
+            return self.write()
 
     def read(self):
         self._read()
@@ -115,15 +115,16 @@ class Bolt:
         self._set_selector_events_mask("w")
 
             
-    def write(self): # ND: current issue in this block, no bytes being transferred to client
+    def write(self): # ND: need to relay create_response back to user
         if self.request:
             if not self.response_created:
                 print('got here')
-                self.create_response()
+                back_to_server = self.create_response()
                 print('past here')
 
         print(f"Preparing to write {self.outstream!r} to {self.addr}")
         self._write()
+        return back_to_server
 
     def _write(self):
         if self.outstream:
@@ -138,6 +139,9 @@ class Bolt:
                     self._set_selector_events_mask("r")
 
     def create_response(self):
+        # back to server is a dictionary that is sent back to the backend for logic
+        # regarding text sending and mapping ports to users
+        back_to_server = {}
         action = self.request.get("action")
         if action == "login":
             sqlcon = sqlite3.connect("data/messenger.db")
@@ -155,6 +159,7 @@ class Bolt:
                         "result": True,
                         "users": sqlcur.execute("SELECT username FROM users WHERE username != ?", (user,)).fetchall()
                         }
+                    back_to_server["new_user"] = user
                 else:
                     content = {"result": False}
             else:
@@ -180,6 +185,7 @@ class Bolt:
                     "result": True,
                     "users": sqlcur.execute("SELECT username FROM users WHERE username != ?", (user,)).fetchall()
                     }
+                back_to_server["new_user"] = user
             
             sqlcon.close()
         elif action == "check_username":
@@ -241,6 +247,8 @@ class Bolt:
         self.response_created = True
         self.request = None
         self.outstream += message
+
+        return back_to_server
 
     def _create_message(
         self, *, content_bytes, content_type, content_encoding

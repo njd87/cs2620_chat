@@ -644,3 +644,16 @@ ERROR:root:KeyboardInterrupt, exiting at 2025-02-05 15:44:52
 2025-02-08 19:42:31 - INFO - Accepted connection from ('127.0.0.1', 56273) at 2025-02-08 19:42:31
 2025-02-08 19:43:16 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 56224)> at 2025-02-08 19:43:16
 2025-02-08 19:43:17 - INFO - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 56273)> at 2025-02-08 19:43:17
+2025-02-08 22:07:14 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 22:07:14
+2025-02-08 22:07:15 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 22:07:15
+2025-02-08 22:07:16 - INFO - Accepted connection from ('127.0.0.1', 63160) at 2025-02-08 22:07:16
+2025-02-08 22:07:23 - INFO - New user nick at 2025-02-08 22:07:23
+2025-02-08 22:07:23 - INFO - Connected users: {'nick': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63160)>}
+2025-02-08 22:11:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 22:11:54
+2025-02-08 22:11:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 22:11:59
+2025-02-08 22:12:01 - INFO - Accepted connection from ('127.0.0.1', 63205) at 2025-02-08 22:12:01
+2025-02-08 22:12:07 - INFO - New user nick at 2025-02-08 22:12:07
+2025-02-08 22:12:07 - INFO - Connected users: {'nick': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63205)>}
+2025-02-08 22:12:11 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63205)> at 2025-02-08 22:12:11
+2025-02-08 22:12:11 - INFO - Removing user nick at 2025-02-08 22:12:11
+2025-02-08 23:41:57 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 23:41:57

@@ -144,8 +144,7 @@ class ClientUI:
         if self.conn_data.response:
             self.loaded_messages = self.conn_data.response["messages"]
             self.conn_data.response = None
-            self.destroy_main()
-            self.setup_main()
+            self.rerender_messages()
             return
         
         self.root.after(100, self.check_load_chat_request)
@@ -380,7 +379,6 @@ class ClientUI:
         - It has a text entry for typing messages and a button under that says "send".
         - There is a button that says "Settings" at the bottom opens a new window.
         '''
-        print(self.credentials)
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack()
 
@@ -438,6 +436,16 @@ class ClientUI:
         Destroy the main screen.
         '''
         self.main_frame.destroy()
+    
+    def rerender_messages(self):
+        '''
+        Rerender the messages in the chat window.
+        '''
+        self.chat_text.config(state=tk.NORMAL)
+        self.chat_text.delete(1.0, tk.END)
+        for message in self.loaded_messages:
+            self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
+        self.chat_text.config(state=tk.DISABLED)
 
     def setup_delete(self):
         self.delete_frame = tk.Frame(self.root)

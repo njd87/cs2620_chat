@@ -78,6 +78,7 @@ def main_loop() -> None:
     Main loop for the server.
     '''
     try:
+        connected_users = {}
         while True:
             # listen for events
             events = sel.select(timeout=None)
@@ -86,12 +87,26 @@ def main_loop() -> None:
                     accept_wrapper(key.fileobj)
                 else:
                     try:
-                        key.data.process_events(mask)
+                        # back to server contains information a bolt might want to communicate back to the main server
+                        back_to_server = key.data.process_events(mask)
+                        if back_to_server:
+                            if 'new_user' in back_to_server:
+                                logging.info("New user %s at %s", back_to_server['new_user'], time.strftime("%Y-%m-%d %H:%M:%S"))
+                                connected_users[back_to_server['new_user']] = key.fileobj
+                                logging.info("Connected users: %s", connected_users)
                     except Exception as e:
                         # If the connection is closed by the peer, log and clean up without breaking the loop.
-                        logging.info("Connection closed by peer: %s at %s", key.fileobj, time.strftime("%Y-%m-%d %H:%M:%S"))
+                        logging.error("Connection closed by peer: %s at %s", key.fileobj, time.strftime("%Y-%m-%d %H:%M:%S"))
                         try:
                             sel.unregister(key.fileobj)
+
+                            # remove user from connected users
+                            for user in connected_users:
+                                if connected_users[user] == key.fileobj:
+                                    logging.info("Removing user %s at %s", user, time.strftime("%Y-%m-%d %H:%M:%S"))
+                                    del connected_users[user]
+                            
+                            logging.info("Connected users: %s", connected_users)
                         except Exception:
                             pass
                         try:
