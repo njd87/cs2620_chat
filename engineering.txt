@@ -119,3 +119,10 @@ Possibly an error due to the selector mode. For now, pushing to main.
 ^^ Issue resolved, turns out it was just a syntax issue in the SQL query.
 You are now able to send messages to another person, and the message shows up immediatley on client side.
 Next, we need to figure out how, when a message is sent and the other person is online, they receive the message immediatley.
+
+Our current idea is as follows:
+- keep a dictionary of current connected users, their usernames, and their "bolt"
+- When a "send_message" request is received from a client, the "bolt" from the recipient writes a response to the client telling it that a new message was received
+
+For right now, this doesn't seem to be working. Maybe a good night's sleep will get our brains going in the morning.
+For the record, we are currently printing "Checking..." in client's "check_new_message_request."

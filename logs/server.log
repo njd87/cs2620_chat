@@ -1,659 +1,76 @@
-INFO:root:Listening on 127.0.0.1:65432
-INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:22:34
-INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:42:03
-INFO:root:Accepted connection from ('127.0.0.1', 55445) at 2025-02-04 23:42:08
-INFO:root:Echoing b'hello' to ('127.0.0.1', 55445) at 2025-02-04 23:42:09
-INFO:root:Closing connection to ('127.0.0.1', 55445) at 2025-02-04 23:42:10
-ERROR:root:KeyboardInterrupt, exiting at 2025-02-04 23:42:12
-INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:57:27
-INFO:root:Listening on 127.0.0.1:65432 at 2025-02-04 23:58:00
-ERROR:root:KeyboardInterrupt, exiting at 2025-02-04 23:58:09
-INFO:root:Listening on 127.0.0.1:65432 at 2025-02-05 15:42:07
-INFO:root:Accepted connection from ('127.0.0.1', 57706) at 2025-02-05 15:42:27
-INFO:root:Echoing b'Hello' to ('127.0.0.1', 57706) at 2025-02-05 15:42:37
-INFO:root:Accepted connection from ('127.0.0.1', 57710) at 2025-02-05 15:43:12
-INFO:root:Echoing b'TESTEST' to ('127.0.0.1', 57710) at 2025-02-05 15:43:17
-INFO:root:Echoing b'TESTESTSET' to ('127.0.0.1', 57706) at 2025-02-05 15:43:19
-ERROR:root:Closing connection to ('127.0.0.1', 57710) at 2025-02-05 15:44:50
-ERROR:root:Closing connection to ('127.0.0.1', 57706) at 2025-02-05 15:44:51
-ERROR:root:KeyboardInterrupt, exiting at 2025-02-05 15:44:52
-2025-02-06 21:54:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 21:54:31
-2025-02-06 21:55:00 - INFO - Accepted connection from ('127.0.0.1', 51998) at 2025-02-06 21:55:00
-2025-02-06 21:55:02 - INFO - Echoing b'hello' to ('127.0.0.1', 51998) at 2025-02-06 21:55:02
-2025-02-06 21:55:26 - INFO - Echoing b'jaskd;fjkals;jfkl;asjfkl;asdjfkl;asjfkl;asjflwfjpiowpoijpaiojspjioajopiapjoafwojawfjpofwpjofwepjofwejpioawefjpiofwepijofwejpifweqjpiowfqejpiofweqjpioqwfjiopqfwjiopqwefjpioqwefjiopwefqjpiofweqjiofqwejiofqwejo' to ('127.0.0.1', 51998) at 2025-02-06 21:55:26
-2025-02-06 21:55:42 - ERROR - Closing connection to ('127.0.0.1', 51998) at 2025-02-06 21:55:42
-2025-02-06 21:55:44 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 21:55:44
-2025-02-06 21:55:45 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 21:55:45
-2025-02-06 21:55:46 - INFO - Accepted connection from ('127.0.0.1', 52003) at 2025-02-06 21:55:46
-2025-02-06 21:55:48 - INFO - Echoing b'asjkdf;ajs' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
-2025-02-06 21:55:48 - INFO - Echoing b'kd;fjaksl;' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
-2025-02-06 21:55:48 - INFO - Echoing b'dfjk;lasdf' to ('127.0.0.1', 52003) at 2025-02-06 21:55:48
-2025-02-06 21:57:24 - ERROR - Closing connection to ('127.0.0.1', 52003) at 2025-02-06 21:57:24
-2025-02-06 21:57:26 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 21:57:26
-2025-02-06 23:26:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:26:10
-2025-02-06 23:26:13 - INFO - Accepted connection from ('127.0.0.1', 52648) at 2025-02-06 23:26:13
-2025-02-06 23:26:15 - INFO - Accepted connection from ('127.0.0.1', 52650) at 2025-02-06 23:26:15
-2025-02-06 23:26:16 - ERROR - Closing connection to ('127.0.0.1', 52650) at 2025-02-06 23:26:16
-2025-02-06 23:26:16 - ERROR - Closing connection to ('127.0.0.1', 52648) at 2025-02-06 23:26:16
-2025-02-06 23:27:32 - INFO - Accepted connection from ('127.0.0.1', 52668) at 2025-02-06 23:27:32
-2025-02-06 23:27:32 - ERROR - Closing connection to ('127.0.0.1', 52668) at 2025-02-06 23:27:32
-2025-02-06 23:27:46 - INFO - Accepted connection from ('127.0.0.1', 52671) at 2025-02-06 23:27:46
-2025-02-06 23:27:46 - INFO - Accepted connection from ('127.0.0.1', 52672) at 2025-02-06 23:27:46
-2025-02-06 23:27:59 - ERROR - Closing connection to ('127.0.0.1', 52672) at 2025-02-06 23:27:59
-2025-02-06 23:27:59 - ERROR - Closing connection to ('127.0.0.1', 52671) at 2025-02-06 23:27:59
-2025-02-06 23:28:31 - INFO - Accepted connection from ('127.0.0.1', 52680) at 2025-02-06 23:28:31
-2025-02-06 23:28:31 - ERROR - Closing connection to ('127.0.0.1', 52680) at 2025-02-06 23:28:31
-2025-02-06 23:28:40 - INFO - Accepted connection from ('127.0.0.1', 52684) at 2025-02-06 23:28:40
-2025-02-06 23:28:40 - INFO - Accepted connection from ('127.0.0.1', 52685) at 2025-02-06 23:28:40
-2025-02-06 23:30:31 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:30:31
-2025-02-06 23:31:30 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:31:30
-2025-02-06 23:31:33 - INFO - Accepted connection from ('127.0.0.1', 52715) at 2025-02-06 23:31:33
-2025-02-06 23:31:33 - INFO - Accepted connection from ('127.0.0.1', 52716) at 2025-02-06 23:31:33
-2025-02-06 23:31:38 - INFO - Echoing b'hello' to ('127.0.0.1', 52716) at 2025-02-06 23:31:38
-2025-02-06 23:32:42 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:32:42
-2025-02-06 23:32:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:32:43
-2025-02-06 23:33:30 - INFO - Accepted connection from ('127.0.0.1', 52732) at 2025-02-06 23:33:30
-2025-02-06 23:33:44 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:33:44
-2025-02-06 23:34:09 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:34:09
-2025-02-06 23:34:12 - INFO - Accepted connection from ('127.0.0.1', 52741) at 2025-02-06 23:34:12
-2025-02-06 23:34:19 - ERROR - Closing connection to ('127.0.0.1', 52741) at 2025-02-06 23:34:19
-2025-02-06 23:34:20 - ERROR - KeyboardInterrupt, exiting at 2025-02-06 23:34:20
-2025-02-06 23:37:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:37:44
-2025-02-06 23:37:46 - INFO - Accepted connection from ('127.0.0.1', 52766) at 2025-02-06 23:37:46
-2025-02-06 23:37:49 - INFO - Echoing b'send' to ('127.0.0.1', 52766) at 2025-02-06 23:37:49
-2025-02-06 23:39:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-06 23:39:19
-2025-02-06 23:39:21 - INFO - Accepted connection from ('127.0.0.1', 52824) at 2025-02-06 23:39:21
-2025-02-06 23:39:24 - INFO - Echoing b'send' to ('127.0.0.1', 52824) at 2025-02-06 23:39:24
-2025-02-06 23:39:26 - INFO - Echoing b'asdfasdfas' to ('127.0.0.1', 52824) at 2025-02-06 23:39:26
-2025-02-06 23:39:26 - INFO - Echoing b'df' to ('127.0.0.1', 52824) at 2025-02-06 23:39:26
-2025-02-06 23:39:29 - INFO - Echoing b'asdfasdf' to ('127.0.0.1', 52824) at 2025-02-06 23:39:29
-2025-02-06 23:39:37 - ERROR - Closing connection to ('127.0.0.1', 52824) at 2025-02-06 23:39:37
-2025-02-07 00:12:34 - INFO - Accepted connection from ('127.0.0.1', 55376) at 2025-02-07 00:12:34
-2025-02-07 00:12:34 - ERROR - Closing connection to ('127.0.0.1', 55376) at 2025-02-07 00:12:34
-2025-02-07 00:12:42 - INFO - Accepted connection from ('127.0.0.1', 55380) at 2025-02-07 00:12:42
-2025-02-07 00:12:48 - ERROR - Closing connection to ('127.0.0.1', 55380) at 2025-02-07 00:12:48
-2025-02-07 00:16:31 - INFO - Accepted connection from ('127.0.0.1', 55653) at 2025-02-07 00:16:31
-2025-02-07 00:16:45 - ERROR - Closing connection to ('127.0.0.1', 55653) at 2025-02-07 00:16:45
-2025-02-07 00:17:05 - INFO - Accepted connection from ('127.0.0.1', 55676) at 2025-02-07 00:17:05
-2025-02-07 00:17:19 - ERROR - Closing connection to ('127.0.0.1', 55676) at 2025-02-07 00:17:19
-2025-02-07 00:17:42 - INFO - Accepted connection from ('127.0.0.1', 55708) at 2025-02-07 00:17:42
-2025-02-07 00:17:42 - ERROR - Closing connection to ('127.0.0.1', 55708) at 2025-02-07 00:17:42
-2025-02-07 00:17:48 - INFO - Accepted connection from ('127.0.0.1', 55717) at 2025-02-07 00:17:48
-2025-02-07 00:17:48 - ERROR - Closing connection to ('127.0.0.1', 55717) at 2025-02-07 00:17:48
-2025-02-07 00:17:52 - INFO - Accepted connection from ('127.0.0.1', 55719) at 2025-02-07 00:17:52
-2025-02-07 00:17:52 - ERROR - Closing connection to ('127.0.0.1', 55719) at 2025-02-07 00:17:52
-2025-02-07 00:18:00 - INFO - Accepted connection from ('127.0.0.1', 55727) at 2025-02-07 00:18:00
-2025-02-07 00:18:04 - ERROR - Closing connection to ('127.0.0.1', 55727) at 2025-02-07 00:18:04
-2025-02-07 00:18:24 - INFO - Accepted connection from ('127.0.0.1', 55746) at 2025-02-07 00:18:24
-2025-02-07 00:18:30 - ERROR - Closing connection to ('127.0.0.1', 55746) at 2025-02-07 00:18:30
-2025-02-07 00:19:34 - INFO - Accepted connection from ('127.0.0.1', 55838) at 2025-02-07 00:19:34
-2025-02-07 00:19:37 - ERROR - Closing connection to ('127.0.0.1', 55838) at 2025-02-07 00:19:37
-2025-02-07 00:19:51 - INFO - Accepted connection from ('127.0.0.1', 55857) at 2025-02-07 00:19:51
-2025-02-07 00:19:57 - ERROR - Closing connection to ('127.0.0.1', 55857) at 2025-02-07 00:19:57
-2025-02-07 00:20:07 - INFO - Accepted connection from ('127.0.0.1', 55862) at 2025-02-07 00:20:07
-2025-02-07 00:20:10 - ERROR - Closing connection to ('127.0.0.1', 55862) at 2025-02-07 00:20:10
-2025-02-07 00:20:14 - INFO - Accepted connection from ('127.0.0.1', 55865) at 2025-02-07 00:20:14
-2025-02-07 00:20:17 - ERROR - Closing connection to ('127.0.0.1', 55865) at 2025-02-07 00:20:17
-2025-02-07 01:00:09 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:00:09
-2025-02-07 01:00:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:00:10
-2025-02-07 01:00:14 - INFO - Accepted connection from ('127.0.0.1', 58282) at 2025-02-07 01:00:14
-2025-02-07 01:00:41 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:00:41
-2025-02-07 01:00:43 - INFO - Accepted connection from ('127.0.0.1', 58292) at 2025-02-07 01:00:43
-2025-02-07 01:12:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:12:21
-2025-02-07 01:12:23 - INFO - Accepted connection from ('127.0.0.1', 58887) at 2025-02-07 01:12:23
-2025-02-07 01:13:41 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:13:41
-2025-02-07 01:13:44 - INFO - Accepted connection from ('127.0.0.1', 58976) at 2025-02-07 01:13:44
-2025-02-07 01:14:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:14:02
-2025-02-07 01:14:04 - INFO - Accepted connection from ('127.0.0.1', 58982) at 2025-02-07 01:14:04
-2025-02-07 01:14:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:14:38
-2025-02-07 01:14:40 - INFO - Accepted connection from ('127.0.0.1', 58986) at 2025-02-07 01:14:40
-2025-02-07 01:15:35 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:15:35
-2025-02-07 01:15:37 - INFO - Accepted connection from ('127.0.0.1', 59016) at 2025-02-07 01:15:37
-2025-02-07 01:17:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:17:40
-2025-02-07 01:17:42 - INFO - Accepted connection from ('127.0.0.1', 59096) at 2025-02-07 01:17:42
-2025-02-07 01:17:52 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:17:52
-2025-02-07 01:18:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:18:01
-2025-02-07 01:18:04 - INFO - Accepted connection from ('127.0.0.1', 59114) at 2025-02-07 01:18:04
-2025-02-07 01:18:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:18:39
-2025-02-07 01:18:45 - INFO - Accepted connection from ('127.0.0.1', 59161) at 2025-02-07 01:18:45
-2025-02-07 01:18:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:18:57
-2025-02-07 01:18:59 - INFO - Accepted connection from ('127.0.0.1', 59165) at 2025-02-07 01:18:59
-2025-02-07 01:19:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:19:32
-2025-02-07 01:19:34 - INFO - Accepted connection from ('127.0.0.1', 59171) at 2025-02-07 01:19:34
-2025-02-07 01:19:42 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:19:42
-2025-02-07 01:19:44 - INFO - Accepted connection from ('127.0.0.1', 59218) at 2025-02-07 01:19:44
-2025-02-07 01:20:00 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:20:00
-2025-02-07 01:20:01 - INFO - Accepted connection from ('127.0.0.1', 59240) at 2025-02-07 01:20:01
-2025-02-07 01:20:27 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:20:27
-2025-02-07 01:20:30 - INFO - Accepted connection from ('127.0.0.1', 59285) at 2025-02-07 01:20:30
-2025-02-07 01:23:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:23:44
-2025-02-07 01:23:47 - INFO - Accepted connection from ('127.0.0.1', 59377) at 2025-02-07 01:23:47
-2025-02-07 01:25:29 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:25:29
-2025-02-07 01:25:31 - INFO - Accepted connection from ('127.0.0.1', 59391) at 2025-02-07 01:25:31
-2025-02-07 01:26:08 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:26:08
-2025-02-07 01:26:09 - INFO - Accepted connection from ('127.0.0.1', 59398) at 2025-02-07 01:26:09
-2025-02-07 01:28:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:28:01
-2025-02-07 01:28:03 - INFO - Accepted connection from ('127.0.0.1', 59483) at 2025-02-07 01:28:03
-2025-02-07 01:28:09 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:28:09
-2025-02-07 01:28:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:28:20
-2025-02-07 01:28:21 - INFO - Accepted connection from ('127.0.0.1', 59486) at 2025-02-07 01:28:21
-2025-02-07 01:28:34 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:28:34
-2025-02-07 01:28:35 - INFO - Accepted connection from ('127.0.0.1', 59489) at 2025-02-07 01:28:35
-2025-02-07 01:30:26 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:30:26
-2025-02-07 01:30:27 - INFO - Accepted connection from ('127.0.0.1', 59506) at 2025-02-07 01:30:27
-2025-02-07 01:30:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:30:49
-2025-02-07 01:30:50 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:30:50
-2025-02-07 01:30:52 - INFO - Accepted connection from ('127.0.0.1', 59514) at 2025-02-07 01:30:52
-2025-02-07 01:31:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:31:20
-2025-02-07 01:31:21 - INFO - Accepted connection from ('127.0.0.1', 59522) at 2025-02-07 01:31:21
-2025-02-07 01:32:36 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:32:36
-2025-02-07 01:32:38 - INFO - Accepted connection from ('127.0.0.1', 59610) at 2025-02-07 01:32:38
-2025-02-07 01:32:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:32:44
-2025-02-07 01:32:45 - INFO - Accepted connection from ('127.0.0.1', 59617) at 2025-02-07 01:32:45
-2025-02-07 01:33:08 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:33:08
-2025-02-07 01:33:10 - INFO - Accepted connection from ('127.0.0.1', 59681) at 2025-02-07 01:33:10
-2025-02-07 01:33:14 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:33:14
-2025-02-07 01:33:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:33:43
-2025-02-07 01:33:44 - INFO - Accepted connection from ('127.0.0.1', 59706) at 2025-02-07 01:33:44
-2025-02-07 01:34:04 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:34:04
-2025-02-07 01:34:06 - INFO - Accepted connection from ('127.0.0.1', 59716) at 2025-02-07 01:34:06
-2025-02-07 01:34:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:34:19
-2025-02-07 01:34:21 - INFO - Accepted connection from ('127.0.0.1', 59727) at 2025-02-07 01:34:21
-2025-02-07 01:35:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:35:37
-2025-02-07 01:35:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 01:35:38
-2025-02-07 01:35:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:35:44
-2025-02-07 01:35:45 - INFO - Accepted connection from ('127.0.0.1', 59753) at 2025-02-07 01:35:45
-2025-02-07 01:36:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:36:11
-2025-02-07 01:36:12 - INFO - Accepted connection from ('127.0.0.1', 59757) at 2025-02-07 01:36:12
-2025-02-07 01:36:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:36:37
-2025-02-07 01:36:38 - INFO - Accepted connection from ('127.0.0.1', 59785) at 2025-02-07 01:36:38
-2025-02-07 01:37:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:37:32
-2025-02-07 01:37:34 - INFO - Accepted connection from ('127.0.0.1', 59810) at 2025-02-07 01:37:34
-2025-02-07 01:37:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:37:49
-2025-02-07 01:37:51 - INFO - Accepted connection from ('127.0.0.1', 59821) at 2025-02-07 01:37:51
-2025-02-07 01:38:22 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:38:22
-2025-02-07 01:38:24 - INFO - Accepted connection from ('127.0.0.1', 59832) at 2025-02-07 01:38:24
-2025-02-07 01:38:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:38:37
-2025-02-07 01:38:38 - INFO - Accepted connection from ('127.0.0.1', 59835) at 2025-02-07 01:38:38
-2025-02-07 01:39:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:39:20
-2025-02-07 01:39:21 - INFO - Accepted connection from ('127.0.0.1', 59840) at 2025-02-07 01:39:21
-2025-02-07 01:40:27 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:40:27
-2025-02-07 01:40:29 - INFO - Accepted connection from ('127.0.0.1', 59941) at 2025-02-07 01:40:29
-2025-02-07 01:42:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:42:38
-2025-02-07 01:42:39 - INFO - Accepted connection from ('127.0.0.1', 60045) at 2025-02-07 01:42:39
-2025-02-07 01:43:29 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:43:29
-2025-02-07 01:43:30 - INFO - Accepted connection from ('127.0.0.1', 60099) at 2025-02-07 01:43:30
-2025-02-07 01:44:14 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:44:14
-2025-02-07 01:44:15 - INFO - Accepted connection from ('127.0.0.1', 60162) at 2025-02-07 01:44:15
-2025-02-07 01:44:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:44:59
-2025-02-07 01:45:01 - INFO - Accepted connection from ('127.0.0.1', 60173) at 2025-02-07 01:45:01
-2025-02-07 01:46:54 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 01:46:54
-2025-02-07 01:46:55 - INFO - Accepted connection from ('127.0.0.1', 60286) at 2025-02-07 01:46:55
-2025-02-07 19:21:36 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:21:36
-2025-02-07 19:21:43 - INFO - Accepted connection from ('127.0.0.1', 50979) at 2025-02-07 19:21:43
-2025-02-07 19:23:07 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:23:07
-2025-02-07 19:23:17 - INFO - Accepted connection from ('127.0.0.1', 51267) at 2025-02-07 19:23:17
-2025-02-07 19:25:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:25:59
-2025-02-07 19:26:16 - INFO - Accepted connection from ('127.0.0.1', 51827) at 2025-02-07 19:26:16
-2025-02-07 19:28:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:28:57
-2025-02-07 19:28:59 - INFO - Accepted connection from ('127.0.0.1', 52331) at 2025-02-07 19:28:59
-2025-02-07 19:33:36 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:33:36
-2025-02-07 19:33:37 - INFO - Accepted connection from ('127.0.0.1', 53182) at 2025-02-07 19:33:37
-2025-02-07 19:34:24 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:34:24
-2025-02-07 19:34:25 - INFO - Accepted connection from ('127.0.0.1', 53330) at 2025-02-07 19:34:25
-2025-02-07 19:39:26 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:39:26
-2025-02-07 19:39:28 - INFO - Accepted connection from ('127.0.0.1', 54259) at 2025-02-07 19:39:28
-2025-02-07 19:53:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:53:52
-2025-02-07 19:53:53 - INFO - Accepted connection from ('127.0.0.1', 55543) at 2025-02-07 19:53:53
-2025-02-07 19:54:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:54:48
-2025-02-07 19:54:50 - INFO - Accepted connection from ('127.0.0.1', 55719) at 2025-02-07 19:54:50
-2025-02-07 19:57:26 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:57:26
-2025-02-07 19:57:29 - INFO - Accepted connection from ('127.0.0.1', 56234) at 2025-02-07 19:57:29
-2025-02-07 19:59:14 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:59:14
-2025-02-07 19:59:16 - INFO - Accepted connection from ('127.0.0.1', 56563) at 2025-02-07 19:59:16
-2025-02-07 19:59:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 19:59:40
-2025-02-07 19:59:41 - INFO - Accepted connection from ('127.0.0.1', 56645) at 2025-02-07 19:59:41
-2025-02-07 20:00:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:00:32
-2025-02-07 20:00:34 - INFO - Accepted connection from ('127.0.0.1', 56806) at 2025-02-07 20:00:34
-2025-02-07 20:01:06 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:01:06
-2025-02-07 20:01:07 - INFO - Accepted connection from ('127.0.0.1', 56902) at 2025-02-07 20:01:07
-2025-02-07 20:01:25 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:01:25
-2025-02-07 20:04:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:04:02
-2025-02-07 20:04:03 - INFO - Accepted connection from ('127.0.0.1', 57476) at 2025-02-07 20:04:03
-2025-02-07 20:09:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:09:06
-2025-02-07 20:09:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:09:40
-2025-02-07 20:09:42 - INFO - Accepted connection from ('127.0.0.1', 58522) at 2025-02-07 20:09:42
-2025-02-07 20:09:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:09:49
-2025-02-07 20:31:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:31:39
-2025-02-07 20:32:26 - INFO - Accepted connection from ('127.0.0.1', 62727) at 2025-02-07 20:32:26
-2025-02-07 20:34:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:34:38
-2025-02-07 20:34:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:34:39
-2025-02-07 20:34:41 - INFO - Accepted connection from ('127.0.0.1', 63143) at 2025-02-07 20:34:41
-2025-02-07 20:35:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:35:06
-2025-02-07 20:35:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:35:11
-2025-02-07 20:35:13 - INFO - Accepted connection from ('127.0.0.1', 63245) at 2025-02-07 20:35:13
-2025-02-07 20:40:19 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:40:19
-2025-02-07 20:40:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:40:20
-2025-02-07 20:40:21 - INFO - Accepted connection from ('127.0.0.1', 64208) at 2025-02-07 20:40:21
-2025-02-07 20:40:43 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:40:43
-2025-02-07 20:43:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:43:21
-2025-02-07 20:43:22 - INFO - Accepted connection from ('127.0.0.1', 64770) at 2025-02-07 20:43:22
-2025-02-07 20:43:38 - INFO - Accepted connection from ('127.0.0.1', 64819) at 2025-02-07 20:43:38
-2025-02-07 20:43:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:43:43
-2025-02-07 20:43:46 - INFO - Accepted connection from ('127.0.0.1', 64845) at 2025-02-07 20:43:46
-2025-02-07 20:45:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 20:45:48
-2025-02-07 20:45:49 - INFO - Accepted connection from ('127.0.0.1', 65232) at 2025-02-07 20:45:49
-2025-02-07 20:46:16 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 20:46:16
-2025-02-07 21:10:12 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:10:12
-2025-02-07 21:10:13 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:10:13
-2025-02-07 21:17:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:17:01
-2025-02-07 21:17:03 - INFO - Accepted connection from ('127.0.0.1', 54746) at 2025-02-07 21:17:03
-2025-02-07 21:17:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:17:21
-2025-02-07 21:17:25 - INFO - Accepted connection from ('127.0.0.1', 54814) at 2025-02-07 21:17:25
-2025-02-07 21:18:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:18:49
-2025-02-07 21:18:52 - INFO - Accepted connection from ('127.0.0.1', 55090) at 2025-02-07 21:18:52
-2025-02-07 21:19:47 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:19:47
-2025-02-07 21:19:50 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:19:50
-2025-02-07 21:19:52 - INFO - Accepted connection from ('127.0.0.1', 55280) at 2025-02-07 21:19:52
-2025-02-07 21:19:56 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:19:56
-2025-02-07 21:20:29 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:29
-2025-02-07 21:20:33 - INFO - Accepted connection from ('127.0.0.1', 55406) at 2025-02-07 21:20:33
-2025-02-07 21:20:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:48
-2025-02-07 21:20:58 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:20:58
-2025-02-07 21:20:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:20:59
-2025-02-07 21:21:01 - INFO - Accepted connection from ('127.0.0.1', 55495) at 2025-02-07 21:21:01
-2025-02-07 21:21:08 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:21:08
-2025-02-07 21:21:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:21:43
-2025-02-07 21:21:45 - INFO - Accepted connection from ('127.0.0.1', 55637) at 2025-02-07 21:21:45
-2025-02-07 21:22:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:22:19
-2025-02-07 21:22:20 - INFO - Accepted connection from ('127.0.0.1', 55747) at 2025-02-07 21:22:20
-2025-02-07 21:22:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:22:38
-2025-02-07 21:22:40 - INFO - Accepted connection from ('127.0.0.1', 55811) at 2025-02-07 21:22:40
-2025-02-07 21:23:15 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:23:15
-2025-02-07 21:23:16 - INFO - Accepted connection from ('127.0.0.1', 55922) at 2025-02-07 21:23:16
-2025-02-07 21:23:56 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:23:56
-2025-02-07 21:23:57 - INFO - Accepted connection from ('127.0.0.1', 56056) at 2025-02-07 21:23:57
-2025-02-07 21:25:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:25:11
-2025-02-07 21:25:12 - INFO - Accepted connection from ('127.0.0.1', 56305) at 2025-02-07 21:25:12
-2025-02-07 21:28:23 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:28:23
-2025-02-07 21:28:24 - INFO - Accepted connection from ('127.0.0.1', 56898) at 2025-02-07 21:28:24
-2025-02-07 21:34:22 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:34:22
-2025-02-07 21:34:24 - INFO - Accepted connection from ('127.0.0.1', 58020) at 2025-02-07 21:34:24
-2025-02-07 21:35:27 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:35:27
-2025-02-07 21:35:28 - INFO - Accepted connection from ('127.0.0.1', 58225) at 2025-02-07 21:35:28
-2025-02-07 21:36:35 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:36:35
-2025-02-07 21:36:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:36:40
-2025-02-07 21:36:41 - INFO - Accepted connection from ('127.0.0.1', 58455) at 2025-02-07 21:36:41
-2025-02-07 21:37:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:37:19
-2025-02-07 21:37:20 - INFO - Accepted connection from ('127.0.0.1', 58579) at 2025-02-07 21:37:20
-2025-02-07 21:38:04 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:38:04
-2025-02-07 21:38:05 - INFO - Accepted connection from ('127.0.0.1', 58716) at 2025-02-07 21:38:05
-2025-02-07 21:38:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:38:20
-2025-02-07 21:38:21 - INFO - Accepted connection from ('127.0.0.1', 58768) at 2025-02-07 21:38:21
-2025-02-07 21:39:05 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:39:05
-2025-02-07 21:39:09 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:39:09
-2025-02-07 21:39:11 - INFO - Accepted connection from ('127.0.0.1', 58921) at 2025-02-07 21:39:11
-2025-02-07 21:40:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:40:38
-2025-02-07 21:40:39 - INFO - Accepted connection from ('127.0.0.1', 59194) at 2025-02-07 21:40:39
-2025-02-07 21:40:46 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:40:46
-2025-02-07 21:40:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:40:58
-2025-02-07 21:41:01 - INFO - Accepted connection from ('127.0.0.1', 59263) at 2025-02-07 21:41:01
-2025-02-07 21:41:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:41:31
-2025-02-07 21:41:32 - INFO - Accepted connection from ('127.0.0.1', 59364) at 2025-02-07 21:41:32
-2025-02-07 21:43:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:43:02
-2025-02-07 21:43:04 - INFO - Accepted connection from ('127.0.0.1', 59647) at 2025-02-07 21:43:04
-2025-02-07 21:43:20 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:43:20
-2025-02-07 21:43:22 - INFO - Accepted connection from ('127.0.0.1', 59706) at 2025-02-07 21:43:22
-2025-02-07 21:45:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:45:38
-2025-02-07 21:45:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:45:44
-2025-02-07 21:45:45 - INFO - Accepted connection from ('127.0.0.1', 60146) at 2025-02-07 21:45:45
-2025-02-07 21:45:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:45:54
-2025-02-07 21:47:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:47:49
-2025-02-07 21:47:51 - INFO - Accepted connection from ('127.0.0.1', 60538) at 2025-02-07 21:47:51
-2025-02-07 21:48:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:48:40
-2025-02-07 21:48:41 - INFO - Accepted connection from ('127.0.0.1', 60694) at 2025-02-07 21:48:41
-2025-02-07 21:48:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:48:59
-2025-02-07 21:49:01 - INFO - Accepted connection from ('127.0.0.1', 60755) at 2025-02-07 21:49:01
-2025-02-07 21:49:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:49:06
-2025-02-07 21:50:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:50:37
-2025-02-07 21:50:38 - INFO - Accepted connection from ('127.0.0.1', 61057) at 2025-02-07 21:50:38
-2025-02-07 21:52:15 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:52:15
-2025-02-07 21:52:18 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:52:18
-2025-02-07 21:52:20 - INFO - Accepted connection from ('127.0.0.1', 61380) at 2025-02-07 21:52:20
-2025-02-07 21:52:26 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:52:26
-2025-02-07 21:55:17 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:55:17
-2025-02-07 21:55:20 - INFO - Accepted connection from ('127.0.0.1', 61950) at 2025-02-07 21:55:20
-2025-02-07 21:55:28 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 21:55:28
-2025-02-07 21:55:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:55:52
-2025-02-07 21:55:55 - INFO - Accepted connection from ('127.0.0.1', 62062) at 2025-02-07 21:55:55
-2025-02-07 21:58:51 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:58:51
-2025-02-07 21:58:52 - INFO - Accepted connection from ('127.0.0.1', 62614) at 2025-02-07 21:58:52
-2025-02-07 21:59:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:59:28
-2025-02-07 21:59:29 - INFO - Accepted connection from ('127.0.0.1', 62722) at 2025-02-07 21:59:29
-2025-02-07 21:59:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 21:59:57
-2025-02-07 21:59:57 - INFO - Accepted connection from ('127.0.0.1', 62810) at 2025-02-07 21:59:57
-2025-02-07 22:00:34 - ERROR - KeyboardInterrupt, exiting at 2025-02-07 22:00:34
-2025-02-07 22:00:35 - INFO - Listening on 127.0.0.1:65432 at 2025-02-07 22:00:35
-2025-02-07 22:00:37 - INFO - Accepted connection from ('127.0.0.1', 62940) at 2025-02-07 22:00:37
-2025-02-08 00:10:30 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:10:30
-2025-02-08 00:10:41 - INFO - Accepted connection from ('127.0.0.1', 54656) at 2025-02-08 00:10:41
-2025-02-08 00:13:21 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 00:13:21
-2025-02-08 00:13:25 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:13:25
-2025-02-08 00:13:26 - INFO - Accepted connection from ('127.0.0.1', 55161) at 2025-02-08 00:13:26
-2025-02-08 00:16:05 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:16:05
-2025-02-08 00:16:06 - INFO - Accepted connection from ('127.0.0.1', 55658) at 2025-02-08 00:16:06
-2025-02-08 00:16:35 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:16:35
-2025-02-08 00:16:36 - INFO - Accepted connection from ('127.0.0.1', 55750) at 2025-02-08 00:16:36
-2025-02-08 00:16:55 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:16:55
-2025-02-08 00:16:58 - INFO - Accepted connection from ('127.0.0.1', 55818) at 2025-02-08 00:16:58
-2025-02-08 00:17:54 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:17:54
-2025-02-08 00:17:56 - INFO - Accepted connection from ('127.0.0.1', 55998) at 2025-02-08 00:17:56
-2025-02-08 00:18:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:18:28
-2025-02-08 00:18:29 - INFO - Accepted connection from ('127.0.0.1', 56100) at 2025-02-08 00:18:29
-2025-02-08 00:18:53 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:18:53
-2025-02-08 00:18:56 - INFO - Accepted connection from ('127.0.0.1', 56185) at 2025-02-08 00:18:56
-2025-02-08 00:20:25 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:20:25
-2025-02-08 00:20:27 - INFO - Accepted connection from ('127.0.0.1', 56474) at 2025-02-08 00:20:27
-2025-02-08 00:21:54 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:21:54
-2025-02-08 00:21:56 - INFO - Accepted connection from ('127.0.0.1', 56759) at 2025-02-08 00:21:56
-2025-02-08 00:23:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:23:11
-2025-02-08 00:23:22 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 00:23:22
-2025-02-08 00:23:23 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:23:23
-2025-02-08 00:23:24 - INFO - Accepted connection from ('127.0.0.1', 57031) at 2025-02-08 00:23:24
-2025-02-08 00:25:21 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:25:21
-2025-02-08 00:25:23 - INFO - Accepted connection from ('127.0.0.1', 57402) at 2025-02-08 00:25:23
-2025-02-08 00:31:15 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:31:15
-2025-02-08 00:31:16 - INFO - Accepted connection from ('127.0.0.1', 58509) at 2025-02-08 00:31:16
-2025-02-08 00:32:42 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:32:42
-2025-02-08 00:32:44 - INFO - Accepted connection from ('127.0.0.1', 58790) at 2025-02-08 00:32:44
-2025-02-08 00:34:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:34:49
-2025-02-08 00:34:50 - INFO - Accepted connection from ('127.0.0.1', 59392) at 2025-02-08 00:34:50
-2025-02-08 00:35:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:35:43
-2025-02-08 00:35:46 - INFO - Accepted connection from ('127.0.0.1', 59689) at 2025-02-08 00:35:46
-2025-02-08 00:38:22 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:38:22
-2025-02-08 00:38:23 - INFO - Accepted connection from ('127.0.0.1', 60558) at 2025-02-08 00:38:23
-2025-02-08 00:40:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:40:52
-2025-02-08 00:40:54 - INFO - Accepted connection from ('127.0.0.1', 61472) at 2025-02-08 00:40:54
-2025-02-08 00:42:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:42:31
-2025-02-08 00:42:34 - INFO - Accepted connection from ('127.0.0.1', 61784) at 2025-02-08 00:42:34
-2025-02-08 00:44:56 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:44:56
-2025-02-08 00:44:59 - INFO - Accepted connection from ('127.0.0.1', 62245) at 2025-02-08 00:44:59
-2025-02-08 00:45:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 00:45:06
-2025-02-08 00:45:33 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:45:33
-2025-02-08 00:45:34 - INFO - Accepted connection from ('127.0.0.1', 62357) at 2025-02-08 00:45:34
-2025-02-08 00:49:40 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 00:49:40
-2025-02-08 00:49:41 - INFO - Accepted connection from ('127.0.0.1', 63118) at 2025-02-08 00:49:41
-2025-02-08 15:52:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 15:52:01
-2025-02-08 15:52:02 - INFO - Accepted connection from ('127.0.0.1', 58409) at 2025-02-08 15:52:02
-2025-02-08 15:52:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 15:52:52
-2025-02-08 15:52:54 - INFO - Accepted connection from ('127.0.0.1', 58433) at 2025-02-08 15:52:54
-2025-02-08 15:53:18 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 15:53:18
-2025-02-08 15:53:19 - INFO - Accepted connection from ('127.0.0.1', 58441) at 2025-02-08 15:53:19
-2025-02-08 15:53:48 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 15:53:48
-2025-02-08 15:53:49 - INFO - Accepted connection from ('127.0.0.1', 58448) at 2025-02-08 15:53:49
-2025-02-08 15:55:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 15:55:10
-2025-02-08 15:55:11 - INFO - Accepted connection from ('127.0.0.1', 58541) at 2025-02-08 15:55:11
-2025-02-08 15:55:13 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58541)> at 2025-02-08 15:55:13
-2025-02-08 15:55:16 - INFO - Accepted connection from ('127.0.0.1', 58543) at 2025-02-08 15:55:16
-2025-02-08 15:55:18 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58543)> at 2025-02-08 15:55:18
-2025-02-08 15:55:19 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 15:55:19
-2025-02-08 16:08:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:08:58
-2025-02-08 16:08:59 - INFO - Accepted connection from ('127.0.0.1', 58765) at 2025-02-08 16:08:59
-2025-02-08 16:08:59 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58765)> at 2025-02-08 16:08:59
-2025-02-08 16:09:05 - INFO - Accepted connection from ('127.0.0.1', 58767) at 2025-02-08 16:09:05
-2025-02-08 16:09:05 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58767)> at 2025-02-08 16:09:05
-2025-02-08 16:09:17 - INFO - Accepted connection from ('127.0.0.1', 58771) at 2025-02-08 16:09:17
-2025-02-08 16:09:30 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58771)> at 2025-02-08 16:09:30
-2025-02-08 16:13:32 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:13:32
-2025-02-08 16:13:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:13:32
-2025-02-08 16:13:33 - INFO - Accepted connection from ('127.0.0.1', 58823) at 2025-02-08 16:13:33
-2025-02-08 16:13:46 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58823)> at 2025-02-08 16:13:46
-2025-02-08 16:14:03 - INFO - Accepted connection from ('127.0.0.1', 58830) at 2025-02-08 16:14:03
-2025-02-08 16:14:04 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:14:04
-2025-02-08 16:14:05 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:14:05
-2025-02-08 16:14:06 - INFO - Accepted connection from ('127.0.0.1', 58832) at 2025-02-08 16:14:06
-2025-02-08 16:14:13 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58832)> at 2025-02-08 16:14:13
-2025-02-08 16:14:36 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:14:36
-2025-02-08 16:14:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:14:38
-2025-02-08 16:14:39 - INFO - Accepted connection from ('127.0.0.1', 58840) at 2025-02-08 16:14:39
-2025-02-08 16:14:46 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58840)> at 2025-02-08 16:14:46
-2025-02-08 16:14:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:14:49
-2025-02-08 16:21:34 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:21:34
-2025-02-08 16:21:35 - INFO - Accepted connection from ('127.0.0.1', 58930) at 2025-02-08 16:21:35
-2025-02-08 16:22:09 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58930)> at 2025-02-08 16:22:09
-2025-02-08 16:22:10 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:22:10
-2025-02-08 16:22:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:22:10
-2025-02-08 16:22:11 - INFO - Accepted connection from ('127.0.0.1', 58937) at 2025-02-08 16:22:11
-2025-02-08 16:22:22 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58937)> at 2025-02-08 16:22:22
-2025-02-08 16:22:24 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:22:24
-2025-02-08 16:23:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:23:44
-2025-02-08 16:23:45 - INFO - Accepted connection from ('127.0.0.1', 58960) at 2025-02-08 16:23:45
-2025-02-08 16:23:58 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 58960)> at 2025-02-08 16:23:58
-2025-02-08 16:24:21 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:24:21
-2025-02-08 16:36:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 16:36:38
-2025-02-08 16:36:39 - INFO - Accepted connection from ('127.0.0.1', 59146) at 2025-02-08 16:36:39
-2025-02-08 16:36:56 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 59146)> at 2025-02-08 16:36:56
-2025-02-08 16:37:01 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 16:37:01
-2025-02-08 17:15:06 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:15:06
-2025-02-08 17:15:07 - INFO - Accepted connection from ('127.0.0.1', 60740) at 2025-02-08 17:15:07
-2025-02-08 17:17:01 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 60740)> at 2025-02-08 17:17:01
-2025-02-08 17:17:02 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:17:02
-2025-02-08 17:17:03 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:17:03
-2025-02-08 17:17:05 - INFO - Accepted connection from ('127.0.0.1', 60763) at 2025-02-08 17:17:05
-2025-02-08 17:26:48 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 60763)> at 2025-02-08 17:26:48
-2025-02-08 17:26:48 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:26:48
-2025-02-08 17:26:51 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:26:51
-2025-02-08 17:26:52 - INFO - Accepted connection from ('127.0.0.1', 61028) at 2025-02-08 17:26:52
-2025-02-08 17:27:06 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61028)> at 2025-02-08 17:27:06
-2025-02-08 17:27:27 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:27:27
-2025-02-08 17:27:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:27:28
-2025-02-08 17:27:29 - INFO - Accepted connection from ('127.0.0.1', 61035) at 2025-02-08 17:27:29
-2025-02-08 17:27:37 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61035)> at 2025-02-08 17:27:37
-2025-02-08 17:28:09 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:28:09
-2025-02-08 17:28:13 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:28:13
-2025-02-08 17:28:15 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:28:15
-2025-02-08 17:28:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:28:52
-2025-02-08 17:28:53 - INFO - Accepted connection from ('127.0.0.1', 61061) at 2025-02-08 17:28:53
-2025-02-08 17:29:28 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61061)> at 2025-02-08 17:29:28
-2025-02-08 17:30:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:30:30
-2025-02-08 17:31:47 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:31:47
-2025-02-08 17:31:48 - INFO - Accepted connection from ('127.0.0.1', 61102) at 2025-02-08 17:31:48
-2025-02-08 17:32:20 - INFO - Accepted connection from ('127.0.0.1', 61105) at 2025-02-08 17:32:20
-2025-02-08 17:32:35 - INFO - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61105)> at 2025-02-08 17:32:35
-2025-02-08 17:32:36 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61102)> at 2025-02-08 17:32:36
-2025-02-08 17:32:38 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:32:38
-2025-02-08 17:33:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:33:19
-2025-02-08 17:33:20 - INFO - Accepted connection from ('127.0.0.1', 61118) at 2025-02-08 17:33:20
-2025-02-08 17:33:53 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61118)> at 2025-02-08 17:33:53
-2025-02-08 17:34:35 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:34:35
-2025-02-08 17:34:36 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:34:36
-2025-02-08 17:34:36 - INFO - Accepted connection from ('127.0.0.1', 61150) at 2025-02-08 17:34:36
-2025-02-08 17:34:47 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61150)> at 2025-02-08 17:34:47
-2025-02-08 17:34:59 - INFO - Accepted connection from ('127.0.0.1', 61162) at 2025-02-08 17:34:59
-2025-02-08 17:35:18 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61162)> at 2025-02-08 17:35:18
-2025-02-08 17:36:41 - INFO - Accepted connection from ('127.0.0.1', 61187) at 2025-02-08 17:36:41
-2025-02-08 17:37:42 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61187)> at 2025-02-08 17:37:42
-2025-02-08 17:37:43 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:37:43
-2025-02-08 17:37:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:37:44
-2025-02-08 17:37:45 - INFO - Accepted connection from ('127.0.0.1', 61200) at 2025-02-08 17:37:45
-2025-02-08 17:37:54 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61200)> at 2025-02-08 17:37:54
-2025-02-08 17:49:57 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:49:57
-2025-02-08 17:49:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:49:57
-2025-02-08 17:49:58 - INFO - Accepted connection from ('127.0.0.1', 61354) at 2025-02-08 17:49:58
-2025-02-08 17:50:06 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61354)> at 2025-02-08 17:50:06
-2025-02-08 17:50:08 - INFO - Accepted connection from ('127.0.0.1', 61357) at 2025-02-08 17:50:08
-2025-02-08 17:50:17 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61357)> at 2025-02-08 17:50:17
-2025-02-08 17:50:37 - INFO - Accepted connection from ('127.0.0.1', 61363) at 2025-02-08 17:50:37
-2025-02-08 17:50:47 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61363)> at 2025-02-08 17:50:47
-2025-02-08 17:53:50 - INFO - Accepted connection from ('127.0.0.1', 61407) at 2025-02-08 17:53:50
-2025-02-08 17:53:59 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61407)> at 2025-02-08 17:53:59
-2025-02-08 17:54:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:54:30
-2025-02-08 17:54:34 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:54:34
-2025-02-08 17:54:35 - INFO - Accepted connection from ('127.0.0.1', 61421) at 2025-02-08 17:54:35
-2025-02-08 17:54:41 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61421)> at 2025-02-08 17:54:41
-2025-02-08 17:55:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:55:54
-2025-02-08 17:55:55 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 17:55:55
-2025-02-08 17:55:57 - INFO - Accepted connection from ('127.0.0.1', 61444) at 2025-02-08 17:55:57
-2025-02-08 17:56:03 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 61444)> at 2025-02-08 17:56:03
-2025-02-08 17:56:19 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 17:56:19
-2025-02-08 19:14:44 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:14:44
-2025-02-08 19:14:47 - INFO - Accepted connection from ('127.0.0.1', 52126) at 2025-02-08 19:14:47
-2025-02-08 19:14:56 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52126)> at 2025-02-08 19:14:56
-2025-02-08 19:15:40 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:15:40
-2025-02-08 19:15:42 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:15:42
-2025-02-08 19:15:43 - INFO - Accepted connection from ('127.0.0.1', 52144) at 2025-02-08 19:15:43
-2025-02-08 19:15:49 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52144)> at 2025-02-08 19:15:49
-2025-02-08 19:15:56 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:15:56
-2025-02-08 19:15:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:15:58
-2025-02-08 19:15:59 - INFO - Accepted connection from ('127.0.0.1', 52150) at 2025-02-08 19:15:59
-2025-02-08 19:16:05 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52150)> at 2025-02-08 19:16:05
-2025-02-08 19:16:15 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:16:15
-2025-02-08 19:16:25 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:16:25
-2025-02-08 19:16:26 - INFO - Accepted connection from ('127.0.0.1', 52161) at 2025-02-08 19:16:26
-2025-02-08 19:16:36 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52161)> at 2025-02-08 19:16:36
-2025-02-08 19:16:44 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:16:44
-2025-02-08 19:16:49 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:16:49
-2025-02-08 19:16:50 - INFO - Accepted connection from ('127.0.0.1', 52165) at 2025-02-08 19:16:50
-2025-02-08 19:16:58 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52165)> at 2025-02-08 19:16:58
-2025-02-08 19:17:26 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:17:26
-2025-02-08 19:17:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:17:58
-2025-02-08 19:17:59 - INFO - Accepted connection from ('127.0.0.1', 52180) at 2025-02-08 19:17:59
-2025-02-08 19:18:05 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52180)> at 2025-02-08 19:18:05
-2025-02-08 19:18:12 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:18:12
-2025-02-08 19:18:29 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:18:29
-2025-02-08 19:18:31 - INFO - Accepted connection from ('127.0.0.1', 52187) at 2025-02-08 19:18:31
-2025-02-08 19:18:38 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52187)> at 2025-02-08 19:18:38
-2025-02-08 19:18:48 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:18:48
-2025-02-08 19:18:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:18:52
-2025-02-08 19:18:53 - INFO - Accepted connection from ('127.0.0.1', 52196) at 2025-02-08 19:18:53
-2025-02-08 19:19:01 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52196)> at 2025-02-08 19:19:01
-2025-02-08 19:19:13 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:19:13
-2025-02-08 19:19:16 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:19:16
-2025-02-08 19:19:17 - INFO - Accepted connection from ('127.0.0.1', 52205) at 2025-02-08 19:19:17
-2025-02-08 19:19:23 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52205)> at 2025-02-08 19:19:23
-2025-02-08 19:19:33 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:19:33
-2025-02-08 19:19:35 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:19:35
-2025-02-08 19:19:38 - INFO - Accepted connection from ('127.0.0.1', 52215) at 2025-02-08 19:19:38
-2025-02-08 19:19:45 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52215)> at 2025-02-08 19:19:45
-2025-02-08 19:19:51 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:19:51
-2025-02-08 19:20:17 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:20:17
-2025-02-08 19:20:20 - INFO - Accepted connection from ('127.0.0.1', 52236) at 2025-02-08 19:20:20
-2025-02-08 19:20:40 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52236)> at 2025-02-08 19:20:40
-2025-02-08 19:20:46 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:20:46
-2025-02-08 19:20:47 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:20:47
-2025-02-08 19:20:48 - INFO - Accepted connection from ('127.0.0.1', 52244) at 2025-02-08 19:20:48
-2025-02-08 19:20:58 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52244)> at 2025-02-08 19:20:58
-2025-02-08 19:21:00 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:21:00
-2025-02-08 19:21:41 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:21:41
-2025-02-08 19:21:42 - INFO - Accepted connection from ('127.0.0.1', 52276) at 2025-02-08 19:21:42
-2025-02-08 19:21:48 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52276)> at 2025-02-08 19:21:48
-2025-02-08 19:21:59 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:21:59
-2025-02-08 19:22:00 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:22:00
-2025-02-08 19:22:01 - INFO - Accepted connection from ('127.0.0.1', 52335) at 2025-02-08 19:22:01
-2025-02-08 19:22:14 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52335)> at 2025-02-08 19:22:14
-2025-02-08 19:22:22 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:22:22
-2025-02-08 19:22:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:22:58
-2025-02-08 19:22:59 - INFO - Accepted connection from ('127.0.0.1', 52515) at 2025-02-08 19:22:59
-2025-02-08 19:23:10 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52515)> at 2025-02-08 19:23:10
-2025-02-08 19:23:51 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:23:51
-2025-02-08 19:23:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:23:52
-2025-02-08 19:23:53 - INFO - Accepted connection from ('127.0.0.1', 52723) at 2025-02-08 19:23:53
-2025-02-08 19:24:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:24:30
-2025-02-08 19:24:31 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:24:31
-2025-02-08 19:24:33 - INFO - Accepted connection from ('127.0.0.1', 52852) at 2025-02-08 19:24:33
-2025-02-08 19:24:50 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:24:50
-2025-02-08 19:24:52 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:24:52
-2025-02-08 19:24:53 - INFO - Accepted connection from ('127.0.0.1', 52922) at 2025-02-08 19:24:53
-2025-02-08 19:25:14 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:25:14
-2025-02-08 19:25:16 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:25:16
-2025-02-08 19:25:17 - INFO - Accepted connection from ('127.0.0.1', 52996) at 2025-02-08 19:25:17
-2025-02-08 19:25:28 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52996)> at 2025-02-08 19:25:28
-2025-02-08 19:25:37 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:25:37
-2025-02-08 19:25:39 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:25:39
-2025-02-08 19:25:40 - INFO - Accepted connection from ('127.0.0.1', 53069) at 2025-02-08 19:25:40
-2025-02-08 19:25:58 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53069)> at 2025-02-08 19:25:58
-2025-02-08 19:26:12 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:26:12
-2025-02-08 19:26:13 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:26:13
-2025-02-08 19:26:14 - INFO - Accepted connection from ('127.0.0.1', 53176) at 2025-02-08 19:26:14
-2025-02-08 19:26:27 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53176)> at 2025-02-08 19:26:27
-2025-02-08 19:26:37 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:26:37
-2025-02-08 19:26:38 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:26:38
-2025-02-08 19:26:39 - INFO - Accepted connection from ('127.0.0.1', 53251) at 2025-02-08 19:26:39
-2025-02-08 19:26:55 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:26:55
-2025-02-08 19:26:56 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:26:56
-2025-02-08 19:26:57 - INFO - Accepted connection from ('127.0.0.1', 53307) at 2025-02-08 19:26:57
-2025-02-08 19:28:06 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:28:06
-2025-02-08 19:28:06 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:28:06
-2025-02-08 19:28:08 - INFO - Accepted connection from ('127.0.0.1', 53537) at 2025-02-08 19:28:08
-2025-02-08 19:28:32 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:28:32
-2025-02-08 19:28:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:28:32
-2025-02-08 19:28:34 - INFO - Accepted connection from ('127.0.0.1', 53621) at 2025-02-08 19:28:34
-2025-02-08 19:28:45 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53621)> at 2025-02-08 19:28:45
-2025-02-08 19:28:50 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:28:50
-2025-02-08 19:28:51 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:28:51
-2025-02-08 19:28:52 - INFO - Accepted connection from ('127.0.0.1', 53675) at 2025-02-08 19:28:52
-2025-02-08 19:29:04 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53675)> at 2025-02-08 19:29:04
-2025-02-08 19:29:11 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:29:11
-2025-02-08 19:29:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:29:11
-2025-02-08 19:29:12 - INFO - Accepted connection from ('127.0.0.1', 53739) at 2025-02-08 19:29:12
-2025-02-08 19:29:23 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53739)> at 2025-02-08 19:29:23
-2025-02-08 19:29:50 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:29:50
-2025-02-08 19:29:53 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:29:53
-2025-02-08 19:29:54 - INFO - Accepted connection from ('127.0.0.1', 53886) at 2025-02-08 19:29:54
-2025-02-08 19:30:17 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53886)> at 2025-02-08 19:30:17
-2025-02-08 19:30:28 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:30:28
-2025-02-08 19:30:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:30:28
-2025-02-08 19:30:29 - INFO - Accepted connection from ('127.0.0.1', 53996) at 2025-02-08 19:30:29
-2025-02-08 19:30:55 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:30:55
-2025-02-08 19:31:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:31:11
-2025-02-08 19:31:12 - INFO - Accepted connection from ('127.0.0.1', 54134) at 2025-02-08 19:31:12
-2025-02-08 19:31:22 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 54134)> at 2025-02-08 19:31:22
-2025-02-08 19:31:33 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:31:33
-2025-02-08 19:31:33 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:31:33
-2025-02-08 19:31:34 - INFO - Accepted connection from ('127.0.0.1', 54206) at 2025-02-08 19:31:34
-2025-02-08 19:31:48 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 54206)> at 2025-02-08 19:31:48
-2025-02-08 19:31:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:31:49
-2025-02-08 19:31:50 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:31:50
-2025-02-08 19:31:51 - INFO - Accepted connection from ('127.0.0.1', 54256) at 2025-02-08 19:31:51
-2025-02-08 19:32:29 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 54256)> at 2025-02-08 19:32:29
-2025-02-08 19:33:09 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:33:09
-2025-02-08 19:37:41 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:37:41
-2025-02-08 19:37:42 - INFO - Accepted connection from ('127.0.0.1', 55365) at 2025-02-08 19:37:42
-2025-02-08 19:37:56 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 55365)> at 2025-02-08 19:37:56
-2025-02-08 19:38:08 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:38:08
-2025-02-08 19:38:08 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:38:08
-2025-02-08 19:38:10 - INFO - Accepted connection from ('127.0.0.1', 55449) at 2025-02-08 19:38:10
-2025-02-08 19:38:45 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:38:45
-2025-02-08 19:38:47 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:38:47
-2025-02-08 19:38:48 - INFO - Accepted connection from ('127.0.0.1', 55570) at 2025-02-08 19:38:48
-2025-02-08 19:39:05 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:39:05
-2025-02-08 19:39:10 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:39:10
-2025-02-08 19:39:11 - INFO - Accepted connection from ('127.0.0.1', 55642) at 2025-02-08 19:39:11
-2025-02-08 19:39:34 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 55642)> at 2025-02-08 19:39:34
-2025-02-08 19:39:36 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:39:36
-2025-02-08 19:41:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:41:01
-2025-02-08 19:41:02 - INFO - Accepted connection from ('127.0.0.1', 55993) at 2025-02-08 19:41:02
-2025-02-08 19:41:07 - INFO - Accepted connection from ('127.0.0.1', 56007) at 2025-02-08 19:41:07
-2025-02-08 19:42:01 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:42:01
-2025-02-08 19:42:03 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:42:03
-2025-02-08 19:42:04 - INFO - Accepted connection from ('127.0.0.1', 56188) at 2025-02-08 19:42:04
-2025-02-08 19:42:10 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 56188)> at 2025-02-08 19:42:10
-2025-02-08 19:42:12 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 19:42:12
-2025-02-08 19:42:14 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 19:42:14
-2025-02-08 19:42:15 - INFO - Accepted connection from ('127.0.0.1', 56224) at 2025-02-08 19:42:15
-2025-02-08 19:42:31 - INFO - Accepted connection from ('127.0.0.1', 56273) at 2025-02-08 19:42:31
-2025-02-08 19:43:16 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 56224)> at 2025-02-08 19:43:16
-2025-02-08 19:43:17 - INFO - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 56273)> at 2025-02-08 19:43:17
-2025-02-08 22:07:14 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 22:07:14
-2025-02-08 22:07:15 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 22:07:15
-2025-02-08 22:07:16 - INFO - Accepted connection from ('127.0.0.1', 63160) at 2025-02-08 22:07:16
-2025-02-08 22:07:23 - INFO - New user nick at 2025-02-08 22:07:23
-2025-02-08 22:07:23 - INFO - Connected users: {'nick': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63160)>}
-2025-02-08 22:11:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 22:11:54
-2025-02-08 22:11:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-08 22:11:59
-2025-02-08 22:12:01 - INFO - Accepted connection from ('127.0.0.1', 63205) at 2025-02-08 22:12:01
-2025-02-08 22:12:07 - INFO - New user nick at 2025-02-08 22:12:07
-2025-02-08 22:12:07 - INFO - Connected users: {'nick': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63205)>}
-2025-02-08 22:12:11 - INFO - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 63205)> at 2025-02-08 22:12:11
-2025-02-08 22:12:11 - INFO - Removing user nick at 2025-02-08 22:12:11
-2025-02-08 23:41:57 - ERROR - KeyboardInterrupt, exiting at 2025-02-08 23:41:57
+2025-02-09 01:49:37 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:49:37
+2025-02-09 01:49:38 - INFO - Accepted connection from ('127.0.0.1', 62127) at 2025-02-09 01:49:38
+2025-02-09 01:49:40 - INFO - Accepted connection from ('127.0.0.1', 62129) at 2025-02-09 01:49:40
+2025-02-09 01:49:46 - INFO - New user nick at 2025-02-09 01:49:46
+2025-02-09 01:49:46 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62127)>, 'bolt': <comm_server.Bolt object at 0x103637010>}}
+2025-02-09 01:49:51 - INFO - New user nick2 at 2025-02-09 01:49:51
+2025-02-09 01:49:51 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62127)>, 'bolt': <comm_server.Bolt object at 0x103637010>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62129)>, 'bolt': <comm_server.Bolt object at 0x103637050>}}
+2025-02-09 01:49:56 - INFO - Message from nick to nick2 at 2025-02-09 01:49:56
+2025-02-09 01:49:56 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62127)> at 2025-02-09 01:49:56
+2025-02-09 01:49:56 - ERROR - Exception: cannot access local variable 'back_to_server' where it is not associated with a value
+2025-02-09 01:49:56 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62127)>, 'bolt': <comm_server.Bolt object at 0x103637010>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62129)>, 'bolt': <comm_server.Bolt object at 0x103637050>}}
+2025-02-09 01:50:39 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)> at 2025-02-09 01:50:39
+2025-02-09 01:50:39 - ERROR - Exception: [Errno 54] Connection reset by peer
+2025-02-09 01:50:39 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x103637010>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)>, 'bolt': <comm_server.Bolt object at 0x103637050>}}
+2025-02-09 01:50:42 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:50:42
+2025-02-09 01:50:42 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:50:42
+2025-02-09 01:50:44 - INFO - Accepted connection from ('127.0.0.1', 62142) at 2025-02-09 01:50:44
+2025-02-09 01:50:45 - INFO - Accepted connection from ('127.0.0.1', 62144) at 2025-02-09 01:50:45
+2025-02-09 01:50:52 - INFO - New user nick at 2025-02-09 01:50:52
+2025-02-09 01:50:52 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62142)>, 'bolt': <comm_server.Bolt object at 0x104fe59d0>}}
+2025-02-09 01:50:57 - INFO - New user nick2 at 2025-02-09 01:50:57
+2025-02-09 01:50:57 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62142)>, 'bolt': <comm_server.Bolt object at 0x104fe59d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62144)>, 'bolt': <comm_server.Bolt object at 0x1051cf710>}}
+2025-02-09 01:51:03 - INFO - Message from nick to nick2 at 2025-02-09 01:51:03
+2025-02-09 01:51:03 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62142)> at 2025-02-09 01:51:03
+2025-02-09 01:51:03 - ERROR - Exception: cannot access local variable 'back_to_server' where it is not associated with a value
+2025-02-09 01:51:03 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62142)>, 'bolt': <comm_server.Bolt object at 0x104fe59d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62144)>, 'bolt': <comm_server.Bolt object at 0x1051cf710>}}
+2025-02-09 01:51:41 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:51:41
+2025-02-09 01:51:43 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:51:43
+2025-02-09 01:51:45 - INFO - Accepted connection from ('127.0.0.1', 62150) at 2025-02-09 01:51:45
+2025-02-09 01:51:47 - INFO - Accepted connection from ('127.0.0.1', 62152) at 2025-02-09 01:51:47
+2025-02-09 01:51:53 - INFO - New user nick at 2025-02-09 01:51:53
+2025-02-09 01:51:53 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62150)>, 'bolt': <comm_server.Bolt object at 0x1037299d0>}}
+2025-02-09 01:51:59 - INFO - New user nick2 at 2025-02-09 01:51:59
+2025-02-09 01:51:59 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62150)>, 'bolt': <comm_server.Bolt object at 0x1037299d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62152)>, 'bolt': <comm_server.Bolt object at 0x10391ed10>}}
+2025-02-09 01:52:05 - INFO - Message from nick to nick2 at 2025-02-09 01:52:05
+2025-02-09 01:52:10 - INFO - Message from nick to nick2 at 2025-02-09 01:52:10
+2025-02-09 01:52:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:52:30
+2025-02-09 01:52:56 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:52:56
+2025-02-09 01:52:58 - INFO - Accepted connection from ('127.0.0.1', 62162) at 2025-02-09 01:52:58
+2025-02-09 01:52:59 - INFO - Accepted connection from ('127.0.0.1', 62163) at 2025-02-09 01:52:59
+2025-02-09 01:53:05 - INFO - New user nick at 2025-02-09 01:53:05
+2025-02-09 01:53:05 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62162)>, 'bolt': <comm_server.Bolt object at 0x1010099d0>}}
+2025-02-09 01:53:12 - INFO - New user nick2 at 2025-02-09 01:53:12
+2025-02-09 01:53:12 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62162)>, 'bolt': <comm_server.Bolt object at 0x1010099d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62163)>, 'bolt': <comm_server.Bolt object at 0x1011f3650>}}
+2025-02-09 01:53:18 - INFO - Message from nick to nick2 at 2025-02-09 01:53:18
+2025-02-09 01:54:23 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62162)> at 2025-02-09 01:54:23
+2025-02-09 01:54:23 - ERROR - Exception: Peer closed.
+2025-02-09 01:54:23 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62162)>, 'bolt': <comm_server.Bolt object at 0x1010099d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62163)>, 'bolt': <comm_server.Bolt object at 0x1011f3650>}}
+2025-02-09 01:54:23 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)> at 2025-02-09 01:54:23
+2025-02-09 01:54:23 - ERROR - Exception: [Errno 54] Connection reset by peer
+2025-02-09 01:54:23 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x1010099d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)>, 'bolt': <comm_server.Bolt object at 0x1011f3650>}}
+2025-02-09 01:54:23 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:54:23
+2025-02-09 01:54:24 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:54:24
+2025-02-09 01:54:25 - INFO - Accepted connection from ('127.0.0.1', 62168) at 2025-02-09 01:54:25
+2025-02-09 01:54:27 - INFO - Accepted connection from ('127.0.0.1', 62170) at 2025-02-09 01:54:27
+2025-02-09 01:54:33 - INFO - New user nick at 2025-02-09 01:54:33
+2025-02-09 01:54:33 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62168)>, 'bolt': <comm_server.Bolt object at 0x102a699d0>}}
+2025-02-09 01:54:39 - INFO - New user nick2 at 2025-02-09 01:54:39
+2025-02-09 01:54:39 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62168)>, 'bolt': <comm_server.Bolt object at 0x102a699d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62170)>, 'bolt': <comm_server.Bolt object at 0x102c53650>}}
+2025-02-09 01:54:46 - INFO - Message from nick to nick2 at 2025-02-09 01:54:46
+2025-02-09 01:54:55 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62168)> at 2025-02-09 01:54:55
+2025-02-09 01:54:55 - ERROR - Exception: Peer closed.
+2025-02-09 01:54:55 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62168)>, 'bolt': <comm_server.Bolt object at 0x102a699d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62170)>, 'bolt': <comm_server.Bolt object at 0x102c53650>}}
+2025-02-09 01:55:27 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)> at 2025-02-09 01:55:27
+2025-02-09 01:55:27 - ERROR - Exception: [Errno 54] Connection reset by peer
+2025-02-09 01:55:27 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a699d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432)>, 'bolt': <comm_server.Bolt object at 0x102c53650>}}
+2025-02-09 01:55:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:55:30
+2025-02-09 01:57:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 01:57:28
+2025-02-09 01:57:29 - INFO - Accepted connection from ('127.0.0.1', 62201) at 2025-02-09 01:57:29
+2025-02-09 01:57:31 - INFO - Accepted connection from ('127.0.0.1', 62203) at 2025-02-09 01:57:31
+2025-02-09 01:57:37 - INFO - New user nick at 2025-02-09 01:57:37
+2025-02-09 01:57:37 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62201)>, 'bolt': <comm_server.Bolt object at 0x102d959d0>}}
+2025-02-09 01:57:42 - INFO - New user nick2 at 2025-02-09 01:57:42
+2025-02-09 01:57:42 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62201)>, 'bolt': <comm_server.Bolt object at 0x102d959d0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 62203)>, 'bolt': <comm_server.Bolt object at 0x102f7f650>}}
+2025-02-09 01:57:52 - INFO - Message from nick to nick2 at 2025-02-09 01:57:52
+2025-02-09 01:57:54 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 01:57:54
