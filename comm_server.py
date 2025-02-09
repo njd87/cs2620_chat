@@ -142,7 +142,7 @@ class Bolt:
             sqlcur = sqlcon.cursor()
 
             user = self.request.get("username")  # KG: what if doesn't match
-            passhash = self.request.get("passhash")  # KG: need to hash
+            passhash = self.request.get("passhash") 
             passhash = hashlib.sha256(passhash.encode()).hexdigest()
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
 
@@ -150,11 +150,20 @@ class Bolt:
             if result:
                 # username exists and passhash matches
                 if result[0] == passhash:
+                    # get number of undelivered messages
+                    sqlcur.execute(
+                        "SELECT COUNT(*) FROM messages WHERE recipient=? AND delivered=0",
+                        (user,),
+                    )
+
+                    n_undelivered = sqlcur.fetchone()[0]
+
                     content = {
                         "result": True,
                         "users": sqlcur.execute(
                             "SELECT username FROM users WHERE username != ?", (user,)
                         ).fetchall(),
+                        "n_undelivered": n_undelivered,
                     }
                     back_to_server["new_user"] = user
                 # username exists but passhash is wrong
@@ -239,9 +248,17 @@ class Bolt:
                     (sender, recipient, message),
                 )
                 sqlcon.commit()
+
+                # get the message_id
+                sqlcur.execute(
+                    "SELECT message_id FROM messages WHERE sender=? AND recipient=? AND message=? ORDER BY time DESC LIMIT 1",
+                    (sender, recipient, message),
+                )
+                message_id = sqlcur.fetchone()[0]
                 content = {"result": True}
 
                 back_to_server["new_message"] = {
+                    "message_id": message_id,
                     "sender": sender,
                     "recipient": recipient,
                     "sent_message": message,
@@ -253,8 +270,38 @@ class Bolt:
         elif action == "ping":
             content = {
                 "sender": self.request.get("sender"),
-                "sent_message": self.request.get("sent_message")
+                "sent_message": self.request.get("sent_message"),
+                "message_id": self.request.get("message_id")
             }
+
+            # update the message to delivered
+            message_id = self.request.get("message_id")
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            sqlcur.execute(
+                "UPDATE messages SET delivered=1 WHERE message_id=?", (message_id,)
+            )
+            sqlcon.commit()
+
+            sqlcon.close()
+        elif action == "view_undelivered":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            user = self.request.get("user")
+            n_messages = self.request.get("n_messages")
+
+            print(f"User: {user}")
+            print(f"Number of messages: {n_messages}")
+            sqlcur.execute(
+                "SELECT sender, recipient, message, message_id FROM messages WHERE recipient=? AND delivered=0 ORDER BY time DESC LIMIT ?",
+                (user, n_messages),
+            )
+            result = sqlcur.fetchall()
+            content = {"undelivered_messages": result}
+
+            sqlcon.close()
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"
@@ -280,7 +327,7 @@ class Bolt:
         }
         jsonheader_bytes = self._json_encode(jsonheader, "utf-8")
         message_hdr = struct.pack(">H", len(jsonheader_bytes))
-        message = message_hdr + jsonheader_bytes + content_bytes
+        message = message_hdr + jsonheader_bytes + content_bytes 
         return message
 
     def _json_encode(self, obj, encoding):

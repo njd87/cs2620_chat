@@ -152,6 +152,10 @@ class Bolt:
                 "sender": self.request.get("sender"),
                 "sent_message": self.request.get("sent_message")
             }
+        elif action == "view_undelivered":
+            user = self.request.get("user")
+            n_messages = self.request.get("n_messages")
+            content = {"user": user, "n_messages": n_messages, "action": action}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")

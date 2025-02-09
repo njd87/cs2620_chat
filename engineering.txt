@@ -126,3 +126,9 @@ Our current idea is as follows:
 
 For right now, this doesn't seem to be working. Maybe a good night's sleep will get our brains going in the morning.
 For the record, we are currently printing "Checking..." in client's "check_new_message_request."
+
+02/09/2025
+We were able to get a mini version of live chat working: we shouldn't really be calling any methods other than process_events from the
+server code. So, we can instead just write certain information about user1's message into process_events for the bolt linked to user2
+and handle the request from there: that is, we send a ping back to user2 with the sender and the sent_message. Then, user2 can handle
+the new message/ping on the client side.

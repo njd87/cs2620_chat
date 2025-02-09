@@ -120,12 +120,13 @@ def main_loop() -> None:
                                     back_to_server["new_message"]["recipient"],
                                     time.strftime("%Y-%m-%d %H:%M:%S"),
                                 )
-                                # TODO: let recipient know they have a message if they are connected
+                                # let recipient know they have a message if they are connected
                                 if back_to_server["new_message"]["recipient"] in connected_users:
                                     connected_users[back_to_server["new_message"]["recipient"]]["bolt"].request = {
                                         "action": "ping",
                                         "sender": back_to_server["new_message"]["sender"],
-                                        "sent_message": back_to_server["new_message"]["sent_message"]
+                                        "sent_message": back_to_server["new_message"]["sent_message"],
+                                        "message_id": back_to_server["new_message"]["message_id"]
                                     }
                     except Exception as e:
                         # If the connection is closed by the peer, log and clean up without breaking the loop.

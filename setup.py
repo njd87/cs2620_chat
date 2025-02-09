@@ -57,5 +57,19 @@ def structure_tables() -> None:
 
 
 if __name__ == "__main__":
-    reset_database()
-    structure_tables()
+    # reset_database()
+    # structure_tables()
+
+    # get all messages where recipient is "nick" and delivered is 0
+    with sqlite3.connect(database_path) as conn:
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT * FROM messages WHERE recipient = ? AND delivered = 0;
+        """,
+            ("nick",),
+        )
+
+        messages = cursor.fetchall()
+        print(messages)

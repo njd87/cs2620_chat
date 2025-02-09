@@ -189,3 +189,255 @@
 2025-02-09 16:10:10 - ERROR - Exception: Peer closed.
 2025-02-09 16:10:10 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x100dcc750>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65207)>, 'bolt': <comm_server.Bolt object at 0x1010ae610>}}
 2025-02-09 16:10:12 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 16:10:12
+2025-02-09 16:13:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 16:13:02
+2025-02-09 16:13:02 - INFO - Accepted connection from ('127.0.0.1', 65239) at 2025-02-09 16:13:02
+2025-02-09 16:13:03 - INFO - Accepted connection from ('127.0.0.1', 65240) at 2025-02-09 16:13:03
+2025-02-09 16:13:13 - INFO - New user nick at 2025-02-09 16:13:13
+2025-02-09 16:13:13 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65239)>, 'bolt': <comm_server.Bolt object at 0x10040c750>}}
+2025-02-09 16:13:21 - INFO - New user nick2 at 2025-02-09 16:13:21
+2025-02-09 16:13:21 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65239)>, 'bolt': <comm_server.Bolt object at 0x10040c750>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65240)>, 'bolt': <comm_server.Bolt object at 0x1006ee610>}}
+2025-02-09 16:13:27 - INFO - Message from nick2 to nick at 2025-02-09 16:13:27
+2025-02-09 16:13:34 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65239)> at 2025-02-09 16:13:34
+2025-02-09 16:13:34 - ERROR - Exception: Peer closed.
+2025-02-09 16:13:34 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65239)>, 'bolt': <comm_server.Bolt object at 0x10040c750>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65240)>, 'bolt': <comm_server.Bolt object at 0x1006ee610>}}
+2025-02-09 16:13:35 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65240)> at 2025-02-09 16:13:35
+2025-02-09 16:13:35 - ERROR - Exception: Peer closed.
+2025-02-09 16:13:35 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x10040c750>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65240)>, 'bolt': <comm_server.Bolt object at 0x1006ee610>}}
+2025-02-09 16:15:39 - INFO - Accepted connection from ('127.0.0.1', 65263) at 2025-02-09 16:15:39
+2025-02-09 16:15:40 - INFO - Accepted connection from ('127.0.0.1', 65264) at 2025-02-09 16:15:40
+2025-02-09 16:15:48 - INFO - New user nick at 2025-02-09 16:15:48
+2025-02-09 16:15:48 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65263)>, 'bolt': <comm_server.Bolt object at 0x10076fa50>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x1006ee610>}}
+2025-02-09 16:16:46 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65263)> at 2025-02-09 16:16:46
+2025-02-09 16:16:46 - ERROR - Exception: Peer closed.
+2025-02-09 16:16:46 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65263)>, 'bolt': <comm_server.Bolt object at 0x10076fa50>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x1006ee610>}}
+2025-02-09 16:16:49 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 16:16:49
+2025-02-09 16:17:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 16:17:28
+2025-02-09 16:17:29 - INFO - Accepted connection from ('127.0.0.1', 65270) at 2025-02-09 16:17:29
+2025-02-09 16:17:35 - INFO - New user nick at 2025-02-09 16:17:35
+2025-02-09 16:17:35 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65270)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:17:39 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65270)> at 2025-02-09 16:17:39
+2025-02-09 16:17:39 - ERROR - Exception: Peer closed.
+2025-02-09 16:17:39 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65270)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:17:44 - INFO - Accepted connection from ('127.0.0.1', 65272) at 2025-02-09 16:17:44
+2025-02-09 16:17:50 - INFO - New user nick at 2025-02-09 16:17:50
+2025-02-09 16:17:50 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65272)>, 'bolt': <comm_server.Bolt object at 0x102a960d0>}}
+2025-02-09 16:21:58 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65272)> at 2025-02-09 16:21:58
+2025-02-09 16:21:58 - ERROR - Exception: Peer closed.
+2025-02-09 16:21:58 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65272)>, 'bolt': <comm_server.Bolt object at 0x102a960d0>}}
+2025-02-09 16:22:02 - INFO - Accepted connection from ('127.0.0.1', 65310) at 2025-02-09 16:22:02
+2025-02-09 16:22:10 - INFO - New user nick at 2025-02-09 16:22:10
+2025-02-09 16:22:10 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65310)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:22:39 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65310)> at 2025-02-09 16:22:39
+2025-02-09 16:22:39 - ERROR - Exception: Peer closed.
+2025-02-09 16:22:39 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65310)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:22:42 - INFO - Accepted connection from ('127.0.0.1', 65318) at 2025-02-09 16:22:42
+2025-02-09 16:22:49 - INFO - New user nick at 2025-02-09 16:22:49
+2025-02-09 16:22:49 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65318)>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}}
+2025-02-09 16:23:02 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65318)> at 2025-02-09 16:23:02
+2025-02-09 16:23:02 - ERROR - Exception: Peer closed.
+2025-02-09 16:23:02 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65318)>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}}
+2025-02-09 16:23:04 - INFO - Accepted connection from ('127.0.0.1', 65322) at 2025-02-09 16:23:04
+2025-02-09 16:23:12 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65322)> at 2025-02-09 16:23:12
+2025-02-09 16:23:12 - ERROR - Exception: Peer closed.
+2025-02-09 16:23:12 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}}
+2025-02-09 16:23:14 - INFO - Accepted connection from ('127.0.0.1', 65324) at 2025-02-09 16:23:14
+2025-02-09 16:23:25 - INFO - New user nick at 2025-02-09 16:23:25
+2025-02-09 16:23:25 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65324)>, 'bolt': <comm_server.Bolt object at 0x102ab1e50>}}
+2025-02-09 16:23:27 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65324)> at 2025-02-09 16:23:27
+2025-02-09 16:23:27 - ERROR - Exception: Peer closed.
+2025-02-09 16:23:27 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65324)>, 'bolt': <comm_server.Bolt object at 0x102ab1e50>}}
+2025-02-09 16:24:12 - INFO - Accepted connection from ('127.0.0.1', 65326) at 2025-02-09 16:24:12
+2025-02-09 16:24:12 - INFO - Accepted connection from ('127.0.0.1', 65327) at 2025-02-09 16:24:12
+2025-02-09 16:24:16 - INFO - Accepted connection from ('127.0.0.1', 65328) at 2025-02-09 16:24:16
+2025-02-09 16:24:24 - INFO - New user nick at 2025-02-09 16:24:24
+2025-02-09 16:24:24 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65326)>, 'bolt': <comm_server.Bolt object at 0x102a97450>}}
+2025-02-09 16:24:28 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65326)> at 2025-02-09 16:24:28
+2025-02-09 16:24:28 - ERROR - Exception: Peer closed.
+2025-02-09 16:24:28 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65326)>, 'bolt': <comm_server.Bolt object at 0x102a97450>}}
+2025-02-09 16:24:34 - INFO - New user nick2 at 2025-02-09 16:24:34
+2025-02-09 16:24:34 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97450>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65327)>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}}
+2025-02-09 16:24:35 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65327)> at 2025-02-09 16:24:35
+2025-02-09 16:24:35 - ERROR - Exception: Peer closed.
+2025-02-09 16:24:35 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97450>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65327)>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}}
+2025-02-09 16:24:43 - INFO - New user nick3 at 2025-02-09 16:24:43
+2025-02-09 16:24:43 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97450>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65328)>, 'bolt': <comm_server.Bolt object at 0x102a95d90>}}
+2025-02-09 16:24:44 - ERROR - Connection closed by peer: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65328)> at 2025-02-09 16:24:44
+2025-02-09 16:24:44 - ERROR - Exception: Peer closed.
+2025-02-09 16:24:44 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97450>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65328)>, 'bolt': <comm_server.Bolt object at 0x102a95d90>}}
+2025-02-09 16:24:47 - INFO - Accepted connection from ('127.0.0.1', 65335) at 2025-02-09 16:24:47
+2025-02-09 16:24:47 - INFO - Accepted connection from ('127.0.0.1', 65336) at 2025-02-09 16:24:47
+2025-02-09 16:24:48 - INFO - Accepted connection from ('127.0.0.1', 65337) at 2025-02-09 16:24:48
+2025-02-09 16:24:55 - INFO - New user nick at 2025-02-09 16:24:55
+2025-02-09 16:24:55 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97b90>}, 'nick3': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95d90>}}
+2025-02-09 16:25:06 - INFO - New user nick2 at 2025-02-09 16:25:06
+2025-02-09 16:25:06 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65336)>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95d90>}}
+2025-02-09 16:25:13 - INFO - New user nick3 at 2025-02-09 16:25:13
+2025-02-09 16:25:13 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65336)>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65335)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:25:29 - INFO - Message from nick to nick2 at 2025-02-09 16:25:29
+2025-02-09 16:25:42 - INFO - Message from nick3 to nick2 at 2025-02-09 16:25:42
+2025-02-09 16:25:57 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65336)> at 2025-02-09 16:25:57
+2025-02-09 16:25:57 - ERROR - Exception: Peer closed.
+2025-02-09 16:25:57 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65336)>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65335)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:25:59 - ERROR - Connection closed by peer: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)> at 2025-02-09 16:25:59
+2025-02-09 16:25:59 - ERROR - Exception: Peer closed.
+2025-02-09 16:25:59 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65337)>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65335)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:25:59 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65335)> at 2025-02-09 16:25:59
+2025-02-09 16:25:59 - ERROR - Exception: Peer closed.
+2025-02-09 16:25:59 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95ad0>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65335)>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:30:07 - INFO - Accepted connection from ('127.0.0.1', 65390) at 2025-02-09 16:30:07
+2025-02-09 16:30:09 - INFO - Accepted connection from ('127.0.0.1', 65391) at 2025-02-09 16:30:09
+2025-02-09 16:30:12 - INFO - Accepted connection from ('127.0.0.1', 65392) at 2025-02-09 16:30:12
+2025-02-09 16:30:21 - INFO - New user nick at 2025-02-09 16:30:21
+2025-02-09 16:30:21 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65390)>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a95bd0>}, 'nick3': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:30:28 - INFO - New user nick2 at 2025-02-09 16:30:28
+2025-02-09 16:30:28 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65390)>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65391)>, 'bolt': <comm_server.Bolt object at 0x102a97a50>}, 'nick3': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102734750>}}
+2025-02-09 16:30:36 - INFO - New user nick3 at 2025-02-09 16:30:36
+2025-02-09 16:30:36 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65390)>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65391)>, 'bolt': <comm_server.Bolt object at 0x102a97a50>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65392)>, 'bolt': <comm_server.Bolt object at 0x102a97e90>}}
+2025-02-09 16:30:50 - INFO - Message from nick2 to nick at 2025-02-09 16:30:50
+2025-02-09 16:31:01 - INFO - Message from nick2 to nick at 2025-02-09 16:31:01
+2025-02-09 16:31:08 - INFO - Message from nick to nick2 at 2025-02-09 16:31:08
+2025-02-09 16:31:12 - INFO - Message from nick to nick3 at 2025-02-09 16:31:12
+2025-02-09 16:31:15 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65390)> at 2025-02-09 16:31:15
+2025-02-09 16:31:15 - ERROR - Exception: Peer closed.
+2025-02-09 16:31:15 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65390)>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65391)>, 'bolt': <comm_server.Bolt object at 0x102a97a50>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65392)>, 'bolt': <comm_server.Bolt object at 0x102a97e90>}}
+2025-02-09 16:31:16 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65391)> at 2025-02-09 16:31:16
+2025-02-09 16:31:16 - ERROR - Exception: Peer closed.
+2025-02-09 16:31:16 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65391)>, 'bolt': <comm_server.Bolt object at 0x102a97a50>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65392)>, 'bolt': <comm_server.Bolt object at 0x102a97e90>}}
+2025-02-09 16:31:17 - ERROR - Connection closed by peer: <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65392)> at 2025-02-09 16:31:17
+2025-02-09 16:31:17 - ERROR - Exception: Peer closed.
+2025-02-09 16:31:17 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a14fd0>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x102a97a50>}, 'nick3': {'socket': <socket.socket fd=8, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65392)>, 'bolt': <comm_server.Bolt object at 0x102a97e90>}}
+2025-02-09 16:31:31 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 16:31:31
+2025-02-09 16:31:32 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 16:31:32
+2025-02-09 16:31:33 - INFO - Accepted connection from ('127.0.0.1', 65399) at 2025-02-09 16:31:33
+2025-02-09 16:31:39 - INFO - New user nick at 2025-02-09 16:31:39
+2025-02-09 16:31:39 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65399)>, 'bolt': <comm_server.Bolt object at 0x103088750>}}
+2025-02-09 16:31:44 - INFO - Message from nick to nick2 at 2025-02-09 16:31:44
+2025-02-09 16:32:28 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65399)> at 2025-02-09 16:32:28
+2025-02-09 16:32:28 - ERROR - Exception: Peer closed.
+2025-02-09 16:32:28 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65399)>, 'bolt': <comm_server.Bolt object at 0x103088750>}}
+2025-02-09 16:32:30 - INFO - Accepted connection from ('127.0.0.1', 65410) at 2025-02-09 16:32:30
+2025-02-09 16:32:35 - INFO - New user nick at 2025-02-09 16:32:35
+2025-02-09 16:32:35 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65410)>, 'bolt': <comm_server.Bolt object at 0x10309b250>}}
+2025-02-09 16:32:39 - INFO - Message from nick to nick2 at 2025-02-09 16:32:39
+2025-02-09 16:32:40 - INFO - Message from nick to nick2 at 2025-02-09 16:32:40
+2025-02-09 16:32:42 - INFO - Message from nick to nick2 at 2025-02-09 16:32:42
+2025-02-09 16:32:43 - INFO - Message from nick to nick2 at 2025-02-09 16:32:43
+2025-02-09 16:32:45 - INFO - Message from nick to nick2 at 2025-02-09 16:32:45
+2025-02-09 16:32:46 - INFO - Message from nick to nick2 at 2025-02-09 16:32:46
+2025-02-09 16:32:48 - INFO - Accepted connection from ('127.0.0.1', 65411) at 2025-02-09 16:32:48
+2025-02-09 16:32:55 - INFO - New user nick2 at 2025-02-09 16:32:55
+2025-02-09 16:32:55 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65410)>, 'bolt': <comm_server.Bolt object at 0x10309b250>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65411)>, 'bolt': <comm_server.Bolt object at 0x1033b8490>}}
+2025-02-09 16:32:58 - INFO - Message from nick to nick2 at 2025-02-09 16:32:58
+2025-02-09 17:05:36 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65411)> at 2025-02-09 17:05:36
+2025-02-09 17:05:36 - ERROR - Exception: Peer closed.
+2025-02-09 17:05:36 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65410)>, 'bolt': <comm_server.Bolt object at 0x10309b250>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65411)>, 'bolt': <comm_server.Bolt object at 0x1033b8490>}}
+2025-02-09 17:05:38 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65410)> at 2025-02-09 17:05:38
+2025-02-09 17:05:38 - ERROR - Exception: Peer closed.
+2025-02-09 17:05:38 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 65410)>, 'bolt': <comm_server.Bolt object at 0x10309b250>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x1033b8490>}}
+2025-02-09 17:11:18 - INFO - Accepted connection from ('127.0.0.1', 49285) at 2025-02-09 17:11:18
+2025-02-09 17:11:19 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49285)> at 2025-02-09 17:11:19
+2025-02-09 17:11:19 - ERROR - Exception: Peer closed.
+2025-02-09 17:11:19 - INFO - Connected users: {'nick': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x10309b250>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x1033b8490>}}
+2025-02-09 17:11:20 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:11:20
+2025-02-09 17:11:22 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:11:22
+2025-02-09 17:11:23 - INFO - Accepted connection from ('127.0.0.1', 49286) at 2025-02-09 17:11:23
+2025-02-09 17:11:29 - INFO - New user nick at 2025-02-09 17:11:29
+2025-02-09 17:11:29 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:29 - INFO - New user nick at 2025-02-09 17:11:29
+2025-02-09 17:11:29 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:30 - INFO - New user nick at 2025-02-09 17:11:30
+2025-02-09 17:11:30 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:30 - INFO - New user nick at 2025-02-09 17:11:30
+2025-02-09 17:11:30 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:31 - INFO - New user nick at 2025-02-09 17:11:31
+2025-02-09 17:11:31 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:31 - INFO - New user nick at 2025-02-09 17:11:31
+2025-02-09 17:11:31 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:32 - INFO - New user nick at 2025-02-09 17:11:32
+2025-02-09 17:11:32 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:32 - INFO - New user nick at 2025-02-09 17:11:32
+2025-02-09 17:11:32 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:32 - INFO - New user nick at 2025-02-09 17:11:32
+2025-02-09 17:11:32 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:54 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)> at 2025-02-09 17:11:54
+2025-02-09 17:11:54 - ERROR - Exception: Peer closed.
+2025-02-09 17:11:54 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49286)>, 'bolt': <comm_server.Bolt object at 0x100893350>}}
+2025-02-09 17:11:55 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:11:55
+2025-02-09 17:11:57 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:11:57
+2025-02-09 17:11:59 - INFO - Accepted connection from ('127.0.0.1', 49288) at 2025-02-09 17:11:59
+2025-02-09 17:12:06 - INFO - New user nick at 2025-02-09 17:12:06
+2025-02-09 17:12:06 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49288)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:12:52 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49288)> at 2025-02-09 17:12:52
+2025-02-09 17:12:52 - ERROR - Exception: Peer closed.
+2025-02-09 17:12:52 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49288)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:12:54 - INFO - Accepted connection from ('127.0.0.1', 49291) at 2025-02-09 17:12:54
+2025-02-09 17:13:05 - INFO - New user nick at 2025-02-09 17:13:05
+2025-02-09 17:13:05 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49291)>, 'bolt': <comm_server.Bolt object at 0x104c21810>}}
+2025-02-09 17:13:14 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49291)> at 2025-02-09 17:13:14
+2025-02-09 17:13:14 - ERROR - Exception: Peer closed.
+2025-02-09 17:13:14 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49291)>, 'bolt': <comm_server.Bolt object at 0x104c21810>}}
+2025-02-09 17:13:15 - INFO - Accepted connection from ('127.0.0.1', 49292) at 2025-02-09 17:13:15
+2025-02-09 17:13:22 - INFO - New user nick at 2025-02-09 17:13:22
+2025-02-09 17:13:22 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49292)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:13:29 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49292)> at 2025-02-09 17:13:29
+2025-02-09 17:13:29 - ERROR - Exception: Peer closed.
+2025-02-09 17:13:29 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49292)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:19:34 - INFO - Accepted connection from ('127.0.0.1', 49310) at 2025-02-09 17:19:34
+2025-02-09 17:19:40 - INFO - New user nick at 2025-02-09 17:19:40
+2025-02-09 17:19:40 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49310)>, 'bolt': <comm_server.Bolt object at 0x104c21810>}}
+2025-02-09 17:22:00 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49310)> at 2025-02-09 17:22:00
+2025-02-09 17:22:00 - ERROR - Exception: Peer closed.
+2025-02-09 17:22:00 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49310)>, 'bolt': <comm_server.Bolt object at 0x104c21810>}}
+2025-02-09 17:22:02 - INFO - Accepted connection from ('127.0.0.1', 49323) at 2025-02-09 17:22:02
+2025-02-09 17:22:11 - INFO - New user nick at 2025-02-09 17:22:11
+2025-02-09 17:22:11 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49323)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:24:00 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49323)> at 2025-02-09 17:24:00
+2025-02-09 17:24:00 - ERROR - Exception: Peer closed.
+2025-02-09 17:24:00 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49323)>, 'bolt': <comm_server.Bolt object at 0x1048dc750>}}
+2025-02-09 17:24:01 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:24:01
+2025-02-09 17:24:01 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:24:01
+2025-02-09 17:24:02 - INFO - Accepted connection from ('127.0.0.1', 49325) at 2025-02-09 17:24:02
+2025-02-09 17:24:10 - INFO - New user nick at 2025-02-09 17:24:10
+2025-02-09 17:24:10 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49325)>, 'bolt': <comm_server.Bolt object at 0x104773350>}}
+2025-02-09 17:34:01 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49325)> at 2025-02-09 17:34:01
+2025-02-09 17:34:01 - ERROR - Exception: Peer closed.
+2025-02-09 17:34:01 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49325)>, 'bolt': <comm_server.Bolt object at 0x104773350>}}
+2025-02-09 17:34:02 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:34:02
+2025-02-09 17:34:02 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:34:02
+2025-02-09 17:34:11 - INFO - Accepted connection from ('127.0.0.1', 49358) at 2025-02-09 17:34:11
+2025-02-09 17:34:18 - INFO - New user nick at 2025-02-09 17:34:18
+2025-02-09 17:34:18 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49358)>, 'bolt': <comm_server.Bolt object at 0x100d8b350>}}
+2025-02-09 17:35:16 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:35:16
+2025-02-09 17:35:19 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:35:19
+2025-02-09 17:35:20 - INFO - Accepted connection from ('127.0.0.1', 49379) at 2025-02-09 17:35:20
+2025-02-09 17:35:26 - INFO - New user nick at 2025-02-09 17:35:26
+2025-02-09 17:35:26 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49379)>, 'bolt': <comm_server.Bolt object at 0x1013ff350>}}
+2025-02-09 17:35:26 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49379)> at 2025-02-09 17:35:26
+2025-02-09 17:35:26 - ERROR - Exception: datatype mismatch
+2025-02-09 17:35:26 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49379)>, 'bolt': <comm_server.Bolt object at 0x1013ff350>}}
+2025-02-09 17:36:42 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:36:42
+2025-02-09 17:36:58 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:36:58
+2025-02-09 17:36:59 - INFO - Accepted connection from ('127.0.0.1', 49383) at 2025-02-09 17:36:59
+2025-02-09 17:37:05 - INFO - New user nick at 2025-02-09 17:37:05
+2025-02-09 17:37:05 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49383)>, 'bolt': <comm_server.Bolt object at 0x1033cb350>}}
+2025-02-09 17:37:17 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49383)> at 2025-02-09 17:37:17
+2025-02-09 17:37:17 - ERROR - Exception: Peer closed.
+2025-02-09 17:37:17 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49383)>, 'bolt': <comm_server.Bolt object at 0x1033cb350>}}
+2025-02-09 17:37:18 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:37:18
+2025-02-09 17:38:33 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:38:33
+2025-02-09 17:38:36 - INFO - Accepted connection from ('127.0.0.1', 49388) at 2025-02-09 17:38:36
+2025-02-09 17:38:41 - INFO - New user nick at 2025-02-09 17:38:41
+2025-02-09 17:38:41 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49388)>, 'bolt': <comm_server.Bolt object at 0x100d3b350>}}
+2025-02-09 17:38:45 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49388)> at 2025-02-09 17:38:45
+2025-02-09 17:38:45 - ERROR - Exception: Peer closed.
+2025-02-09 17:38:45 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49388)>, 'bolt': <comm_server.Bolt object at 0x100d3b350>}}
+2025-02-09 17:39:30 - ERROR - KeyboardInterrupt, exiting at 2025-02-09 17:39:30
+2025-02-09 17:39:30 - INFO - Listening on 127.0.0.1:65432 at 2025-02-09 17:39:30
+2025-02-09 17:39:32 - INFO - Accepted connection from ('127.0.0.1', 49438) at 2025-02-09 17:39:32
+2025-02-09 17:39:38 - INFO - New user nick at 2025-02-09 17:39:38
+2025-02-09 17:39:38 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49438)>, 'bolt': <comm_server.Bolt object at 0x100ceb350>}}
+2025-02-09 17:39:51 - INFO - Message from nick to nick3 at 2025-02-09 17:39:51
+2025-02-09 17:39:51 - INFO - Message from nick to nick3 at 2025-02-09 17:39:51
+2025-02-09 17:40:24 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49438)> at 2025-02-09 17:40:24
+2025-02-09 17:40:24 - ERROR - Exception: Peer closed.
+2025-02-09 17:40:24 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 49438)>, 'bolt': <comm_server.Bolt object at 0x100ceb350>}}

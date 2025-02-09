@@ -44,7 +44,7 @@ class ClientUI:
         """
         self.root = tk.Tk()
         self.root.title("Messenger")
-        self.root.geometry("400x400")
+        self.root.geometry("1200x1200")
 
         self.credentials = None
 
@@ -64,11 +64,19 @@ class ClientUI:
         # current messages in conversation
         self.loaded_messages = []
 
+        # incoming pings
+        self.incoming_pings = []
+
+        # undelivered messages
+        self.undelivered_messages = []
+        self.n_undelivered = 0
+
         # user that is currently being messaged
         self.connected_to = None
 
         # run the tkinter main loop
         self.root.mainloop()
+
 
     """
     Functions starting with "check_" are used to check for responses from the server.
@@ -108,10 +116,11 @@ class ClientUI:
             # logged in successfully - passhash matches
             if self.conn_data.response["result"]:
                 self.users = self.conn_data.response["users"]
+                self.n_undelivered = self.conn_data.response["n_undelivered"]
                 self.conn_data.response = None
                 self.credentials = self.login_entry.get()
                 self.login_frame.destroy()
-                self.setup_main()
+                self.setup_undelivered()
                 return
             # login failed, incorrect username/password
             else:
@@ -151,7 +160,7 @@ class ClientUI:
         """
         Check for a response to the load chat request.
         """
-        if self.conn_data.response:
+        if self.conn_data.response and "messages" in self.conn_data.response:
             self.loaded_messages = self.conn_data.response["messages"]
             self.conn_data.response = None
             self.rerender_messages()
@@ -168,8 +177,9 @@ class ClientUI:
             self.loaded_messages += [
                 (self.credentials, self.connected_to, self.chat_entry.get())
             ]
-            self.destroy_main()
-            self.setup_main()
+            self.chat_entry.delete(0, tk.END)
+            self.rerender_messages()
+            self.rerender_pings()
             return
 
         self.root.after(100, self.check_send_message_request)
@@ -179,14 +189,33 @@ class ClientUI:
         Check for a response to the new message request.
         """
         if self.conn_data.response and "sent_message" in self.conn_data.response:
-            self.loaded_messages += [
-                (self.connected_to, self.credentials, self.conn_data.response["sent_message"])
-            ]
-            self.conn_data.response = None
-            self.rerender_messages()
+            if self.connected_to == self.conn_data.response["sender"]:
+                self.loaded_messages += [
+                    (self.connected_to, self.credentials, self.conn_data.response["sent_message"], self.conn_data.response["message_id"])
+                ]
+                self.conn_data.response = None
+                self.rerender_messages()
+            
+            self.incoming_pings += (
+                self.conn_data.response["sender"],
+                self.conn_data.response["sent_message"]
+                )
+            self.rerender_pings()
             return
 
         self.root.after(100, self.check_new_message_request)
+    
+    def check_undelivered_request(self):
+        """
+        Check for a response to the undelivered request.
+        """
+        if self.conn_data.response and "undelivered_messages" in self.conn_data.response:
+            self.undelivered_messages = self.conn_data.response["undelivered_messages"]
+            self.conn_data.response = None
+            self.rerender_undelivered()
+            return
+
+        self.root.after(100, self.check_undelivered_request)
 
     """
     Functions starting with "send_" are used to send requests to the server.
@@ -278,6 +307,24 @@ class ClientUI:
         }
 
         self.root.after(100, self.check_send_message_request)
+    
+    def send_undelivered_request(self, n_messages):
+        """
+        Send a request to view undelivered messages.
+
+        Parameters
+        ----------
+        n_messages : int
+            The number of messages to view.
+        """
+        # create a request
+        self.conn_data.request = {
+            "action": "view_undelivered",
+            "user": self.credentials,
+            "n_messages": n_messages,
+            "encoding": "utf-8",
+        }
+        self.root.after(100, self.check_undelivered_request)
 
     """
     Functions starting with "setup_" are used to set up the state of the tkinter window.
@@ -356,6 +403,53 @@ class ClientUI:
         Destroy the login screen.
         """
         self.login_frame.destroy()
+
+    def setup_undelivered(self):
+        """
+        Set up the undelivered screen.
+
+        Has:
+        - A label that says "Undelivered messages"
+        - A listbox that has all the undelivered messages.
+        - A button that says "Resend" to resend the selected message.
+        """
+        self.undelivered_frame = tk.Frame(self.root)
+        self.undelivered_frame.pack()
+
+        # say a label with "Welcome Back"
+        self.welcome_back_label = tk.Label(self.undelivered_frame, text=f"Welcome back, {self.credentials}!")
+        self.welcome_back_label.pack()
+
+        self.undelivered_label = tk.Label(self.undelivered_frame, text=f"You have {self.n_undelivered} new messages")
+        self.undelivered_label.pack()
+
+        # put a number entry for number of messages to view
+        self.undelivered_number_label = tk.Label(self.undelivered_frame, text="Enter number of messages to view:")
+        self.undelivered_number_label.pack()
+
+        # from 0 to n_undelivered
+        self.undelivered_number_entry = tk.Entry(self.undelivered_frame)
+        self.undelivered_number_entry.pack()
+
+        # submit button
+        self.undelivered_number_button = tk.Button(
+            self.undelivered_frame,
+            text="Submit",
+            command=lambda: self.send_undelivered_request(self.undelivered_number_entry.get()),
+        )
+        self.undelivered_number_button.pack()
+
+        # listbox with undelivered messages
+        self.undelivered_listbox = tk.Listbox(self.undelivered_frame)
+        for message in self.undelivered_messages:
+            self.undelivered_listbox.insert(tk.END, message)
+        self.undelivered_listbox.pack()
+
+    def destroy_undelivered(self):
+        """
+        Destroy the undelivered screen.
+        """
+        self.undelivered_frame.destroy()
 
     def setup_register(self):
         """
@@ -464,25 +558,31 @@ class ClientUI:
         self.users_next_button = tk.Button(self.users_frame, text="Next")
         self.users_next_button.pack(side=tk.RIGHT)
 
+        self.ping_frame = tk.Frame(self.main_frame)
+        self.ping_frame.pack(side=tk.BOTTOM)
+
+        self.incoming_pings_label = tk.Label(self.ping_frame, text="Incoming Pings")
+        self.incoming_pings_label.pack()
+        self.incoming_pings_listbox = tk.Listbox(self.ping_frame)
+        for ping in self.incoming_pings:
+            self.incoming_pings_listbox.insert(tk.END, ping)
+        self.incoming_pings_listbox.pack()
+
         self.chat_frame = tk.Frame(self.main_frame)
         self.chat_frame.pack(side=tk.TOP)
 
-        self.chat_text = tk.Text(self.chat_frame)
+        self.chat_text = tk.Listbox(self.chat_frame)
         self.chat_text.config(state=tk.DISABLED)
 
         if self.connected_to:
             # add text to chat frame saying "Messages with {self.connected_to}"
-            self.chat_text.config(state=tk.NORMAL)
             self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
-            self.chat_text.config(state=tk.DISABLED)
 
         self.chat_text.pack()
 
         # add text to chat frame
         for message in self.loaded_messages:
-            self.chat_text.config(state=tk.NORMAL)
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
-            self.chat_text.config(state=tk.DISABLED)
 
         self.chat_entry_frame = tk.Frame(self.main_frame)
         self.chat_entry_frame.pack(side=tk.RIGHT)
@@ -491,7 +591,7 @@ class ClientUI:
         self.send_button = tk.Button(
             self.chat_entry_frame,
             text="Send",
-            command=lambda: self.send_message_request(self.chat_entry.get()),
+            command=lambda: [self.send_message_request(self.chat_entry.get())],
         )
         self.send_button.pack()
         self.settings_button = tk.Button(self.chat_entry_frame, text="Settings")
@@ -510,14 +610,21 @@ class ClientUI:
         Rerender the messages in the chat window.
         Needs to be called whenever new messages are received or sent.
         """
-        self.chat_text.config(state=tk.NORMAL)
         self.chat_text.delete(1.0, tk.END)
         self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
         for message in self.loaded_messages:
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
-        self.chat_text.config(state=tk.DISABLED)
 
         self.root.after(100, self.check_new_message_request)
+    
+    def rerender_pings(self):
+        """
+        Rerender the pings in the ping windows.
+        Needs to be called whenever new pings are received.
+        """
+        self.incoming_pings_listbox.delete(0, tk.END)
+        for ping in self.incoming_pings:
+            self.incoming_pings_listbox.insert(tk.END, f"{ping[0]}: {ping[1]}")
     
     def rerender_users(self):
         """
@@ -527,6 +634,26 @@ class ClientUI:
         self.users_listbox.delete(0, tk.END)
         for user in self.users:
             self.users_listbox.insert(tk.END, user)
+    
+    def rerender_undelivered(self):
+        """
+        Rerender the undelivered messages in the undelivered listbox.
+        Needs to be called whenever new undelivered messages are received.
+        """
+        self.undelivered_listbox.delete(0, tk.END)
+        for message in self.undelivered_messages:
+            self.undelivered_listbox.insert(tk.END, f"{message[0]}: {message[2]}")
+
+        # remove submit button
+        self.undelivered_number_button.pack_forget()
+
+        # add "Go to Home" button
+        self.go_home_button = tk.Button(
+            self.undelivered_frame,
+            text="Go to Home",
+            command=lambda: [self.destroy_undelivered(), self.setup_main()],
+        )
+        self.go_home_button.pack()
 
     def setup_delete(self):
         self.delete_frame = tk.Frame(self.root)
