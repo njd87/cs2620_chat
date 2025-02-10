@@ -136,3 +136,5 @@ the new message/ping on the client side.
 To delete messages correctly, we actually need the main chat interface to be in the form of a tik listbox. Implemented deleting messages
 feature. It (correctly) does not let you delete someone else's message, though we probably still need to display some kind of message that
 you can't do so.
+
+I think that we should set messages to delivered once setup_main() is called.

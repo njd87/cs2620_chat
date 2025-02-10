@@ -279,6 +279,8 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
+            print(f"Updating message {message_id} to delivered.")
+
             sqlcur.execute(
                 "UPDATE messages SET delivered=1 WHERE message_id=?", (message_id,)
             )
@@ -300,6 +302,11 @@ class Bolt:
             )
             result = sqlcur.fetchall()
             content = {"undelivered_messages": result}
+
+            sqlcur.execute(
+                "UPDATE messages SET delivered=1 WHERE recipient=?", (user,)
+            )
+            sqlcon.commit()
 
             sqlcon.close()
         elif action == "delete_message":
