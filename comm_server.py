@@ -302,6 +302,16 @@ class Bolt:
             content = {"undelivered_messages": result}
 
             sqlcon.close()
+        elif action == "delete_message":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            message_id = self.request.get("message_id")
+            sqlcur.execute("DELETE FROM messages WHERE message_id=?", (message_id,))
+            sqlcon.commit()
+
+            sqlcon.close()
+            content = {"result": True}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"

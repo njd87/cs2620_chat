@@ -132,3 +132,7 @@ We were able to get a mini version of live chat working: we shouldn't really be 
 server code. So, we can instead just write certain information about user1's message into process_events for the bolt linked to user2
 and handle the request from there: that is, we send a ping back to user2 with the sender and the sent_message. Then, user2 can handle
 the new message/ping on the client side.
+
+To delete messages correctly, we actually need the main chat interface to be in the form of a tik listbox. Implemented deleting messages
+feature. It (correctly) does not let you delete someone else's message, though we probably still need to display some kind of message that
+you can't do so.

@@ -175,7 +175,7 @@ class ClientUI:
         if self.conn_data.response:
             self.conn_data.response = None
             self.loaded_messages += [
-                (self.credentials, self.connected_to, self.chat_entry.get())
+                (self.credentials, self.connected_to, self.chat_entry.get()) # KG: is there any problem with timing for chat_entry.get()?
             ]
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
@@ -216,6 +216,20 @@ class ClientUI:
             return
 
         self.root.after(100, self.check_undelivered_request)
+
+    def check_delete_message_request(self):
+        """
+        Check for a response to the delete message request.
+        """
+        if self.conn_data.response:
+            self.conn_data.response = None
+            del self.loaded_messages[self.chat_text.curselection()[0] - 1] # KG: is there any problem with timing?
+            self.chat_entry.delete(0, tk.END)
+            self.rerender_messages()
+            self.rerender_pings()
+            return
+
+        self.root.after(100, self.check_delete_message_request)
 
     """
     Functions starting with "send_" are used to send requests to the server.
@@ -325,6 +339,28 @@ class ClientUI:
             "encoding": "utf-8",
         }
         self.root.after(100, self.check_undelivered_request)
+
+    def send_delete_message_request(self, message_inx):
+        """
+        Delete a message from the chat.
+        """
+        print(self.loaded_messages[message_inx])
+        # check if the message is from the user
+        if self.loaded_messages[message_inx][0] == self.credentials:
+            message_id = self.loaded_messages[message_inx][3]
+
+            self.conn_data.request = {
+                "action": "delete_message",
+                "message_id": message_id,
+                "sender": self.credentials,
+                "recipient": self.connected_to,
+                "encoding": "utf-8"
+            }
+
+            self.root.after(100, self.check_delete_message_request) # KG: why do we need root.after?
+        else:
+            print("not allowed to delete")
+        
 
     """
     Functions starting with "setup_" are used to set up the state of the tkinter window.
@@ -572,17 +608,24 @@ class ClientUI:
         self.chat_frame.pack(side=tk.TOP)
 
         self.chat_text = tk.Listbox(self.chat_frame)
-        self.chat_text.config(state=tk.DISABLED)
 
-        if self.connected_to:
-            # add text to chat frame saying "Messages with {self.connected_to}"
-            self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
+        # if self.connected_to:
+        #     # add text to chat frame saying "Messages with {self.connected_to}"
+        #     self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
+        # KG: I don't think we need to load on setup_main()
 
         self.chat_text.pack()
 
         # add text to chat frame
         for message in self.loaded_messages:
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
+
+        self.delete_message_button = tk.Button(
+            self.chat_frame,
+            text="Delete Message",
+            command=lambda: [self.send_delete_message_request(self.chat_text.curselection()[0] - 1)],
+        )
+        self.delete_message_button.pack()
 
         self.chat_entry_frame = tk.Frame(self.main_frame)
         self.chat_entry_frame.pack(side=tk.RIGHT)
@@ -610,7 +653,7 @@ class ClientUI:
         Rerender the messages in the chat window.
         Needs to be called whenever new messages are received or sent.
         """
-        self.chat_text.delete(1.0, tk.END)
+        self.chat_text.delete(0, tk.END)
         self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
         for message in self.loaded_messages:
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
