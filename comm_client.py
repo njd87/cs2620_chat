@@ -148,15 +148,16 @@ class Bolt:
                 "action": action,
             }
         elif action == "ping":
+            print("PING!!!!!!")
             content = {
                 "sender": self.request.get("sender"),
                 "sent_message": self.request.get("sent_message"),
                 "action": action
             }
         elif action == "view_undelivered":
-            user = self.request.get("user")
+            username = self.request.get("username")
             n_messages = self.request.get("n_messages")
-            content = {"user": user, "n_messages": n_messages, "action": action}
+            content = {"username": username, "n_messages": n_messages, "action": action}
         elif action == "delete_message":
             message_id = self.request.get("message_id")
             content = {"message_id": message_id, "action": action}

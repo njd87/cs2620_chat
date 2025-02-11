@@ -255,7 +255,7 @@ class Bolt:
                     (sender, recipient, message),
                 )
                 message_id = sqlcur.fetchone()[0]
-                content = {"result": True}
+                content = {"message_id": message_id}
 
                 back_to_server["new_message"] = {
                     "message_id": message_id,
@@ -291,20 +291,20 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            user = self.request.get("user")
+            username = self.request.get("username")
             n_messages = self.request.get("n_messages")
 
-            print(f"User: {user}")
+            print(f"User: {username}")
             print(f"Number of messages: {n_messages}")
             sqlcur.execute(
                 "SELECT sender, recipient, message, message_id FROM messages WHERE recipient=? AND delivered=0 ORDER BY time DESC LIMIT ?",
-                (user, n_messages),
+                (username, n_messages),
             )
             result = sqlcur.fetchall()
             content = {"undelivered_messages": result}
 
             sqlcur.execute(
-                "UPDATE messages SET delivered=1 WHERE recipient=?", (user,)
+                "UPDATE messages SET delivered=1 WHERE recipient=?", (username,)
             )
             sqlcon.commit()
 

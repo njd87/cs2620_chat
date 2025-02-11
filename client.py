@@ -44,7 +44,7 @@ class ClientUI:
         """
         self.root = tk.Tk()
         self.root.title("Messenger")
-        self.root.geometry("1200x1200")
+        self.root.geometry("800x600")
 
         self.credentials = None
 
@@ -125,9 +125,9 @@ class ClientUI:
             # login failed, incorrect username/password
             else:
                 self.conn_data.response = None
-                self.login_failed_label.pack()
                 self.login_frame.destroy()
-                self.setup_login()
+                # self.login_failed_label.pack()
+                self.setup_login(failed = True)
                 return
 
         self.root.after(100, self.check_login_response)
@@ -151,7 +151,7 @@ class ClientUI:
             else:
                 self.conn_data.response = None
                 self.register_username_exists_label.pack()
-                self.register_passwords_do_not_match_label.forget_pack()
+                # self.register_passwords_do_not_match_label.forget_pack()
                 return
 
         self.root.after(100, self.check_register_response)
@@ -173,13 +173,13 @@ class ClientUI:
         Check for a response to the send message request.
         """
         if self.conn_data.response:
-            self.conn_data.response = None
             self.loaded_messages += [
-                (self.credentials, self.connected_to, self.chat_entry.get()) # KG: is there any problem with timing for chat_entry.get()?
+                (self.credentials, self.connected_to, self.chat_entry.get(), self.conn_data.response["message_id"])
             ]
+            self.conn_data.response = None
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
-            self.rerender_pings()
+            # self.rerender_pings()
             return
 
         self.root.after(100, self.check_send_message_request)
@@ -195,12 +195,13 @@ class ClientUI:
                 ]
                 self.conn_data.response = None
                 self.rerender_messages()
-            
-            self.incoming_pings += (
-                self.conn_data.response["sender"],
-                self.conn_data.response["sent_message"]
-                )
-            self.rerender_pings()
+            else:
+                self.incoming_pings += [(
+                    self.conn_data.response["sender"],
+                    self.conn_data.response["sent_message"]
+                    )]
+                self.conn_data.response = None
+                self.rerender_pings()
             return
 
         self.root.after(100, self.check_new_message_request)
@@ -226,7 +227,7 @@ class ClientUI:
             del self.loaded_messages[self.chat_text.curselection()[0] - 1] # KG: is there any problem with timing?
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
-            self.rerender_pings()
+            # self.rerender_pings()
             return
 
         self.root.after(100, self.check_delete_message_request)
@@ -252,8 +253,8 @@ class ClientUI:
         confirm_password : str
             The confirm password to send. Only used for registration.
         """
-        if action == "register" and password != confirm_password:
-            self.register_passwords_do_not_match_label.pack()
+        # if action == "register" and password != confirm_password:
+        #     self.register_passwords_do_not_match_label.pack()
         # create a request
         self.conn_data.request = {
             "action": action,
@@ -299,6 +300,8 @@ class ClientUI:
         }
 
         self.connected_to = username
+        self.incoming_pings = [ping for ping in self.incoming_pings if ping[0] != username] # KG: could cause slowdown
+        self.rerender_pings()
 
         self.root.after(100, self.check_load_chat_request)
 
@@ -334,7 +337,7 @@ class ClientUI:
         # create a request
         self.conn_data.request = {
             "action": "view_undelivered",
-            "user": self.credentials,
+            "username": self.credentials,
             "n_messages": n_messages,
             "encoding": "utf-8",
         }
@@ -397,7 +400,7 @@ class ClientUI:
         """
         self.user_entry_frame.destroy()
 
-    def setup_login(self):
+    def setup_login(self, failed = False):
         """
         Set up the login screen.
 
@@ -432,6 +435,9 @@ class ClientUI:
         self.login_failed_label = tk.Label(
             self.login_frame, text="Login failed, username/password incorrect"
         )
+
+        if failed:
+            self.login_failed_label.pack()
         self.root.after(100, self.check_login_response)
 
     def destroy_login(self):
@@ -532,9 +538,9 @@ class ClientUI:
             ),
         )
         self.register_button.pack()
-        self.register_passwords_do_not_match_label = tk.Label(
-            self.register_frame, text="Passwords do not match"
-        )
+        # self.register_passwords_do_not_match_label = tk.Label(
+        #     self.register_frame, text="Passwords do not match"
+        # )
         self.register_username_exists_label = tk.Label(
             self.register_frame, text="Username already exists"
         )
@@ -600,8 +606,8 @@ class ClientUI:
         self.incoming_pings_label = tk.Label(self.ping_frame, text="Incoming Pings")
         self.incoming_pings_label.pack()
         self.incoming_pings_listbox = tk.Listbox(self.ping_frame)
-        for ping in self.incoming_pings:
-            self.incoming_pings_listbox.insert(tk.END, ping)
+        # for ping in self.incoming_pings:
+        #     self.incoming_pings_listbox.insert(tk.END, ping)
         self.incoming_pings_listbox.pack()
 
         self.chat_frame = tk.Frame(self.main_frame)
@@ -666,8 +672,12 @@ class ClientUI:
         Needs to be called whenever new pings are received.
         """
         self.incoming_pings_listbox.delete(0, tk.END)
+
+        print(self.incoming_pings)
+
         for ping in self.incoming_pings:
             self.incoming_pings_listbox.insert(tk.END, f"{ping[0]}: {ping[1]}")
+
     
     def rerender_users(self):
         """
