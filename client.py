@@ -1,9 +1,11 @@
+import os
 import sys
 import socket
 import selectors
 import types
 import threading
 import tkinter as tk
+import json
 from comm_client import Bolt
 
 sel = selectors.DefaultSelector()
@@ -258,6 +260,13 @@ class ClientUI:
             "passhash": password,
             "encoding": "utf-8",
         }
+        if action == "login":
+            self.check_login_response()
+        elif action == "register":
+            self.check_register_response()
+        else:
+            print("Unexpected action under logreg.")
+
 
     def send_user_check_request(self, username):
         """
@@ -299,7 +308,7 @@ class ClientUI:
         self.incoming_pings = [ping for ping in self.incoming_pings if ping[0] != username] # KG: could cause slowdown
         self.rerender_pings()
 
-        self.root.after(100, self.check_load_chat_request)
+        self.check_load_chat_request()
 
     def send_message_request(self, message):
         """
@@ -319,7 +328,7 @@ class ClientUI:
             "encoding": "utf-8",
         }
 
-        self.root.after(100, self.check_send_message_request)
+        self.check_send_message_request()
     
     def send_undelivered_request(self, n_messages):
         """
@@ -330,6 +339,18 @@ class ClientUI:
         n_messages : int
             The number of messages to view.
         """
+
+        # cast n_messages as int
+        try:
+            n_messages = int(n_messages)
+        except ValueError:
+            self.out_of_range_warning_label.pack()
+            return
+        
+        if n_messages < 0 or n_messages > self.n_undelivered:
+            self.out_of_range_warning_label.pack()
+            return
+        
         # create a request
         self.conn_data.request = {
             "action": "view_undelivered",
@@ -337,6 +358,10 @@ class ClientUI:
             "n_messages": n_messages,
             "encoding": "utf-8",
         }
+
+        # get rid of out of range warning
+        self.out_of_range_warning_label.destroy()
+
         self.root.after(100, self.check_undelivered_request)
 
     def send_delete_message_request(self, message_inx):
@@ -356,7 +381,7 @@ class ClientUI:
                 "encoding": "utf-8"
             }
 
-            self.root.after(100, self.check_delete_message_request) # KG: why do we need root.after?
+            self.check_delete_message_request() # KG: why do we need root.after?
         else:
             print("not allowed to delete")
         
@@ -388,7 +413,7 @@ class ClientUI:
             command=lambda: self.send_user_check_request(self.user_entry.get()),
         )
         self.user_entry_button.pack()
-        self.root.after(100, self.check_user_entry_response)
+        self.check_user_entry_response()
 
     def destroy_user_entry(self):
         """
@@ -428,13 +453,20 @@ class ClientUI:
             ),
         )
         self.login_button.pack()
+
+        self.back_button_login = tk.Button(
+            self.login_frame,
+            text="Back",
+            command=lambda: [self.destroy_login(), self.setup_user_entry()],
+        )
+        self.back_button_login.pack()
+
         self.login_failed_label = tk.Label(
             self.login_frame, text="Login failed, username/password incorrect"
         )
 
         if failed:
             self.login_failed_label.pack()
-        self.root.after(100, self.check_login_response)
 
     def destroy_login(self):
         """
@@ -461,27 +493,39 @@ class ClientUI:
         self.undelivered_label = tk.Label(self.undelivered_frame, text=f"You have {self.n_undelivered} new messages")
         self.undelivered_label.pack()
 
-        # put a number entry for number of messages to view
-        self.undelivered_number_label = tk.Label(self.undelivered_frame, text="Enter number of messages to view:")
-        self.undelivered_number_label.pack()
+        if self.n_undelivered:
+            # put a number entry for number of messages to view
+            self.undelivered_number_label = tk.Label(self.undelivered_frame, text="Enter number of messages to view:")
+            self.undelivered_number_label.pack()
 
-        # from 0 to n_undelivered
-        self.undelivered_number_entry = tk.Entry(self.undelivered_frame)
-        self.undelivered_number_entry.pack()
+            # from 0 to n_undelivered
+            self.undelivered_number_entry = tk.Entry(self.undelivered_frame)
+            self.undelivered_number_entry.pack()
 
-        # submit button
-        self.undelivered_number_button = tk.Button(
-            self.undelivered_frame,
-            text="Submit",
-            command=lambda: self.send_undelivered_request(self.undelivered_number_entry.get()),
-        )
-        self.undelivered_number_button.pack()
+            # submit button
+            self.undelivered_number_button = tk.Button(
+                self.undelivered_frame,
+                text="Submit",
+                command=lambda: [self.send_undelivered_request(self.undelivered_number_entry.get()) if self.undelivered_number_entry.get() else None],
+            )
+            self.undelivered_number_button.pack()
 
-        # listbox with undelivered messages
-        self.undelivered_listbox = tk.Listbox(self.undelivered_frame)
-        for message in self.undelivered_messages:
-            self.undelivered_listbox.insert(tk.END, message)
-        self.undelivered_listbox.pack()
+            # out of range warning
+            self.out_of_range_warning_label = tk.Label(self.undelivered_frame, text=f"Please enter a number between 0 and {self.n_undelivered}")
+
+            # listbox with undelivered messages
+            self.undelivered_listbox = tk.Listbox(self.undelivered_frame)
+            for message in self.undelivered_messages:
+                self.undelivered_listbox.insert(tk.END, message)
+            self.undelivered_listbox.pack()
+
+        else:
+            self.go_home_button = tk.Button(
+                self.undelivered_frame,
+                text="Go to Home",
+                command=lambda: [self.destroy_undelivered(), self.setup_main()],
+            )
+            self.go_home_button.pack()
 
     def destroy_undelivered(self):
         """
@@ -537,11 +581,17 @@ class ClientUI:
         # self.register_passwords_do_not_match_label = tk.Label(
         #     self.register_frame, text="Passwords do not match"
         # )
+
+        self.back_button_register = tk.Button(
+            self.register_frame,
+            text="Back",
+            command=lambda: [self.destroy_register(), self.setup_user_entry()],
+        )
+        self.back_button_register.pack()
+
         self.register_username_exists_label = tk.Label(
             self.register_frame, text="Username already exists"
         )
-
-        self.root.after(100, self.check_register_response)
 
     def destroy_register(self):
         """
@@ -739,6 +789,22 @@ class ClientUI:
 The rest of the code is for setting up the connection and running the client.
 """
 
+# load config file, config/config.json
+if not os.path.exists("config/config.json"):
+    print("Config file does not exist, exiting")
+    sys.exit(1)
+
+# load the config file
+with open("config/config.json", "r") as f:
+    config = json.load(f)
+
+protocol = 'json'
+
+try:
+    protocol = config['client_config']['protocol']
+except KeyError:
+    print("Error reading protocol from config file, exiting")
+    sys.exit(1)
 
 def start_connection(
     host: str, port: int
@@ -769,7 +835,7 @@ def start_connection(
 
     # Register the socket with the selector to send events.
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    data = Bolt(sel=sel, sock=sock, addr=server_addr)
+    data = Bolt(sel=sel, sock=sock, addr=server_addr, protocol_type=protocol)
     sel.register(sock, events, data=data)
     return sock, data
 

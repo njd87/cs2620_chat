@@ -1,4 +1,20 @@
 # dict->list conversion
+'''
+dict_to_list({
+    "action": "login",
+    "username": "test",
+    "passhash": "test",
+})
+
+-->
+["login", "test", "test", None, none, None , ...]
+
+-->
+
+"[login,test,test,,,,]"
+
+--
+'''
 def dict_to_list(dict_input, clientside):
     list_output = []
     if clientside:
@@ -15,7 +31,7 @@ def dict_to_list(dict_input, clientside):
     return list_output
 
 # list->dict conversion
-def list_to_dict_server(list_input, clientside):
+def list_to_dict(list_input, clientside):
     dict_output = {}
     if clientside:
         keys = ["result", "users", "n_undelivered", "messages", "message_id",

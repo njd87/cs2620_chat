@@ -1,12 +1,11 @@
 import sys
 import socket
 import selectors
-import types
 import logging
 import os
 import time
-import sqlite3
 from comm_server import Bolt
+import json
 
 # log to a file
 log_file = "logs/server.log"
@@ -25,6 +24,18 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+# load config/config.json
+if not os.path.exists("config/config.json"):
+    logging.error(
+        "Config file does not exist, exiting at %s", time.strftime("%Y-%m-%d %H:%M:%S")
+    )
+    sys.exit(1)
+
+# load the config file
+with open("config/config.json", "r") as f:
+    config = json.load(f)
+
+protocol = 'json'
 
 def setup():
     """
@@ -51,7 +62,17 @@ def setup():
     sel = selectors.DefaultSelector()
 
     # check arguments for host and port
-    host, port = sys.argv[1], int(sys.argv[2])
+    try:
+        server_config = config["server_config"]
+        host = server_config["host"]
+        port = server_config["port"]
+        protocol = server_config["protocol"]
+    except Exception as e:
+        logging.error(
+            "Error reading host and port from config file, exiting at %s",
+            time.strftime("%Y-%m-%d %H:%M:%S"),
+        )
+        sys.exit(1)
 
     # set up socket
     lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -81,7 +102,7 @@ def accept_wrapper(sock: socket.socket) -> None:
     conn.setblocking(False)
 
     # register the connection with the selector
-    data = Bolt(sel=sel, sock=conn, addr=addr)
+    data = Bolt(sel=sel, sock=conn, addr=addr, protocol_type=protocol)
     sel.register(conn, selectors.EVENT_READ, data=data)
 
 
