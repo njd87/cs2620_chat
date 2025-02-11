@@ -141,10 +141,10 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            user = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username")  # KG: what if doesn't match
             passhash = self.request.get("passhash") 
             passhash = hashlib.sha256(passhash.encode()).hexdigest()
-            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
 
             result = sqlcur.fetchone()
             if result:
@@ -153,7 +153,7 @@ class Bolt:
                     # get number of undelivered messages
                     sqlcur.execute(
                         "SELECT COUNT(*) FROM messages WHERE recipient=? AND delivered=0",
-                        (user,),
+                        (username,),
                     )
 
                     n_undelivered = sqlcur.fetchone()[0]
@@ -161,11 +161,11 @@ class Bolt:
                     content = {
                         "result": True,
                         "users": sqlcur.execute(
-                            "SELECT username FROM users WHERE username != ?", (user,)
+                            "SELECT username FROM users WHERE username != ?", (username,)
                         ).fetchall(),
                         "n_undelivered": n_undelivered,
                     }
-                    back_to_server["new_user"] = user
+                    back_to_server["new_user"] = username
                 # username exists but passhash is wrong
                 else:
                     content = {"result": False}
@@ -178,9 +178,9 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            user = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username")  # KG: what if doesn't match
             passhash = self.request.get("passhash")
-            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
 
             result = sqlcur.fetchone()
             if result:
@@ -189,24 +189,24 @@ class Bolt:
                 passhash = hashlib.sha256(passhash.encode()).hexdigest()
                 sqlcur.execute(
                     "INSERT INTO users (username, passhash) VALUES (?, ?)",
-                    (user, passhash),
+                    (username, passhash),
                 )
                 sqlcon.commit()
                 content = {
                     "result": True,
                     "users": sqlcur.execute(
-                        "SELECT username FROM users WHERE username != ?", (user,)
+                        "SELECT username FROM users WHERE username != ?", (username,)
                     ).fetchall(),
                 }
-                back_to_server["new_user"] = user
+                back_to_server["new_user"] = username
 
             sqlcon.close()
         elif action == "check_username":
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            user = self.request.get("username")
-            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (user,))
+            username = self.request.get("username")
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
 
             result = sqlcur.fetchone()
             if result:
@@ -219,14 +219,14 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            user1 = self.request.get("user1")
+            username = self.request.get("username")
             user2 = self.request.get("user2")
-            print(user1)
+            print(username)
             print(user2)
             try:
                 sqlcur.execute(
                     "SELECT sender, recipient, message, message_id FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY time",
-                    (user1, user2, user2, user1),
+                    (username, user2, user2, username),
                 )
                 result = sqlcur.fetchall()
             except Exception as e:
@@ -301,7 +301,7 @@ class Bolt:
                 (username, n_messages),
             )
             result = sqlcur.fetchall()
-            content = {"undelivered_messages": result}
+            content = {"messages": result}
 
             sqlcur.execute(
                 "UPDATE messages SET delivered=1 WHERE recipient=?", (username,)

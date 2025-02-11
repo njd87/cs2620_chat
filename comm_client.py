@@ -134,9 +134,9 @@ class Bolt:
             username = self.request.get("username")
             content = {"username": username, "action": action}
         elif action == "load_chat":
-            user1 = self.request.get("user1")
+            username = self.request.get("username")
             user2 = self.request.get("user2")
-            content = {"user1": user1, "user2": user2, "action": action}
+            content = {"username": username, "user2": user2, "action": action}
         elif action == "send_message":
             sender = self.request.get("sender")
             recipient = self.request.get("recipient")

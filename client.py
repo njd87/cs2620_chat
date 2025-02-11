@@ -126,7 +126,6 @@ class ClientUI:
             else:
                 self.conn_data.response = None
                 self.login_frame.destroy()
-                # self.login_failed_label.pack()
                 self.setup_login(failed = True)
                 return
 
@@ -151,7 +150,6 @@ class ClientUI:
             else:
                 self.conn_data.response = None
                 self.register_username_exists_label.pack()
-                # self.register_passwords_do_not_match_label.forget_pack()
                 return
 
         self.root.after(100, self.check_register_response)
@@ -179,7 +177,6 @@ class ClientUI:
             self.conn_data.response = None
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
-            # self.rerender_pings()
             return
 
         self.root.after(100, self.check_send_message_request)
@@ -210,8 +207,8 @@ class ClientUI:
         """
         Check for a response to the undelivered request.
         """
-        if self.conn_data.response and "undelivered_messages" in self.conn_data.response:
-            self.undelivered_messages = self.conn_data.response["undelivered_messages"]
+        if self.conn_data.response and "messages" in self.conn_data.response:
+            self.undelivered_messages = self.conn_data.response["messages"]
             self.conn_data.response = None
             self.rerender_undelivered()
             return
@@ -227,7 +224,6 @@ class ClientUI:
             del self.loaded_messages[self.chat_text.curselection()[0] - 1] # KG: is there any problem with timing?
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
-            # self.rerender_pings()
             return
 
         self.root.after(100, self.check_delete_message_request)
@@ -294,7 +290,7 @@ class ClientUI:
         # create a request
         self.conn_data.request = {
             "action": "load_chat",
-            "user1": self.credentials,
+            "username": self.credentials,
             "user2": username,
             "encoding": "utf-8",
         }
@@ -347,7 +343,7 @@ class ClientUI:
         """
         Delete a message from the chat.
         """
-        print(self.loaded_messages[message_inx])
+        print("deleting index:", self.loaded_messages[message_inx])
         # check if the message is from the user
         if self.loaded_messages[message_inx][0] == self.credentials:
             message_id = self.loaded_messages[message_inx][3]
@@ -629,7 +625,7 @@ class ClientUI:
         self.delete_message_button = tk.Button(
             self.chat_frame,
             text="Delete Message",
-            command=lambda: [self.send_delete_message_request(self.chat_text.curselection()[0] - 1)],
+            command=lambda: [self.send_delete_message_request(self.chat_text.curselection()[0] - 1)] if self.chat_text.curselection() else None,
         )
         self.delete_message_button.pack()
 

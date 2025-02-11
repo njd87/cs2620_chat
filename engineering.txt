@@ -138,3 +138,9 @@ feature. It (correctly) does not let you delete someone else's message, though w
 you can't do so.
 
 I think that we should set messages to delivered once setup_main() is called.
+
+02/10/2025
+Fixing some things with pinging. Right now there's some weird overcomplication with how we're rerendering our pings.
+
+02/11/2025
+I'm trying to start thinking about the custom protocol. I think that we can just 
