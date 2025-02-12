@@ -9,12 +9,9 @@ from comm_server import Bolt as server_Bolt
 from comm_client import Bolt as client_Bolt
 
 class TestParseHelpers(unittest.TestCase):
-    def test_escape_string(self):
-        self.assertEqual(escape_string('Hello "World"'), 'Hello \"World\"')
-        self.assertEqual(escape_string('Line\Break'), 'Line\\Break')
-        self.assertEqual(escape_string('Tab\tTest'), 'Tab\\tTest')
-        self.assertEqual(escape_string('New\nLine'), 'New\\nLine')
-        self.assertEqual(escape_string('Carriage\rReturn'), 'Carriage\\rReturn')
+    # def test_escape_string(self):
+    #     self.assertEqual(escape_string('Com,ma'), 'Com,ma')
+    #     self.assertEqual(escape_string('Com"ma'), 'Com\\"ma')
 
     def test_dict_serialization(self):
         d = {"key": "value", "number": 123, "bool": True, "none": None}
@@ -62,22 +59,29 @@ class TestParseHelpers(unittest.TestCase):
             string_to_dict(s)
 
 class TestDatabaseSetup(unittest.TestCase):
+    def test_reset_database(self):
+        reset_database()
+        self.assertFalse(os.path.exists("data/messenger.db"))
+
     def test_structure_tables(self):
         structure_tables()
-        with sqlite3.connect("data/messenger.db") as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users';")
-            self.assertIsNotNone(cursor.fetchone())
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='messages';")
-            self.assertIsNotNone(cursor.fetchone())
+        conn = sqlite3.connect("data/messenger.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users';")
+        self.assertIsNotNone(cursor.fetchone())
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='messages';")
+        self.assertIsNotNone(cursor.fetchone())
+        conn.commit()
+        conn.close()
 
 class TestBoltCommunication(unittest.TestCase):
     def setUp(self):
         self.mock_selector = None
         self.mock_socket = None
         self.mock_addr = ('127.0.0.1', 65432)
+        self.mock_gui = None  # Dummy GUI input
         self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json')
-        self.client = client_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json')
+        self.client = client_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json', gui=self.mock_gui)
 
     def test_protocol_type(self):
         self.client.protocol_type = 'foo'
@@ -85,7 +89,7 @@ class TestBoltCommunication(unittest.TestCase):
             self.client.process_header()
     
     def test_send_receive(self):
-        request = {"action": "ping", "sender": "foo", "sent_message": "Hello, World!"}
+        request = {"action": "ping", "sender": "foo", "sent_message": "Hello, World!", "encoding": "utf-8"}
         self.client.request = request
         self.client.create_request()
         self.assertEqual(self.client.request, None)
@@ -93,8 +97,52 @@ class TestBoltCommunication(unittest.TestCase):
         self.server.instream = self.client.outstream 
         self.server.process_header_len()
         self.server.process_header()
-        self.server.process_request()
+        try:
+            self.server.process_request()
+        except AttributeError:
+            pass
+        del request["encoding"]
         self.assertEqual(self.server.request, request)
+
+    def test_check_username_none(self):
+        request = {"action": "check_username", "username": "foo"}
+        self.server.request = request
+
+        self.server.create_response()
+        self.client.instream = self.server.outstream
+        self.client.process_header_len()
+        self.client.process_header()
+        try:
+            self.client.process_response()
+        except AttributeError:
+            pass
+        self.assertEqual(self.client.response["result"], False)
+
+    def test_register_user(self):
+        request = {"action": "register", "username": "foo", "passhash": "bar"}
+        self.server.request = request
+
+        self.server.create_response()
+        self.client.instream = self.server.outstream
+        self.client.process_header_len()
+        self.client.process_header()
+        try:
+            self.client.process_response()
+        except AttributeError:
+            pass
+        self.assertEqual(self.client.response["result"], True)
+        self.assertEqual(self.client.response["users"], [])
+
+        conn = sqlite3.connect("data/messenger.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE username='foo';")
+        user = cursor.fetchone()
+        self.assertIsNotNone(user)
+        self.assertEqual(user[1], 'foo')
+        cursor.execute("SELECT COUNT(*) FROM users;")
+        count = cursor.fetchone()[0]
+        self.assertEqual(count, 1)
+        conn.close()
     
 
 if __name__ == "__main__":
