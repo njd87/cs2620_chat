@@ -135,3 +135,16 @@
 2025-02-12 02:37:51 - ERROR - Exception: Peer closed.
 2025-02-12 02:37:51 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53033)>, 'bolt': <comm_server.Bolt object at 0x104673450>}}
 2025-02-12 02:37:52 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:37:52
+2025-02-12 02:49:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:49:28
+2025-02-12 02:49:30 - INFO - Accepted connection from ('127.0.0.1', 53173) at 2025-02-12 02:49:30
+2025-02-12 02:49:36 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 53173)
+2025-02-12 02:49:36 - INFO - Preparing to write b'\x00!{"version":1,"content-length":42}{"action":"check_username","result":false}' to ('127.0.0.1', 53173)
+2025-02-12 02:49:39 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'register'} from ('127.0.0.1', 53173)
+2025-02-12 02:49:39 - INFO - Preparing to write b'\x00!{"version":1,"content-length":46}{"action":"register","result":true,"users":[]}' to ('127.0.0.1', 53173)
+2025-02-12 02:49:39 - INFO - New user nick at 2025-02-12 02:49:39
+2025-02-12 02:49:39 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53173)>, 'bolt': <comm_server.Bolt object at 0x104df7450>}}
+2025-02-12 02:49:56 - INFO - Received request {'sender': 'nick', 'recipient': None, 'message': 'asdf', 'action': 'send_message'} from ('127.0.0.1', 53173)
+2025-02-12 02:49:56 - INFO - Preparing to write b'\x00!{"version":1,"content-length":40}{"action":"send_message","result":false}' to ('127.0.0.1', 53173)
+2025-02-12 02:49:56 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53173)> at 2025-02-12 02:49:56
+2025-02-12 02:49:56 - ERROR - Exception: Peer closed.
+2025-02-12 02:49:56 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53173)>, 'bolt': <comm_server.Bolt object at 0x104df7450>}}

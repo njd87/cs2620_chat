@@ -143,6 +143,46 @@ class TestBoltCommunication(unittest.TestCase):
         count = cursor.fetchone()[0]
         self.assertEqual(count, 1)
         conn.close()
+
+    def test_register_user_exists(self):
+        request = {"action": "register", "username": "foo", "passhash": "bar"}
+        self.server.request = request
+
+        self.server.create_response()
+        self.client.instream = self.server.outstream
+        self.client.process_header_len()
+        self.client.process_header()
+        try:
+            self.client.process_response()
+        except AttributeError:
+            pass
+        self.assertEqual(self.client.response["result"], False)
+        self.assertEqual(self.client.response["users"], [])
+
+        conn = sqlite3.connect("data/messenger.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE username='foo';")
+        user = cursor.fetchone()
+        self.assertIsNotNone(user)
+        self.assertEqual(user[1], 'foo')
+        cursor.execute("SELECT COUNT(*) FROM users;")
+        count = cursor.fetchone()[0]
+        self.assertEqual(count, 1)
+        conn.close()
+
+    def test_login_user(self):
+        request = {"action": "login", "username": "foo", "passhash": "bar"}
+        self.server.request = request
+
+        self.server.create_response()
+        self.client.instream = self.server.outstream
+        self.client.process_header_len()
+        self.client.process_header()
+        try:
+            self.client.process_response()
+        except AttributeError:
+            pass
+        self.assertEqual(self.client.response["result"], True)
     
 
 if __name__ == "__main__":

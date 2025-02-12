@@ -187,6 +187,8 @@ class ClientUI:
         message : str
             The message to send.
         """
+        if not self.connected_to:
+            return
         # create a request
         request = {
             "action": "send_message",

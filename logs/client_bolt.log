@@ -32,3 +32,6 @@
 2025-02-12 02:37:40 - INFO - Received response {'action': 'login', 'result': True, 'users': ['nick2', 'nick3', 'kenny', 'kenny1', 'kenny2', 'kenny3', 'kenny4', 'kenny5'], 'n_undelivered': 0} from ('127.0.0.1', 65432)
 2025-02-12 02:37:43 - INFO - Received response {'action': 'load_chat', 'messages': []} from ('127.0.0.1', 65432)
 2025-02-12 02:37:49 - INFO - Received response {'action': 'send_message', 'message_id': 59} from ('127.0.0.1', 65432)
+2025-02-12 02:49:36 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:49:39 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 02:49:56 - INFO - Received response {'action': 'send_message', 'result': False} from ('127.0.0.1', 65432)
