@@ -1027,3 +1027,9 @@
 2025-02-11 18:04:46 - ERROR - Exception: Peer closed.
 2025-02-11 18:04:46 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 60598)>, 'bolt': <comm_server.Bolt object at 0x100c57ad0>}}
 2025-02-11 18:04:47 - ERROR - KeyboardInterrupt, exiting at 2025-02-11 18:04:47
+2025-02-11 18:06:17 - INFO - Listening on 127.0.0.1:65432 at 2025-02-11 18:06:17
+2025-02-11 18:06:19 - INFO - Accepted connection from ('127.0.0.1', 60619) at 2025-02-11 18:06:19
+2025-02-11 18:06:36 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 60619)> at 2025-02-11 18:06:36
+2025-02-11 18:06:36 - ERROR - Exception: Peer closed.
+2025-02-11 18:06:36 - INFO - Connected users: {}
+2025-02-11 18:06:40 - ERROR - KeyboardInterrupt, exiting at 2025-02-11 18:06:40
