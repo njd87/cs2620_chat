@@ -79,6 +79,18 @@ class ClientUI:
         # run the tkinter main loop
         self.root.mainloop()
 
+    def reset_login_vars(self): #KG: maybe move this?
+        """
+        Reset the login variables.
+        """
+        self.credentials = None
+        self.users = []
+        self.loaded_messages = []
+        self.incoming_pings = []
+        self.undelivered_messages = []
+        self.n_undelivered = 0
+        self.connected_to = None
+
 
     """
     Functions starting with "check_" are used to check for responses from the server.
@@ -223,12 +235,54 @@ class ClientUI:
         """
         if self.conn_data.response:
             self.conn_data.response = None
-            del self.loaded_messages[self.chat_text.curselection()[0] - 1] # KG: is there any problem with timing?
+            del self.loaded_messages[self.chat_text.curselection()[0] - 1]
             self.chat_entry.delete(0, tk.END)
             self.rerender_messages()
             return
 
         self.root.after(100, self.check_delete_message_request)
+
+    def check_delete_request_response(self):
+        """
+        Check for a response to the delete request.
+        """
+        if self.conn_data.response:
+            if self.conn_data.response["result"]:
+                self.conn_data.response = None
+                self.reset_login_vars() # KG: don't forget to get rid of it on server
+                self.destroy_settings() # KG: should display successfully deleted, also clear settings
+                self.setup_deleted()
+                return
+            else:
+                self.conn_data.response = None
+                self.destroy_settings()
+                self.setup_settings(failed = True)
+                return
+
+        self.root.after(100, self.check_delete_request_response)
+
+    def check_ping_user_request(self):
+        """
+        Check for incoming delete pings. # KG: could clarify documentation
+        """
+        if self.conn_data.response and "ping_user" in self.conn_data.response:
+            pinging_user = self.conn_data.response["ping_user"]
+            if pinging_user in self.users:
+                self.users = [user for user in self.users if user != pinging_user]
+                self.rerender_users()
+                if self.connected_to == self.conn_data.response["ping_user"][0]:
+                    self.connected_to = None
+                    self.loaded_messages = []
+                    self.rerender_messages()
+                # self.incoming_pings = [ping for ping in self.incoming_pings if ping[0] != pinging_user] # KG: could cause slowdown
+                # self.rerender_pings() KG: need to fix
+                
+            else:
+                self.users += [pinging_user]
+                self.rerender_users()
+            self.conn_data.response = None
+
+        self.root.after(100, self.check_ping_user_request)
 
     """
     Functions starting with "send_" are used to send requests to the server.
@@ -251,9 +305,6 @@ class ClientUI:
         confirm_password : str
             The confirm password to send. Only used for registration.
         """
-        # if action == "register" and password != confirm_password:
-        #     self.register_passwords_do_not_match_label.pack()
-        # create a request
         self.conn_data.request = {
             "action": action,
             "username": username,
@@ -278,13 +329,12 @@ class ClientUI:
             The username to check.
         """
         # create a request
-        if not username:
-            return
         self.conn_data.request = {
             "action": "check_username",
             "username": username,
             "encoding": "utf-8",
         }
+        self.check_user_entry_response()
 
     def send_chat_load_request(self, username):
         """
@@ -384,6 +434,21 @@ class ClientUI:
             self.check_delete_message_request() # KG: why do we need root.after?
         else:
             print("not allowed to delete")
+
+    def send_delete_request(self, password):
+        """
+        Send a request to delete the account.
+        """
+        print("credentials:", self.credentials) 
+        self.conn_data.request = {
+            "action": "delete_account",
+            "username": self.credentials,
+            "passhash": password,
+            "encoding": "utf-8", # KG: encodings?
+        }
+
+        self.check_delete_request_response()
+
         
 
     """
@@ -410,10 +475,9 @@ class ClientUI:
         self.user_entry_button = tk.Button(
             self.user_entry_frame,
             text="Enter",
-            command=lambda: self.send_user_check_request(self.user_entry.get()),
+            command=lambda: self.send_user_check_request(self.user_entry.get()) if self.user_entry.get() else None,
         )
         self.user_entry_button.pack()
-        self.check_user_entry_response()
 
     def destroy_user_entry(self):
         """
@@ -448,9 +512,9 @@ class ClientUI:
         self.login_button = tk.Button(
             self.login_frame,
             text="Login",
-            command=lambda: self.send_logreg_request(
+            command=lambda: self.send_logreg_request( # KG: design choice for empty strings?
                 "login", self.login_entry.get(), self.login_password_entry.get()
-            ),
+            ) if self.login_entry.get() and self.login_password_entry.get() else None,
         )
         self.login_button.pack()
 
@@ -550,32 +614,34 @@ class ClientUI:
         """
         self.register_frame = tk.Frame(self.root)
         self.register_frame.pack()
-        self.register_label = tk.Label(
-            self.register_frame, text="Enter your username - reg:"
-        )
+
+        self.register_label = tk.Label(self.register_frame, text=f"Username not found: please register")
         self.register_label.pack()
+
+        self.register_username_label = tk.Label(
+            self.register_frame, text="Enter a username:"
+        )
+        self.register_username_label.pack()
         self.register_entry = tk.Entry(self.register_frame)
         self.register_entry.pack()
         self.register_password_label = tk.Label(
-            self.register_frame, text="Enter your password - reg:"
+            self.register_frame, text="Choose your password:"
         )
         self.register_password_label.pack()
         self.register_password_entry = tk.Entry(self.register_frame)
         self.register_password_entry.pack()
-        self.register_password_confirm_label = tk.Label(
-            self.register_frame, text="Confirm your password - reg:"
-        )
-        self.register_password_confirm_label.pack()
-        self.register_password_confirm_entry = tk.Entry(self.register_frame)
-        self.register_password_confirm_entry.pack()
+        # self.register_password_confirm_label = tk.Label(
+        #     self.register_frame, text="Confirm your password - reg:"
+        # )
+        # self.register_password_confirm_label.pack()
+        # self.register_password_confirm_entry = tk.Entry(self.register_frame)
+        # self.register_password_confirm_entry.pack()
         self.register_button = tk.Button(
             self.register_frame,
             text="Register",
-            command=lambda: self.send_logreg_request(
-                "register",
-                self.register_entry.get(),
-                self.register_password_entry.get(),
-            ),
+            command=lambda: self.send_logreg_request( # KG: design choice for empty strings?
+                "register", self.register_entry.get(), self.register_password_entry.get()
+            ) if self.register_entry.get() and self.register_password_entry.get() else None,
         )
         self.register_button.pack()
         # self.register_passwords_do_not_match_label = tk.Label(
@@ -617,6 +683,8 @@ class ClientUI:
         """
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack()
+
+        self.loaded_messages = []
 
         self.logged_in_label = tk.Label(
             self.main_frame, text=f"Logged in as {self.credentials}"
@@ -661,11 +729,6 @@ class ClientUI:
 
         self.chat_text = tk.Listbox(self.chat_frame)
 
-        # if self.connected_to:
-        #     # add text to chat frame saying "Messages with {self.connected_to}"
-        #     self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
-        # KG: I don't think we need to load on setup_main()
-
         self.chat_text.pack()
 
         # add text to chat frame
@@ -689,10 +752,13 @@ class ClientUI:
             command=lambda: [self.send_message_request(self.chat_entry.get())],
         )
         self.send_button.pack()
-        self.settings_button = tk.Button(self.chat_entry_frame, text="Settings")
+        self.settings_button = tk.Button(self.chat_entry_frame, 
+                                         text="Settings",
+                                         command=lambda: [self.destroy_main(), self.setup_settings()])
         self.settings_button.pack()
 
         self.root.after(100, self.check_new_message_request)
+        self.root.after(100, self.check_ping_user_request)
 
     def destroy_main(self):
         """
@@ -700,13 +766,89 @@ class ClientUI:
         """
         self.main_frame.destroy()
 
+    def setup_settings(self, failed = False): #KG : needs documentation
+        """
+        Set up the settings screen.
+        """
+        self.settings_frame = tk.Frame(self.root)
+        self.settings_frame.pack()
+
+        self.connected_to = None
+
+        if failed:
+            self.delete_failed_label = tk.Label(self.settings_frame, text="Failed to delete account, password incorrect")
+            self.delete_failed_label.pack()
+
+        self.delete_label = tk.Label(
+            self.settings_frame,
+            text="Are you sure you want to delete your account?\n(Enter password to confirm)",
+        )
+        self.delete_label.pack()
+
+        # self.confirm_username_label = tk.Label(
+        #     self.settings_frame, text="Enter your username:"
+        # )
+        # self.confirm_username_label.pack()
+
+        # self.confirm_username_entry = tk.Entry(self.settings_frame)
+        # self.confirm_username_entry.pack()
+
+        self.confirm_password_label = tk.Label(
+            self.settings_frame, text="Enter your password:"
+        )
+        self.confirm_password_label.pack()
+
+        self.confirm_password_entry = tk.Entry(self.settings_frame)
+        self.confirm_password_entry.pack()
+
+        self.delete_button = tk.Button(
+            self.settings_frame, 
+            text="Delete", 
+            command=lambda: self.send_delete_request(self.confirm_password_entry.get()) if self.confirm_password_entry.get() else None,
+        )
+        self.delete_button.pack()
+        self.cancel_button = tk.Button(self.settings_frame, 
+                                       text="Cancel",
+                                       command=lambda: [self.destroy_settings(), self.setup_main()])
+        self.cancel_button.pack()
+
+    def destroy_settings(self):
+        """
+        Destroy the settings screen.
+        """
+        self.settings_frame.destroy()
+
+    def setup_deleted(self):
+        """
+        Set up the screen that shows the account has been deleted.
+        """
+        self.deleted_frame = tk.Frame(self.root)
+        self.deleted_frame.pack()
+
+        self.deleted_label = tk.Label(self.deleted_frame, text="Account successfully deleted.")
+        self.deleted_label.pack()
+
+        self.go_home_button = tk.Button(
+            self.deleted_frame,
+            text="Go to Home",
+            command=lambda: [self.destroy_deleted(), self.setup_user_entry()]
+        )
+        self.go_home_button.pack()
+
+    def destroy_deleted(self):
+        """
+        Destroy the deleted screen.
+        """
+        self.deleted_frame.destroy()
+
     def rerender_messages(self):
         """
         Rerender the messages in the chat window.
         Needs to be called whenever new messages are received or sent.
         """
         self.chat_text.delete(0, tk.END)
-        self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
+        if self.connected_to:
+            self.chat_text.insert(tk.END, f"Messages with {self.connected_to}\n")
         for message in self.loaded_messages:
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
 
@@ -724,8 +866,10 @@ class ClientUI:
         for ping in self.incoming_pings:
             self.incoming_pings_listbox.insert(tk.END, f"{ping[0]}: {ping[1]}")
 
+        self.root.after(100, self.check_new_message_request)
+
     
-    def rerender_users(self):
+    def rerender_users(self): # KG: not used?
         """
         Rerender the users in the users listbox.
         Needs to be called whenever new users are received.
@@ -753,36 +897,6 @@ class ClientUI:
             command=lambda: [self.destroy_undelivered(), self.setup_main()],
         )
         self.go_home_button.pack()
-
-    def setup_delete(self):
-        self.delete_frame = tk.Frame(self.root)
-        self.delete_frame.pack()
-        self.delete_label = tk.Label(
-            self.delete_frame,
-            text="Are you sure you want to delete your account?\n(Enter account details to confirm)",
-        )
-        self.delete_label.pack()
-
-        self.confirm_username_label = tk.Label(
-            self.delete_frame, text="Enter your username:"
-        )
-        self.confirm_username_label.pack()
-
-        self.confirm_username_entry = tk.Entry(self.delete_frame)
-        self.confirm_username_entry.pack()
-
-        self.confirm_password_label = tk.Label(
-            self.delete_frame, text="Enter your password:"
-        )
-        self.confirm_password_label.pack()
-
-        self.confirm_password_entry = tk.Entry(self.delete_frame)
-        self.confirm_password_entry.pack()
-
-        self.delete_button = tk.Button(self.delete_frame, text="Delete")
-        self.delete_button.pack()
-        self.cancel_button = tk.Button(self.delete_frame, text="Cancel")
-        self.cancel_button.pack()
 
 
 """

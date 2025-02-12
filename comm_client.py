@@ -190,7 +190,6 @@ class Bolt:
                 "action": action,
             }
         elif action == "ping":
-            print("PING!!!!!!")
             content = {
                 "sender": self.request.get("sender"),
                 "sent_message": self.request.get("sent_message"),
@@ -203,6 +202,10 @@ class Bolt:
         elif action == "delete_message":
             message_id = self.request.get("message_id")
             content = {"message_id": message_id, "action": action}
+        elif action == "delete_account":
+            username = self.request.get("username")
+            passhash = self.request.get("passhash")
+            content = {"username": username, "passhash": passhash, "action": action}
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = self.request.get("encoding")

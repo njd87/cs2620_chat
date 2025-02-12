@@ -129,10 +129,16 @@ def main_loop() -> None:
                                     back_to_server["new_user"],
                                     time.strftime("%Y-%m-%d %H:%M:%S"),
                                 )
+                                for user in connected_users:
+                                    connected_users[user]["bolt"].request = {
+                                        "action": "ping_user",
+                                        "ping_user": back_to_server["new_user"]
+                                    }
                                 connected_users[back_to_server["new_user"]] = {
                                     "socket" : key.fileobj,
                                     "bolt" : key.data
                                 }
+
                                 logging.info("Connected users: %s", connected_users)
                             elif "new_message" in back_to_server:
                                 logging.info(
@@ -149,6 +155,19 @@ def main_loop() -> None:
                                         "sent_message": back_to_server["new_message"]["sent_message"],
                                         "message_id": back_to_server["new_message"]["message_id"]
                                     }
+                            elif "delete_user" in back_to_server:
+                                logging.info(
+                                    "Deleting user %s at %s",
+                                    back_to_server["delete_user"],
+                                    time.strftime("%Y-%m-%d %H:%M:%S"),
+                                )
+                                del connected_users[back_to_server["delete_user"]]
+                                for user in connected_users: #KG: could be really slow if there are a lot of users?
+                                    connected_users[user]["bolt"].request = {
+                                        "action": "ping_user",
+                                        "ping_user": back_to_server["delete_user"]
+                                    }
+                                logging.info("Connected users: %s", connected_users)
                     except Exception as e:
                         # If the connection is closed by the peer, log and clean up without breaking the loop.
                         logging.error(

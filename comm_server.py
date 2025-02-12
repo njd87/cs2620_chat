@@ -361,6 +361,41 @@ class Bolt:
 
             sqlcon.close()
             content = {"result": True}
+        elif action == "delete_account":
+            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcur = sqlcon.cursor()
+
+            username = self.request.get("username")  # KG: what if doesn't match
+            passhash = self.request.get("passhash") 
+            passhash = hashlib.sha256(passhash.encode()).hexdigest()
+            sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
+
+            result = sqlcur.fetchone()
+            if result:
+                # username exists and passhash matches
+                if result[0] == passhash:
+                    sqlcur.execute("DELETE FROM users WHERE username=?", (username,))
+                    sqlcur.execute("DELETE FROM messages WHERE sender=? OR recipient=?", (username, username))
+                    sqlcon.commit()
+
+                    content = {
+                        "result": True
+                    }
+                    # tell server to ping users to update their chat, remove from connected users
+                    back_to_server["delete_user"] = username
+                # username exists but passhash is wrong
+                else:
+                    content = {"result": False}
+            else:
+                # username doesn't exist
+                content = {"result": False}
+
+            sqlcon.close()
+        elif action == "ping_user":
+            # ping that a user has been added or deleted
+            content = {
+                "ping_user": [self.request.get("ping_user")]
+            }
         else:
             content = {"result": f"Error: invalid action '{action}'."}
         content_encoding = "utf-8"

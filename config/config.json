@@ -2,9 +2,9 @@
     "server_config": {
         "host": "127.0.0.1",
         "port": 65432,
-        "protocol" : "custom"
+        "protocol" : "json"
     },
     "client_config": {
-        "protocol" : "custom"
+        "protocol" : "json"
     }
 }
