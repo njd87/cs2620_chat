@@ -1,0 +1,137 @@
+2025-02-12 02:20:06 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:20:06
+2025-02-12 02:20:07 - INFO - Accepted connection from ('127.0.0.1', 52840) at 2025-02-12 02:20:07
+2025-02-12 02:20:10 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52840)
+2025-02-12 02:20:10 - INFO - Preparing to write b'\x00g{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 44}{"action": "check_username", "result": true}' to ('127.0.0.1', 52840)
+2025-02-12 02:20:14 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52840)
+2025-02-12 02:20:14 - INFO - Preparing to write b'\x00h{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 143}{"action": "login", "result": true, "users": ["nick2", "nick3", "kenny", "kenny1", "kenny2", "kenny3", "kenny4", "kenny5"], "n_undelivered": 0}' to ('127.0.0.1', 52840)
+2025-02-12 02:20:14 - INFO - New user nick at 2025-02-12 02:20:14
+2025-02-12 02:20:14 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52840)>, 'bolt': <comm_server.Bolt object at 0x10067fad0>}}
+2025-02-12 02:21:09 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52840)> at 2025-02-12 02:21:09
+2025-02-12 02:21:09 - ERROR - Exception: Peer closed.
+2025-02-12 02:21:09 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52840)>, 'bolt': <comm_server.Bolt object at 0x10067fad0>}}
+2025-02-12 02:21:10 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:21:10
+2025-02-12 02:21:11 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:21:11
+2025-02-12 02:21:12 - INFO - Accepted connection from ('127.0.0.1', 52844) at 2025-02-12 02:21:12
+2025-02-12 02:21:16 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52844)
+2025-02-12 02:21:16 - INFO - Preparing to write b'\x00Q{"version":1,"byteorder":"little","content-encoding":"utf-8","content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 52844)
+2025-02-12 02:21:19 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52844)
+2025-02-12 02:21:19 - INFO - Preparing to write b'\x00R{"version":1,"byteorder":"little","content-encoding":"utf-8","content-length":129}{"action":"login","result":true,"users":["nick2","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":0}' to ('127.0.0.1', 52844)
+2025-02-12 02:21:19 - INFO - New user nick at 2025-02-12 02:21:19
+2025-02-12 02:21:19 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52844)>, 'bolt': <comm_server.Bolt object at 0x1024b5810>}}
+2025-02-12 02:25:33 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52844)> at 2025-02-12 02:25:33
+2025-02-12 02:25:33 - ERROR - Exception: Peer closed.
+2025-02-12 02:25:33 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52844)>, 'bolt': <comm_server.Bolt object at 0x1024b5810>}}
+2025-02-12 02:25:39 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:25:39
+2025-02-12 02:26:08 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:26:08
+2025-02-12 02:26:10 - INFO - Accepted connection from ('127.0.0.1', 52906) at 2025-02-12 02:26:10
+2025-02-12 02:26:13 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52906)> at 2025-02-12 02:26:13
+2025-02-12 02:26:13 - ERROR - Exception: Header must have 2 fields, not 4.
+2025-02-12 02:26:13 - INFO - Connected users: {}
+2025-02-12 02:27:29 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:27:29
+2025-02-12 02:27:30 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:27:30
+2025-02-12 02:27:31 - INFO - Accepted connection from ('127.0.0.1', 52925) at 2025-02-12 02:27:31
+2025-02-12 02:27:33 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52925)
+2025-02-12 02:27:33 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 52925)
+2025-02-12 02:27:37 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52925)
+2025-02-12 02:27:37 - INFO - Preparing to write b'\x00"{"version":1,"content-length":129}{"action":"login","result":true,"users":["nick2","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":0}' to ('127.0.0.1', 52925)
+2025-02-12 02:27:37 - INFO - New user nick at 2025-02-12 02:27:37
+2025-02-12 02:27:37 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52925)>, 'bolt': <comm_server.Bolt object at 0x100eff350>}}
+2025-02-12 02:27:38 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52925)> at 2025-02-12 02:27:38
+2025-02-12 02:27:38 - ERROR - Exception: Peer closed.
+2025-02-12 02:27:38 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52925)>, 'bolt': <comm_server.Bolt object at 0x100eff350>}}
+2025-02-12 02:27:41 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:27:41
+2025-02-12 02:28:34 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:28:34
+2025-02-12 02:28:35 - INFO - Accepted connection from ('127.0.0.1', 52935) at 2025-02-12 02:28:35
+2025-02-12 02:29:00 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52935)
+2025-02-12 02:29:00 - INFO - Preparing to write b'\x00g{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 44}{"action": "check_username", "result": true}' to ('127.0.0.1', 52935)
+2025-02-12 02:29:12 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52935)
+2025-02-12 02:29:12 - INFO - Preparing to write b'\x00h{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 143}{"action": "login", "result": true, "users": ["nick2", "nick3", "kenny", "kenny1", "kenny2", "kenny3", "kenny4", "kenny5"], "n_undelivered": 0}' to ('127.0.0.1', 52935)
+2025-02-12 02:29:12 - INFO - New user nick at 2025-02-12 02:29:12
+2025-02-12 02:29:12 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52935)>, 'bolt': <comm_server.Bolt object at 0x104edb450>}}
+2025-02-12 02:29:24 - INFO - Received request {'username': 'nick', 'user2': 'nick2', 'action': 'load_chat'} from ('127.0.0.1', 52935)
+2025-02-12 02:29:24 - INFO - Preparing to write b'\x00h{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 471}{"action": "load_chat", "messages": [["nick2", "nick", "SESES", 3], ["nick2", "nick", "SESS", 4], ["nick", "nick2", "asdfasdf", 12], ["nick", "nick2", "hello", 17], ["nick", "nick2", "message", 18], ["nick", "nick2", "message1", 19], ["nick", "nick2", "message2", 20], ["nick", "nick2", "message3", 21], ["nick", "nick2", "message4", 22], ["nick", "nick2", "hello", 41], ["nick", "nick2", "asdfasdf", 43], ["nick", "nick2", "asdfasdf", 44], ["nick", "nick2", "fff", 45]]}' to ('127.0.0.1', 52935)
+2025-02-12 02:30:21 - INFO - Received request {'sender': 'nick', 'recipient': 'nick2', 'message': 'hello', 'action': 'send_message'} from ('127.0.0.1', 52935)
+2025-02-12 02:30:21 - INFO - Preparing to write b'\x00g{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 44}{"action": "send_message", "message_id": 57}' to ('127.0.0.1', 52935)
+2025-02-12 02:30:21 - INFO - Message from nick to nick2 at 2025-02-12 02:30:21
+2025-02-12 02:30:44 - INFO - Received request {'message_id': 57, 'action': 'delete_message'} from ('127.0.0.1', 52935)
+2025-02-12 02:30:44 - INFO - Preparing to write b'\x00g{"byteorder": "little", "content-type": "text/json", "content-encoding": "utf-8", "content-length": 44}{"action": "delete_message", "result": true}' to ('127.0.0.1', 52935)
+2025-02-12 02:30:49 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52935)> at 2025-02-12 02:30:49
+2025-02-12 02:30:49 - ERROR - Exception: Peer closed.
+2025-02-12 02:30:49 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52935)>, 'bolt': <comm_server.Bolt object at 0x104edb450>}}
+2025-02-12 02:30:58 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:30:58
+2025-02-12 02:30:59 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:30:59
+2025-02-12 02:31:00 - INFO - Accepted connection from ('127.0.0.1', 52948) at 2025-02-12 02:31:00
+2025-02-12 02:31:02 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52948)
+2025-02-12 02:31:02 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 52948)
+2025-02-12 02:31:13 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52948)
+2025-02-12 02:31:13 - INFO - Preparing to write b'\x00"{"version":1,"content-length":129}{"action":"login","result":true,"users":["nick2","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":0}' to ('127.0.0.1', 52948)
+2025-02-12 02:31:13 - INFO - New user nick at 2025-02-12 02:31:13
+2025-02-12 02:31:13 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52948)>, 'bolt': <comm_server.Bolt object at 0x1028c7450>}}
+2025-02-12 02:31:24 - INFO - Received request {'username': 'nick', 'user2': 'nick2', 'action': 'load_chat'} from ('127.0.0.1', 52948)
+2025-02-12 02:31:24 - INFO - Preparing to write b'\x00"{"version":1,"content-length":417}{"action":"load_chat","messages":[("nick2","nick","SESES",3),("nick2","nick","SESS",4),("nick","nick2","asdfasdf",12),("nick","nick2","hello",17),("nick","nick2","message",18),("nick","nick2","message1",19),("nick","nick2","message2",20),("nick","nick2","message3",21),("nick","nick2","message4",22),("nick","nick2","hello",41),("nick","nick2","asdfasdf",43),("nick","nick2","asdfasdf",44),("nick","nick2","fff",45)]}' to ('127.0.0.1', 52948)
+2025-02-12 02:31:35 - INFO - Received request {'sender': 'nick', 'recipient': 'nick2', 'message': 'hello', 'action': 'send_message'} from ('127.0.0.1', 52948)
+2025-02-12 02:31:35 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"send_message","message_id":57}' to ('127.0.0.1', 52948)
+2025-02-12 02:31:35 - INFO - Message from nick to nick2 at 2025-02-12 02:31:35
+2025-02-12 02:31:50 - INFO - Received request {'message_id': 57, 'action': 'delete_message'} from ('127.0.0.1', 52948)
+2025-02-12 02:31:50 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"delete_message","result":true}' to ('127.0.0.1', 52948)
+2025-02-12 02:32:53 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52948)> at 2025-02-12 02:32:53
+2025-02-12 02:32:53 - ERROR - Exception: Peer closed.
+2025-02-12 02:32:53 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52948)>, 'bolt': <comm_server.Bolt object at 0x1028c7450>}}
+2025-02-12 02:32:57 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:32:57
+2025-02-12 02:33:07 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:33:07
+2025-02-12 02:33:09 - INFO - Accepted connection from ('127.0.0.1', 52973) at 2025-02-12 02:33:09
+2025-02-12 02:33:10 - INFO - Accepted connection from ('127.0.0.1', 52974) at 2025-02-12 02:33:10
+2025-02-12 02:33:14 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 52973)
+2025-02-12 02:33:14 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:17 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 52973)
+2025-02-12 02:33:17 - INFO - Preparing to write b'\x00"{"version":1,"content-length":129}{"action":"login","result":true,"users":["nick2","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":0}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:17 - INFO - New user nick at 2025-02-12 02:33:17
+2025-02-12 02:33:17 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52973)>, 'bolt': <comm_server.Bolt object at 0x100c23350>}}
+2025-02-12 02:33:21 - INFO - Received request {'username': 'nick2', 'action': 'check_username'} from ('127.0.0.1', 52974)
+2025-02-12 02:33:21 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 52974)
+2025-02-12 02:33:25 - INFO - Received request {'username': 'nick2', 'passhash': 'nick2', 'action': 'login'} from ('127.0.0.1', 52974)
+2025-02-12 02:33:25 - INFO - Preparing to write b'\x00"{"version":1,"content-length":129}{"action":"login","result":true,"users":["nick","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":12}' to ('127.0.0.1', 52974)
+2025-02-12 02:33:25 - INFO - New user nick2 at 2025-02-12 02:33:25
+2025-02-12 02:33:25 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52973)>, 'bolt': <comm_server.Bolt object at 0x100c23350>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52974)>, 'bolt': <comm_server.Bolt object at 0x100bf3a90>}}
+2025-02-12 02:33:27 - INFO - Received request {'username': 'nick2', 'n_messages': 4, 'action': 'view_undelivered'} from ('127.0.0.1', 52974)
+2025-02-12 02:33:27 - INFO - Preparing to write b'\x00"{"version":1,"content-length":158}{"action":"view_undelivered","messages":[("nick","nick2","fff",45),("nick","nick2","asdfasdf",44),("nick","nick2","asdfasdf",43),("nick","nick2","hello",41)]}' to ('127.0.0.1', 52974)
+2025-02-12 02:33:36 - INFO - Received request {'username': 'nick', 'user2': 'kenny', 'action': 'load_chat'} from ('127.0.0.1', 52973)
+2025-02-12 02:33:36 - INFO - Preparing to write b'\x00"{"version":1,"content-length":774}{"action":"load_chat","messages":[("kenny","nick","hello",23),("nick","kenny","hi",24),("nick","kenny","test1",25),("nick","kenny","test2",26),("nick","kenny","test3",27),("kenny","nick","test4",28),("nick","kenny","hello",29),("nick","kenny","hi",30),("nick","kenny","hello",31),("nick","kenny","helloagain",32),("nick","kenny","test5",33),("nick","kenny","TEST",34),("nick","kenny","undeliv",35),("nick","kenny","ETSETSTE",36),("nick","kenny","SETSET",37),("nick","kenny","SETSETSET",38),("nick","kenny","aaa",46),("nick","kenny","asdfasdf",47),("kenny","nick","asdfasdf",48),("nick","kenny","asdf",49),("nick","kenny","fff",50),("nick","kenny","asdf",51),("nick","kenny","",52),("nick","kenny","",53),("nick","kenny","",54),("nick","kenny","",55),("nick","kenny","",56)]}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:40 - INFO - Received request {'username': 'nick2', 'user2': 'nick', 'action': 'load_chat'} from ('127.0.0.1', 52974)
+2025-02-12 02:33:40 - INFO - Preparing to write b'\x00"{"version":1,"content-length":417}{"action":"load_chat","messages":[("nick2","nick","SESES",3),("nick2","nick","SESS",4),("nick","nick2","asdfasdf",12),("nick","nick2","hello",17),("nick","nick2","message",18),("nick","nick2","message1",19),("nick","nick2","message2",20),("nick","nick2","message3",21),("nick","nick2","message4",22),("nick","nick2","hello",41),("nick","nick2","asdfasdf",43),("nick","nick2","asdfasdf",44),("nick","nick2","fff",45)]}' to ('127.0.0.1', 52974)
+2025-02-12 02:33:41 - INFO - Received request {'sender': 'nick2', 'recipient': 'nick', 'message': 'yoooo', 'action': 'send_message'} from ('127.0.0.1', 52974)
+2025-02-12 02:33:41 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"send_message","message_id":57}' to ('127.0.0.1', 52974)
+2025-02-12 02:33:41 - INFO - Message from nick2 to nick at 2025-02-12 02:33:41
+2025-02-12 02:33:41 - INFO - Updating message 57 to delivered.
+2025-02-12 02:33:41 - INFO - Preparing to write b'\x00!{"version":1,"content-length":73}{"action":"ping","sender":"nick2","sent_message":"yoooo","message_id":57}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:45 - INFO - Received request {'username': 'nick', 'user2': 'nick2', 'action': 'load_chat'} from ('127.0.0.1', 52973)
+2025-02-12 02:33:45 - INFO - Preparing to write b'\x00"{"version":1,"content-length":445}{"action":"load_chat","messages":[("nick2","nick","SESES",3),("nick2","nick","SESS",4),("nick","nick2","asdfasdf",12),("nick","nick2","hello",17),("nick","nick2","message",18),("nick","nick2","message1",19),("nick","nick2","message2",20),("nick","nick2","message3",21),("nick","nick2","message4",22),("nick","nick2","hello",41),("nick","nick2","asdfasdf",43),("nick","nick2","asdfasdf",44),("nick","nick2","fff",45),("nick2","nick","yoooo",57)]}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:59 - INFO - Received request {'sender': 'nick', 'recipient': 'nick2', 'message': 'asdfasdf', 'action': 'send_message'} from ('127.0.0.1', 52973)
+2025-02-12 02:33:59 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"send_message","message_id":58}' to ('127.0.0.1', 52973)
+2025-02-12 02:33:59 - INFO - Message from nick to nick2 at 2025-02-12 02:33:59
+2025-02-12 02:33:59 - INFO - Updating message 58 to delivered.
+2025-02-12 02:33:59 - INFO - Preparing to write b'\x00!{"version":1,"content-length":75}{"action":"ping","sender":"nick","sent_message":"asdfasdf","message_id":58}' to ('127.0.0.1', 52974)
+2025-02-12 02:34:16 - ERROR - Connection closed by peer: <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52974)> at 2025-02-12 02:34:16
+2025-02-12 02:34:16 - ERROR - Exception: Peer closed.
+2025-02-12 02:34:16 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52973)>, 'bolt': <comm_server.Bolt object at 0x100c23350>}, 'nick2': {'socket': <socket.socket fd=7, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52974)>, 'bolt': <comm_server.Bolt object at 0x100bf3a90>}}
+2025-02-12 02:34:17 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52973)> at 2025-02-12 02:34:17
+2025-02-12 02:34:17 - ERROR - Exception: Peer closed.
+2025-02-12 02:34:17 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 52973)>, 'bolt': <comm_server.Bolt object at 0x100c23350>}, 'nick2': {'socket': <socket.socket [closed] fd=-1, family=2, type=1, proto=0>, 'bolt': <comm_server.Bolt object at 0x100bf3a90>}}
+2025-02-12 02:34:19 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:34:19
+2025-02-12 02:37:33 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:37:33
+2025-02-12 02:37:34 - INFO - Accepted connection from ('127.0.0.1', 53033) at 2025-02-12 02:37:34
+2025-02-12 02:37:37 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 53033)
+2025-02-12 02:37:37 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"check_username","result":true}' to ('127.0.0.1', 53033)
+2025-02-12 02:37:40 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'login'} from ('127.0.0.1', 53033)
+2025-02-12 02:37:40 - INFO - Preparing to write b'\x00"{"version":1,"content-length":129}{"action":"login","result":true,"users":["nick2","nick3","kenny","kenny1","kenny2","kenny3","kenny4","kenny5"],"n_undelivered":0}' to ('127.0.0.1', 53033)
+2025-02-12 02:37:40 - INFO - New user nick at 2025-02-12 02:37:40
+2025-02-12 02:37:40 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53033)>, 'bolt': <comm_server.Bolt object at 0x104673450>}}
+2025-02-12 02:37:43 - INFO - Received request {'username': 'nick', 'user2': 'kenny4', 'action': 'load_chat'} from ('127.0.0.1', 53033)
+2025-02-12 02:37:43 - INFO - Preparing to write b'\x00!{"version":1,"content-length":36}{"action":"load_chat","messages":[]}' to ('127.0.0.1', 53033)
+2025-02-12 02:37:49 - INFO - Received request {'sender': 'nick', 'recipient': 'kenny4', 'message': 'asdfasdf', 'action': 'send_message'} from ('127.0.0.1', 53033)
+2025-02-12 02:37:49 - INFO - Preparing to write b'\x00!{"version":1,"content-length":41}{"action":"send_message","message_id":59}' to ('127.0.0.1', 53033)
+2025-02-12 02:37:49 - INFO - Message from nick to kenny4 at 2025-02-12 02:37:49
+2025-02-12 02:37:51 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53033)> at 2025-02-12 02:37:51
+2025-02-12 02:37:51 - ERROR - Exception: Peer closed.
+2025-02-12 02:37:51 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53033)>, 'bolt': <comm_server.Bolt object at 0x104673450>}}
+2025-02-12 02:37:52 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:37:52

@@ -1,5 +1,7 @@
 import io
 import json
+import logging
+import os
 import selectors
 import struct
 import sys
@@ -9,6 +11,22 @@ import sqlite3
 import hashlib
 
 import parse_helpers
+
+# log to a file
+log_file = "logs/server_bolt.log"
+
+# if the file does not exist in the current directory, create it
+if not os.path.exists(log_file):
+    with open(log_file, "w") as f:
+        pass
+
+
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 class Bolt:
@@ -149,12 +167,10 @@ class Bolt:
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
                 self.instream = self.instream[hdrlen:]
-                if len(self.header) != 4:
-                    raise ValueError(f"Header must have 4 fields, not {len(self.header)}.")
+                if len(self.header) != 2:
+                    raise ValueError(f"Header must have 2 fields, not {len(self.header)}.")
                 for reqhdr in (
                     "version",
-                    "byteorder",
-                    "content-encoding",
                     "content-length",
                 ):
                     if reqhdr not in self.header:
@@ -162,7 +178,7 @@ class Bolt:
 
                 # if version is not 1, raise error
                 if self.header["version"] != 1:
-                    raise ValueError(f"Invalid version '{self.header[0]}'.")
+                    raise ValueError(f"Invalid version '{self.header['version']}'.")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
@@ -178,9 +194,12 @@ class Bolt:
                 return
             data = self.instream[:content_len]
             self.instream = self.instream[content_len:]
-            encoding = self.header["content-encoding"]
+            if self.protocol_type == "json":
+                encoding = self.header["content-encoding"]
+            elif self.protocol_type == "custom":
+                encoding = 'utf-8'
             self.request = self._byte_decode(data, encoding)
-            print(f"Received request {self.request!r} from {self.addr}")
+            logging.info(f"Received request {self.request!r} from {self.addr}")
 
             # Set selector to listen for write events, we're done reading.
             self._header_len = None
@@ -200,7 +219,7 @@ class Bolt:
 
     def _write(self):
         if self.outstream:
-            print(f"Preparing to write {self.outstream!r} to {self.addr}")
+            logging.info(f"Preparing to write {self.outstream!r} to {self.addr}")
             try:
                 sent_bytes = self.sock.send(self.outstream)
             except BlockingIOError:
@@ -307,8 +326,6 @@ class Bolt:
 
             username = self.request.get("username")
             user2 = self.request.get("user2")
-            print(username)
-            print(user2)
             try:
                 sqlcur.execute(
                     "SELECT sender, recipient, message, message_id FROM messages WHERE (sender=? AND recipient=?) OR (sender=? AND recipient=?) ORDER BY time",
@@ -316,7 +333,7 @@ class Bolt:
                 )
                 result = sqlcur.fetchall()
             except Exception as e:
-                print("Error:", e)
+                logging.error(f"Error in Load Chat: {e}")
                 result = []
             content = {"action": action, "messages": result}
 
@@ -366,7 +383,7 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            print(f"Updating message {message_id} to delivered.")
+            logging.info(f"Updating message {message_id} to delivered.")
 
             sqlcur.execute(
                 "UPDATE messages SET delivered=1 WHERE message_id=?", (message_id,)
@@ -381,8 +398,6 @@ class Bolt:
             username = self.request.get("username")
             n_messages = self.request.get("n_messages")
 
-            print(f"User: {username}")
-            print(f"Number of messages: {n_messages}")
             sqlcur.execute(
                 "SELECT sender, recipient, message, message_id FROM messages WHERE recipient=? AND delivered=0 ORDER BY time DESC LIMIT ?",
                 (username, n_messages),
@@ -455,12 +470,9 @@ class Bolt:
 
             message = self._create_message(**response)
         elif self.protocol_type == "custom":
-            print("HERRRREEEEECUSTOM")
             content_bytes = self._byte_encode(content, content_encoding)
             customheader = {
                 "version": 1,
-                "byteorder": sys.byteorder,
-                "content-encoding": content_encoding,
                 "content-length": len(content_bytes)
             }
             customheader_bytes = self._byte_encode(customheader, content_encoding)
@@ -535,16 +547,16 @@ class Bolt:
         self.sel.modify(self.sock, events, data=self)
 
     def close(self):
-        print(f"Closing connection to {self.addr}")
+        logging.info(f"Closing connection to {self.addr}")
         try:
             self.sel.unregister(self.sock)
         except Exception as e:
-            print(f"Error: selector.unregister() exception for " f"{self.addr}: {e!r}")
+            logging.error(f"Error: selector.unregister() exception for " f"{self.addr}: {e!r}")
 
         try:
             self.sock.close()
         except OSError as e:
-            print(f"Error: socket.close() exception for {self.addr}: {e!r}")
+            logging.error(f"Error: socket.close() exception for {self.addr}: {e!r}")
         finally:
             # Delete reference to socket object for garbage collection
             self.sock = None

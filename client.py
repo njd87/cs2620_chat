@@ -487,8 +487,8 @@ class ClientUI:
         Main is set up into 3 components.
 
         On the left side is a list of all available users.
-        - This is a listbox that is populated with all users.
-        - There are buttons on the bottom for "Prev" and "Next" to scroll through the list.
+        - This is a listbox that is populated with all users.]
+        - You can click on a user and click "Message" to start a chat with them.
 
         In the middle is the chat window.
         - This is a text widget that displays the chat history.
@@ -518,8 +518,7 @@ class ClientUI:
             self.users_listbox.insert(tk.END, user)
 
         self.users_listbox.pack()
-        self.users_prev_button = tk.Button(self.users_frame, text="Prev")
-        self.users_prev_button.pack(side=tk.LEFT)
+
         self.message_button = tk.Button(
             self.users_frame,
             text="Message",
@@ -528,8 +527,6 @@ class ClientUI:
             ),
         )
         self.message_button.pack(side=tk.LEFT)
-        self.users_next_button = tk.Button(self.users_frame, text="Next")
-        self.users_next_button.pack(side=tk.RIGHT)
 
         self.ping_frame = tk.Frame(self.main_frame)
         self.ping_frame.pack(side=tk.BOTTOM)

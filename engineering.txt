@@ -154,3 +154,36 @@ due to the fact that we're recursively calling these functions to check for a re
 to call functions onto the stack without really clearing them. It's also currently a pretty clunky solution.
 
 Hm. Trying to figure out how to make this more efficient.
+
+Update: we have now changed client UI entirely. All "check" functions have been moved to client side bolt and we pass our GUI
+into the bolt itself for direct changes.
+
+Our custom protocol is now complete as well, utilizing dict and nested serialization (similar to a leetcode problem).
+We assume that we are running version 1 (if another version is detected, an error is thrown)
+The header include content length with variable header length, similar to json.
+
+However, we suspect our serialization to direct strings should reduce sizes.
+
+Here is a quick comparison of size comparison under the same conditions (note, these sizes differ when content differs; here, content was kept constant):
+
+USER ENTRY
+- JSON: 149
+- Custom: 76
+
+LOGIN
+- JSON: 249
+- Custom: 165
+
+LOAD MESSAGES
+- JSON: 577
+- Custom: 453
+
+SENT MESSAGES
+- JSON: 149
+- Custom: 76
+
+DELETE MESSAGE
+- JSON: 149
+- Custom: 76
+
+So, our custom protocol is more efficient by requires less bytes (since it will transfer more quickly!) This makes it much more scalable as we grow uers and span systems.

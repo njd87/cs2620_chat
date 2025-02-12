@@ -1,5 +1,7 @@
 import io
 import json
+import logging
+import os
 import selectors
 import struct
 import sys
@@ -7,6 +9,21 @@ import parse_helpers
 import socket
 import tkinter as tk
 
+# log to a file
+log_file = "logs/client_bolt.log"
+
+# if the file does not exist in the current directory, create it
+if not os.path.exists(log_file):
+    with open(log_file, "w") as f:
+        pass
+
+
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 class Bolt:
     """
@@ -75,6 +92,7 @@ class Bolt:
         First reads raw bytes, then reads header length, then reads header, then reads response.
         '''
         self._read()
+        # print("Length of read bytes:", len(self.instream))
 
         if self._header_len is None:
             self.process_header_len()
@@ -155,16 +173,13 @@ class Bolt:
             hdrlen = self._header_len
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
-                print(self.header)
                 self.instream = self.instream[hdrlen:]
-                if len(self.header) != 4:
+                if len(self.header) != 2:
                     raise ValueError(
-                        f"Header must have 4 fields, not {len(self.header)}."
+                        f"Header must have 2 fields, not {len(self.header)}."
                     )
                 for reqhdr in (
                     "version",
-                    "byteorder",
-                    "content-encoding",
                     "content-length",
                 ):
                     if reqhdr not in self.header:
@@ -172,7 +187,7 @@ class Bolt:
 
                 # if version is not 1, raise error
                 if self.header["version"] != 1:
-                    raise ValueError(f"Invalid version '{self.header[0]}'.")
+                    raise ValueError(f"Invalid version '{self.header['version']}'.")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
@@ -188,9 +203,12 @@ class Bolt:
                 return
             data = self.instream[:content_len]
             self.instream = self.instream[content_len:]
-            encoding = self.header["content-encoding"]
+            if self.protocol_type == "json":
+                encoding = self.header["content-encoding"]
+            elif self.protocol_type == "custom":
+                encoding = 'utf-8'
             self.response = self._byte_decode(data, encoding)
-            print(f"Received response {self.response!r} from {self.addr}")
+            logging.info(f"Received response {self.response!r} from {self.addr}")
 
             # Set selector to listen for write events, we're done reading.
             self._header_len = None
@@ -326,7 +344,6 @@ class Bolt:
                 self.gui.rerender_pings()
             # user is not in users, add them; created new account
             elif pinging_user not in self.gui.users:
-                print("wrong turn here")
                 self.gui.users += [pinging_user]
                 self.gui.rerender_users()
             self.response = None
@@ -421,8 +438,6 @@ class Bolt:
             content_bytes = self._byte_encode(content, content_encoding)
             customheader = {
                 "version": 1,
-                "byteorder": sys.byteorder,
-                "content-encoding": content_encoding,
                 "content-length": len(content_bytes),
             }
             customheader_bytes = self._byte_encode(customheader, content_encoding)
@@ -500,16 +515,16 @@ class Bolt:
         self.sel.modify(self.sock, events, data=self)
 
     def close(self):
-        print(f"Closing connection to {self.addr}")
+        logging.info(f"Closing connection to {self.addr}")
         try:
             self.sel.unregister(self.sock)
         except Exception as e:
-            print(f"Error: selector.unregister() exception for " f"{self.addr}: {e!r}")
+            logging.error(f"Error: selector.unregister() exception for " f"{self.addr}: {e!r}")
 
         try:
             self.sock.close()
         except OSError as e:
-            print(f"Error: socket.close() exception for {self.addr}: {e!r}")
+            logging.error(f"Error: socket.close() exception for {self.addr}: {e!r}")
         finally:
             # Delete reference to socket object for garbage collection
             self.sock = None
