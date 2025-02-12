@@ -10,7 +10,6 @@ from comm_client import Bolt
 
 sel = selectors.DefaultSelector()
 
-
 class ClientUI:
     """
     The client UI for the messenger.
@@ -52,8 +51,8 @@ class ClientUI:
 
         # start connection
         # MUST be run in separate thread
-        self.conn, self.conn_data = start_connection(host, port)
-        threading.Thread(target=event_loop, daemon=True).start()
+        # self.conn, self.conn_data = start_connection(host, port)
+        threading.Thread(target=event_loop, args=(self,), daemon=True).start()
 
         # setup first screen
         self.setup_user_entry()
@@ -92,197 +91,13 @@ class ClientUI:
         self.connected_to = None
 
 
-    """
-    Functions starting with "check_" are used to check for responses from the server.
-    These are to be run when in different states of the tkinter window.
+    # """
+    # Functions starting with "check_" are used to check for responses from the server.
+    # These are to be run when in different states of the tkinter window.
 
-    Once a response is received, the response is processed and the window is updated accordingly.
-    Then, the function "returns" to make sure it doesn't keep looking for the response.
-    """
-
-    def check_user_entry_response(self):
-        """
-        Check for a response to the user entry.
-        Sends request to check if the username exists.
-        """
-        if self.conn_data.response:
-            # no matter what, we destroy the user entry screen
-            self.destroy_user_entry()
-            # username exists, send to login
-            if self.conn_data.response["result"]:
-                self.conn_data.response = None
-                self.setup_login()
-                return
-            # username does not exist, send to register
-            else:
-                self.conn_data.response = None
-                self.setup_register()
-                return
-
-        self.root.after(100, self.check_user_entry_response)
-
-    def check_login_response(self):
-        """
-        Check for a response to the login.
-        Deals with logic of when login has correct and incorrect credentials.
-        """
-        if self.conn_data.response:
-            # logged in successfully - passhash matches
-            if self.conn_data.response["result"]:
-                self.users = self.conn_data.response["users"]
-                self.n_undelivered = self.conn_data.response["n_undelivered"]
-                self.conn_data.response = None
-                self.credentials = self.login_entry.get()
-                self.login_frame.destroy()
-                self.setup_undelivered()
-                return
-            # login failed, incorrect username/password
-            else:
-                self.conn_data.response = None
-                self.login_frame.destroy()
-                self.setup_login(failed = True)
-                return
-
-        self.root.after(100, self.check_login_response)
-
-    def check_register_response(self):
-        """
-        Check for a response to the register.
-        If the username already exists, show a label.
-        If the passwords do not match, show a label.
-
-        Otherwise, move to the main screen.
-        """
-        if self.conn_data.response:
-            if self.conn_data.response["result"]:
-                self.users = self.conn_data.response["users"]
-                self.conn_data.response = None
-                self.credentials = self.register_entry.get()
-                self.register_frame.destroy()
-                self.setup_main()
-                return
-            else:
-                self.conn_data.response = None
-                self.register_username_exists_label.pack()
-                return
-
-        self.root.after(100, self.check_register_response)
-
-    def check_load_chat_request(self):
-        """
-        Check for a response to the load chat request.
-        """
-        if self.conn_data.response and "messages" in self.conn_data.response:
-            self.loaded_messages = self.conn_data.response["messages"]
-            self.conn_data.response = None
-            self.rerender_messages()
-            return
-
-        self.root.after(100, self.check_load_chat_request)
-
-    def check_send_message_request(self):
-        """
-        Check for a response to the send message request.
-        """
-        if self.conn_data.response:
-            self.loaded_messages += [
-                (self.credentials, self.connected_to, self.chat_entry.get(), self.conn_data.response["message_id"])
-            ]
-            self.conn_data.response = None
-            self.chat_entry.delete(0, tk.END)
-            self.rerender_messages()
-            return
-
-        self.root.after(100, self.check_send_message_request)
-
-    def check_new_message_request(self):
-        """
-        Check for a response to the new message request.
-        """
-        if self.conn_data.response and "sent_message" in self.conn_data.response:
-            if self.connected_to == self.conn_data.response["sender"]:
-                self.loaded_messages += [
-                    (self.connected_to, self.credentials, self.conn_data.response["sent_message"], self.conn_data.response["message_id"])
-                ]
-                self.conn_data.response = None
-                self.rerender_messages()
-            else:
-                self.incoming_pings += [(
-                    self.conn_data.response["sender"],
-                    self.conn_data.response["sent_message"]
-                    )]
-                self.conn_data.response = None
-                self.rerender_pings()
-            return
-
-        self.root.after(100, self.check_new_message_request)
-    
-    def check_undelivered_request(self):
-        """
-        Check for a response to the undelivered request.
-        """
-        if self.conn_data.response and "messages" in self.conn_data.response:
-            self.undelivered_messages = self.conn_data.response["messages"]
-            self.conn_data.response = None
-            self.rerender_undelivered()
-            return
-
-        self.root.after(100, self.check_undelivered_request)
-
-    def check_delete_message_request(self):
-        """
-        Check for a response to the delete message request.
-        """
-        if self.conn_data.response:
-            self.conn_data.response = None
-            del self.loaded_messages[self.chat_text.curselection()[0] - 1]
-            self.chat_entry.delete(0, tk.END)
-            self.rerender_messages()
-            return
-
-        self.root.after(100, self.check_delete_message_request)
-
-    def check_delete_request_response(self):
-        """
-        Check for a response to the delete request.
-        """
-        if self.conn_data.response:
-            if self.conn_data.response["result"]:
-                self.conn_data.response = None
-                self.reset_login_vars() # KG: don't forget to get rid of it on server
-                self.destroy_settings() # KG: should display successfully deleted, also clear settings
-                self.setup_deleted()
-                return
-            else:
-                self.conn_data.response = None
-                self.destroy_settings()
-                self.setup_settings(failed = True)
-                return
-
-        self.root.after(100, self.check_delete_request_response)
-
-    def check_ping_user_request(self):
-        """
-        Check for incoming delete pings. # KG: could clarify documentation
-        """
-        if self.conn_data.response and "ping_user" in self.conn_data.response:
-            pinging_user = self.conn_data.response["ping_user"]
-            if pinging_user in self.users:
-                self.users = [user for user in self.users if user != pinging_user]
-                self.rerender_users()
-                if self.connected_to == self.conn_data.response["ping_user"][0]:
-                    self.connected_to = None
-                    self.loaded_messages = []
-                    self.rerender_messages()
-                # self.incoming_pings = [ping for ping in self.incoming_pings if ping[0] != pinging_user] # KG: could cause slowdown
-                # self.rerender_pings() KG: need to fix
-                
-            else:
-                self.users += [pinging_user]
-                self.rerender_users()
-            self.conn_data.response = None
-
-        self.root.after(100, self.check_ping_user_request)
+    # Once a response is received, the response is processed and the window is updated accordingly.
+    # Then, the function "returns" to make sure it doesn't keep looking for the response.
+    # """
 
     """
     Functions starting with "send_" are used to send requests to the server.
@@ -305,18 +120,14 @@ class ClientUI:
         confirm_password : str
             The confirm password to send. Only used for registration.
         """
-        self.conn_data.request = {
+        request = {
             "action": action,
             "username": username,
             "passhash": password,
             "encoding": "utf-8",
         }
-        if action == "login":
-            self.check_login_response()
-        elif action == "register":
-            self.check_register_response()
-        else:
-            print("Unexpected action under logreg.")
+
+        send_request(request)
 
 
     def send_user_check_request(self, username):
@@ -329,12 +140,12 @@ class ClientUI:
             The username to check.
         """
         # create a request
-        self.conn_data.request = {
+        request = {
             "action": "check_username",
             "username": username,
             "encoding": "utf-8",
         }
-        self.check_user_entry_response()
+        send_request(request)
 
     def send_chat_load_request(self, username):
         """
@@ -347,18 +158,18 @@ class ClientUI:
             The username to load the chat for.
         """
         # create a request
-        self.conn_data.request = {
+        request = {
             "action": "load_chat",
             "username": self.credentials,
             "user2": username,
             "encoding": "utf-8",
         }
 
+        send_request(request)
+
         self.connected_to = username
         self.incoming_pings = [ping for ping in self.incoming_pings if ping[0] != username] # KG: could cause slowdown
         self.rerender_pings()
-
-        self.check_load_chat_request()
 
     def send_message_request(self, message):
         """
@@ -370,7 +181,7 @@ class ClientUI:
             The message to send.
         """
         # create a request
-        self.conn_data.request = {
+        request = {
             "action": "send_message",
             "sender": self.credentials,
             "recipient": self.connected_to,
@@ -378,7 +189,9 @@ class ClientUI:
             "encoding": "utf-8",
         }
 
-        self.check_send_message_request()
+        send_request(request)
+
+        # self.check_send_message_request()
     
     def send_undelivered_request(self, n_messages):
         """
@@ -402,17 +215,17 @@ class ClientUI:
             return
         
         # create a request
-        self.conn_data.request = {
+        request = {
             "action": "view_undelivered",
             "username": self.credentials,
             "n_messages": n_messages,
             "encoding": "utf-8",
         }
 
+        send_request(request)
+
         # get rid of out of range warning
         self.out_of_range_warning_label.destroy()
-
-        self.root.after(100, self.check_undelivered_request)
 
     def send_delete_message_request(self, message_inx):
         """
@@ -423,7 +236,7 @@ class ClientUI:
         if self.loaded_messages[message_inx][0] == self.credentials:
             message_id = self.loaded_messages[message_inx][3]
 
-            self.conn_data.request = {
+            request = {
                 "action": "delete_message",
                 "message_id": message_id,
                 "sender": self.credentials,
@@ -431,7 +244,7 @@ class ClientUI:
                 "encoding": "utf-8"
             }
 
-            self.check_delete_message_request() # KG: why do we need root.after?
+            send_request(request)
         else:
             print("not allowed to delete")
 
@@ -440,14 +253,14 @@ class ClientUI:
         Send a request to delete the account.
         """
         print("credentials:", self.credentials) 
-        self.conn_data.request = {
+        self.request = {
             "action": "delete_account",
             "username": self.credentials,
             "passhash": password,
-            "encoding": "utf-8", # KG: encodings?
+            "encoding": "utf-8"
         }
 
-        self.check_delete_request_response()
+        send_request(self.request)
 
         
 
@@ -477,6 +290,8 @@ class ClientUI:
             text="Enter",
             command=lambda: self.send_user_check_request(self.user_entry.get()) if self.user_entry.get() else None,
         )
+        
+
         self.user_entry_button.pack()
 
     def destroy_user_entry(self):
@@ -707,7 +522,7 @@ class ClientUI:
             self.users_frame,
             text="Message",
             command=lambda: self.send_chat_load_request(
-                self.users_listbox.get(tk.ACTIVE)[0]
+                self.users_listbox.get(tk.ACTIVE)
             ),
         )
         self.message_button.pack(side=tk.LEFT)
@@ -757,8 +572,6 @@ class ClientUI:
                                          command=lambda: [self.destroy_main(), self.setup_settings()])
         self.settings_button.pack()
 
-        self.root.after(100, self.check_new_message_request)
-        self.root.after(100, self.check_ping_user_request)
 
     def destroy_main(self):
         """
@@ -784,14 +597,6 @@ class ClientUI:
             text="Are you sure you want to delete your account?\n(Enter password to confirm)",
         )
         self.delete_label.pack()
-
-        # self.confirm_username_label = tk.Label(
-        #     self.settings_frame, text="Enter your username:"
-        # )
-        # self.confirm_username_label.pack()
-
-        # self.confirm_username_entry = tk.Entry(self.settings_frame)
-        # self.confirm_username_entry.pack()
 
         self.confirm_password_label = tk.Label(
             self.settings_frame, text="Enter your password:"
@@ -852,7 +657,6 @@ class ClientUI:
         for message in self.loaded_messages:
             self.chat_text.insert(tk.END, f"{message[0]}: {message[2]}\n")
 
-        self.root.after(100, self.check_new_message_request)
     
     def rerender_pings(self):
         """
@@ -865,8 +669,6 @@ class ClientUI:
 
         for ping in self.incoming_pings:
             self.incoming_pings_listbox.insert(tk.END, f"{ping[0]}: {ping[1]}")
-
-        self.root.after(100, self.check_new_message_request)
 
     
     def rerender_users(self): # KG: not used?
@@ -903,6 +705,7 @@ class ClientUI:
 The rest of the code is for setting up the connection and running the client.
 """
 
+
 # load config file, config/config.json
 if not os.path.exists("config/config.json"):
     print("Config file does not exist, exiting")
@@ -921,7 +724,7 @@ except KeyError:
     sys.exit(1)
 
 def start_connection(
-    host: str, port: int
+    host: str, port: int, gui: ClientUI
 ) -> tuple[socket.socket, types.SimpleNamespace]:
     """
     Start a connection to the server.
@@ -933,8 +736,8 @@ def start_connection(
         The host to connect to.
     port : int
         The port to connect to.
-    selector : selectors.DefaultSelector
-        Where to register the connection.
+    gui : ClientUI
+        The client UI to use.
     """
 
     # Create a socket and connect to the server.
@@ -949,16 +752,17 @@ def start_connection(
 
     # Register the socket with the selector to send events.
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
-    data = Bolt(sel=sel, sock=sock, addr=server_addr, protocol_type=protocol)
+    data = Bolt(sel=sel, sock=sock, addr=server_addr, protocol_type=protocol, gui=gui)
     sel.register(sock, events, data=data)
     return sock, data
 
 
-def event_loop():
+def event_loop(gui: ClientUI):
     """
     Event loop for the client.
     Run in separate thread.
     """
+    start_connection(host, port, gui)
     try:
         while True:
             events = sel.select(timeout=1)
@@ -970,6 +774,13 @@ def event_loop():
     finally:
         sel.close()
 
+def send_request(request):
+    """
+    Send a request to the server.
+    """
+    for key in sel.get_map().values():
+        key.data.request = request
+        return
 
 if len(sys.argv) != 3:
     print("Usage: python client.py <host> <port>")

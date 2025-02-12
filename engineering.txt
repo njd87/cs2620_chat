@@ -143,4 +143,14 @@ I think that we should set messages to delivered once setup_main() is called.
 Fixing some things with pinging. Right now there's some weird overcomplication with how we're rerendering our pings.
 
 02/11/2025
-I'm trying to start thinking about the custom protocol. I think that we can just 
+I'm trying to start thinking about the custom protocol. I think that we can just parse dictionaries->lists->strings->lists->dictionaries while still being careful with
+how we're sanitizing inputs (e.g., for commas).
+
+Working on the delete account mechanism: I'm realizing that it's a bit more complicated than expected because we have to deal with a lot of the details on the other end.
+For instance, we want to make sure that user1 who is currently in a convo with user2 has user2's profile disappear when user2 deletes their account. Done!
+
+I'm also realizing that my laptop is getting really hot / battery is draining really quickly when we run server and client. I'm thinking that this is really
+due to the fact that we're recursively calling these functions to check for a response from the server. It's pretty inefficient because we're just continuing
+to call functions onto the stack without really clearing them. It's also currently a pretty clunky solution.
+
+Hm. Trying to figure out how to make this more efficient.

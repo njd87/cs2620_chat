@@ -41,7 +41,7 @@ def setup():
     """
     Set up the server.
     """
-    global sel, log_file
+    global sel, log_file, protocol
 
     # check if the log file exists
     if not os.path.exists(log_file):
@@ -129,11 +129,12 @@ def main_loop() -> None:
                                     back_to_server["new_user"],
                                     time.strftime("%Y-%m-%d %H:%M:%S"),
                                 )
-                                for user in connected_users:
-                                    connected_users[user]["bolt"].request = {
-                                        "action": "ping_user",
-                                        "ping_user": back_to_server["new_user"]
-                                    }
+                                if "registering" in back_to_server:
+                                    for user in connected_users:
+                                        connected_users[user]["bolt"].request = {
+                                            "action": "ping_user",
+                                            "ping_user": back_to_server["new_user"]
+                                        }
                                 connected_users[back_to_server["new_user"]] = {
                                     "socket" : key.fileobj,
                                     "bolt" : key.data

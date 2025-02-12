@@ -62,14 +62,16 @@ class Bolt:
         if self._header_len is not None:
             if self.header is None:
                 self.process_header()
+                print("processes header")
 
         if self.header is not None:
             if self.request is None:
                 self.process_request()
+                print("processes request")
 
     def _read(self):
         try:
-            data = self.sock.recv(4096)  # KG: why this amount
+            data = self.sock.recv(4096) 
         except BlockingIOError:
             pass
         else:
@@ -79,13 +81,11 @@ class Bolt:
                 raise RuntimeError("Peer closed.")
 
     def process_header_len(self):
-        if self.protocol_type == "json":
+        if self.protocol_type == "json" or self.protocol_type == "custom":
             processlen = 2
             if len(self.instream):
                 self._header_len = struct.unpack(">H", self.instream[:processlen])[0]
                 self.instream = self.instream[processlen:]
-        elif self.protocol_type == "custom":
-            self._header_len = 4
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
@@ -103,23 +103,29 @@ class Bolt:
                     if reqhdr not in self.header:
                         raise ValueError(f"Missing required header '{reqhdr}'.")
         elif self.protocol_type == "custom":
-            # the first byte is the version number
-            # the second + third bytes are the length of the message
-            # the fourth byte is the encoding
-            self.header = self.instream[:self._header_len]
-            self.instream = self.instream[self._header_len:]
+            hdrlen = self._header_len
+            if len(self.instream) >= hdrlen:
+                self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
+                self.instream = self.instream[hdrlen:]
+                if len(self.header) != 4:
+                    raise ValueError(f"Header must have 4 fields, not {len(self.header)}.")
+                for reqhdr in (
+                    "version",
+                    "byteorder",
+                    "content-encoding",
+                    "content-length",
+                ):
+                    if reqhdr not in self.header:
+                        raise ValueError(f"Missing required header '{reqhdr}'.")
 
-            # self.header is an array of 4 bytes
-            # check if the first byte, when decoded, is the correct version
-            if self.header[0] != 1: # ND: pretty sure this is not going to work, need fixing
-                raise ValueError(f"Invalid protocol version '{self.header[0]}'.")
-            
-            self._content_length = struct.unpack(">H", self.header[1:3])[0]
+                # if version is not 1, raise error
+                if self.header["version"] != 1:
+                    raise ValueError(f"Invalid version '{self.header[0]}'.")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_request(self):
-        if self.protocol_type == "json":
+        if self.protocol_type == "json" or self.protocol_type == "custom":
             content_len = self.header["content-length"]
             if not len(self.instream) >= content_len:
                 return
@@ -130,22 +136,6 @@ class Bolt:
             print(f"Received request {self.request!r} from {self.addr}")
 
             # Set selector to listen for write events, we're done reading.
-            self._header_len = None
-            self.header = None
-            self._set_selector_events_mask("rw")
-        elif self.protocol_type == "custom":
-            content_len = self._content_length
-            self._content_length = None
-            if not len(self.instream) >= content_len:
-                return
-            data = self.instream[:content_len]
-            self.instream = self.instream[content_len:]
-            encoding = self.header[3]
-            self.request = self._byte_decode(data, encoding)
-            print(f"Received response {self.request!r} from {self.addr}")
-
-            # Set selector to listen for write events, we're done reading.
-            self._content_length = None
             self._header_len = None
             self.header = None
             self._set_selector_events_mask("rw")
@@ -174,7 +164,7 @@ class Bolt:
                     self.response_created = False
                     self._set_selector_events_mask("rw")
 
-    def create_response(self, new_message=None):
+    def create_response(self):
         # back to server is a dictionary that is sent back to the backend for logic
         # regarding text sending and mapping ports to users
         back_to_server = {}
@@ -183,7 +173,7 @@ class Bolt:
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            username = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username")
             passhash = self.request.get("passhash") 
             passhash = hashlib.sha256(passhash.encode()).hexdigest()
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
@@ -201,32 +191,33 @@ class Bolt:
                     n_undelivered = sqlcur.fetchone()[0]
 
                     content = {
+                        "action": action,
                         "result": True,
-                        "users": sqlcur.execute(
+                        "users": [s[0] for s in sqlcur.execute(
                             "SELECT username FROM users WHERE username != ?", (username,)
-                        ).fetchall(),
+                        ).fetchall()],
                         "n_undelivered": n_undelivered,
                     }
                     back_to_server["new_user"] = username
                 # username exists but passhash is wrong
                 else:
-                    content = {"result": False}
+                    content = {"action": action, "result": False}
             else:
                 # username doesn't exist
-                content = {"result": False}
+                content = {"action": action, "result": False}
 
             sqlcon.close()
         elif action == "register":
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            username = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username")
             passhash = self.request.get("passhash")
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
 
             result = sqlcur.fetchone()
             if result:
-                content = {"result": False}
+                content = {"action": action, "result": False}
             else:
                 passhash = hashlib.sha256(passhash.encode()).hexdigest()
                 sqlcur.execute(
@@ -235,12 +226,14 @@ class Bolt:
                 )
                 sqlcon.commit()
                 content = {
+                    "action": action, 
                     "result": True,
-                    "users": sqlcur.execute(
+                    "users": [s[0] for s in sqlcur.execute(
                         "SELECT username FROM users WHERE username != ?", (username,)
-                    ).fetchall(),
+                        ).fetchall()],
                 }
                 back_to_server["new_user"] = username
+                back_to_server["registering"] = True
 
             sqlcon.close()
         elif action == "check_username":
@@ -252,9 +245,9 @@ class Bolt:
 
             result = sqlcur.fetchone()
             if result:
-                content = {"result": True}
+                content = {"action": action, "result": True}
             else:
-                content = {"result": False}
+                content = {"action": action, "result": False}
 
             sqlcon.close()
         elif action == "load_chat":
@@ -274,7 +267,7 @@ class Bolt:
             except Exception as e:
                 print("Error:", e)
                 result = []
-            content = {"messages": result}
+            content = {"action": action, "messages": result}
 
             sqlcon.close()
         elif action == "send_message":
@@ -297,7 +290,7 @@ class Bolt:
                     (sender, recipient, message),
                 )
                 message_id = sqlcur.fetchone()[0]
-                content = {"message_id": message_id}
+                content = {"action": action, "message_id": message_id}
 
                 back_to_server["new_message"] = {
                     "message_id": message_id,
@@ -306,11 +299,12 @@ class Bolt:
                     "sent_message": message,
                 }
             except:
-                content = {"result": False}
+                content = {"action": action, "result": False}
 
             sqlcon.close()
         elif action == "ping":
             content = {
+                "action": action, 
                 "sender": self.request.get("sender"),
                 "sent_message": self.request.get("sent_message"),
                 "message_id": self.request.get("message_id")
@@ -343,7 +337,7 @@ class Bolt:
                 (username, n_messages),
             )
             result = sqlcur.fetchall()
-            content = {"messages": result}
+            content = {"action": action, "messages": result}
 
             sqlcur.execute(
                 "UPDATE messages SET delivered=1 WHERE recipient=?", (username,)
@@ -360,12 +354,12 @@ class Bolt:
             sqlcon.commit()
 
             sqlcon.close()
-            content = {"result": True}
+            content = {"action": action, "result": True}
         elif action == "delete_account":
             sqlcon = sqlite3.connect("data/messenger.db")
             sqlcur = sqlcon.cursor()
 
-            username = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username") 
             passhash = self.request.get("passhash") 
             passhash = hashlib.sha256(passhash.encode()).hexdigest()
             sqlcur.execute("SELECT passhash FROM users WHERE username=?", (username,))
@@ -379,21 +373,23 @@ class Bolt:
                     sqlcon.commit()
 
                     content = {
+                        "action": action, 
                         "result": True
                     }
                     # tell server to ping users to update their chat, remove from connected users
                     back_to_server["delete_user"] = username
                 # username exists but passhash is wrong
                 else:
-                    content = {"result": False}
+                    content = {"action": action, "result": False}
             else:
                 # username doesn't exist
-                content = {"result": False}
+                content = {"action": action, "result": False}
 
             sqlcon.close()
         elif action == "ping_user":
             # ping that a user has been added or deleted
             content = {
+                "action": action, 
                 "ping_user": [self.request.get("ping_user")]
             }
         else:
@@ -408,12 +404,17 @@ class Bolt:
 
             message = self._create_message(**response)
         elif self.protocol_type == "custom":
-            # the first byte is the version number
-            # the second + third bytes are the length of the message
-            # the fourth byte is the encoding
+            print("HERRRREEEEECUSTOM")
             content_bytes = self._byte_encode(content, content_encoding)
-            message_hdr = struct.pack(">H", len(content_bytes))
-            message = bytes([1]) + message_hdr + bytes([content_encoding]) + content_bytes
+            customheader = {
+                "version": 1,
+                "byteorder": sys.byteorder,
+                "content-encoding": content_encoding,
+                "content-length": len(content_bytes)
+            }
+            customheader_bytes = self._byte_encode(customheader, content_encoding)
+            message_hdr = struct.pack(">H", len(customheader_bytes))
+            message = message_hdr + customheader_bytes + content_bytes
 
         self.response_created = True
         self.request = None
@@ -437,11 +438,9 @@ class Bolt:
         if self.protocol_type == "json":
             return json.dumps(obj, ensure_ascii=False).encode(encoding)
         elif self.protocol_type == "custom":
-            # convert dict to list
-            # convert list to string
-            # encode string as bytes
-            obj = parse_helpers.dict_to_list(obj, False)
-            obj = parse_helpers.list_to_string(obj)
+            # convert dict to string
+            obj = parse_helpers.dict_to_string(obj)
+            # encode string as byte
             return obj.encode(encoding)
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
@@ -452,12 +451,7 @@ class Bolt:
             obj = json.load(tiow)
             tiow.close()
         elif self.protocol_type == "custom":
-            # decode bytes as a string
-            # convert string to list
-            # convert list to dict, clientside
-            decoded_data = bytes.decode(encoding)
-            obj = parse_helpers.string_to_list(decoded_data)
-            obj = parse_helpers.list_to_dict(obj, False)
+            obj = parse_helpers.string_to_dict(bytes.decode(encoding))
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
         return obj

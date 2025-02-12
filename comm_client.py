@@ -5,6 +5,7 @@ import struct
 import sys
 import parse_helpers
 import socket
+import tkinter as tk
 
 
 class Bolt:
@@ -17,7 +18,7 @@ class Bolt:
     Transmitter
     """
 
-    def __init__(self, sel, sock, addr, protocol_type="json"):
+    def __init__(self, sel, sock, addr, gui, protocol_type="json"):
         """
         Initialize the Memo object.
         We need to keep the selector, socket, and address here.
@@ -27,6 +28,7 @@ class Bolt:
         self.sel = sel
         self.sock = sock
         self.addr = addr
+        self.gui = gui
         self.protocol_type = protocol_type
 
         # where to store data either coming in or going out
@@ -39,6 +41,7 @@ class Bolt:
 
         self.header = None
         self.response = None
+        self.responded = None
         self.request = None
         self.request_created = False
 
@@ -61,6 +64,10 @@ class Bolt:
         if self.header is not None:
             if self.response is None:
                 self.process_response()
+        
+        if self.response is not None:
+            if self.responded is None:
+                self.respond()
 
     def _read(self):
         try:
@@ -74,13 +81,11 @@ class Bolt:
                 raise RuntimeError("Peer closed.")
 
     def process_header_len(self):
-        if self.protocol_type == "json":
+        if self.protocol_type == "json" or self.protocol_type == "custom":
             processlen = 2
             if len(self.instream):
                 self._header_len = struct.unpack(">H", self.instream[:processlen])[0]
                 self.instream = self.instream[processlen:]
-        elif self.protocol_type == "custom":
-            self._header_len = 4
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
@@ -98,23 +103,30 @@ class Bolt:
                     if reqhdr not in self.header:
                         raise ValueError(f"Missing required header '{reqhdr}'.")
         elif self.protocol_type == "custom":
-            # the first byte is the version number
-            # the second + third bytes are the length of the message
-            # the fourth byte is the encoding
-            self.header = self.instream[:self._header_len]
-            self.instream = self.instream[self._header_len:]
+            hdrlen = self._header_len
+            if len(self.instream) >= hdrlen:
+                self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
+                print(self.header)
+                self.instream = self.instream[hdrlen:]
+                if len(self.header) != 4:
+                    raise ValueError(f"Header must have 4 fields, not {len(self.header)}.")
+                for reqhdr in (
+                    "version",
+                    "byteorder",
+                    "content-encoding",
+                    "content-length",
+                ):
+                    if reqhdr not in self.header:
+                        raise ValueError(f"Missing required header '{reqhdr}'.")
 
-            # self.header is an array of 4 bytes
-            # check if the first byte, when decoded, is the correct version
-            if self.header[0] != 1: # ND: pretty sure this is not going to work, need fixing
-                raise ValueError(f"Invalid protocol version '{self.header[0]}'.")
-            
-            self._content_length = struct.unpack(">H", self.header[1:3])[0]
+                # if version is not 1, raise error
+                if self.header["version"] != 1:
+                    raise ValueError(f"Invalid version '{self.header[0]}'.")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_response(self):
-        if self.protocol_type == "json":
+        if self.protocol_type == "json" or self.protocol_type == "custom":
             content_len = self.header["content-length"]
             if not len(self.instream) >= content_len:
                 return
@@ -128,24 +140,109 @@ class Bolt:
             self._header_len = None
             self.header = None
             self._set_selector_events_mask("rw")
-        elif self.protocol_type == "custom":
-            content_len = self._content_length
-            self._content_length = None
-            if not len(self.instream) >= content_len:
-                return
-            data = self.instream[:content_len]
-            self.instream = self.instream[content_len:]
-            encoding = self.header[3]
-            self.response = self._byte_decode(data, encoding)
-            print(f"Received response {self.response!r} from {self.addr}")
-
-            # Set selector to listen for write events, we're done reading.
-            self._content_length = None
-            self._header_len = None
-            self.header = None
-            self._set_selector_events_mask("rw")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
+        
+    def respond(self):
+        action = self.response["action"]
+        if action == "check_username":
+            # no matter what, we destroy the user entry screen
+            self.gui.destroy_user_entry()
+            # username exists, send to login
+            if self.response["result"]:
+                self.response = None
+                self.gui.setup_login()
+            # username does not exist, send to register
+            else:
+                self.response = None
+                self.gui.setup_register()
+        elif action == "login":
+            # logged in successfully - passhash matches
+            if self.response["result"]:
+                self.gui.users = self.response["users"]
+                self.gui.n_undelivered = self.response["n_undelivered"]
+                self.response = None
+                self.gui.credentials = self.gui.login_entry.get()
+                self.gui.login_frame.destroy()
+                self.gui.setup_undelivered()
+            # login failed, incorrect username/password
+            else:
+                self.response = None
+                self.gui.login_frame.destroy()
+                self.gui.setup_login(failed = True)
+        
+        elif action == "register":
+            if self.response["result"]:
+                self.gui.users = self.response["users"]
+                self.response = None
+                self.gui.credentials = self.gui.register_entry.get()
+                self.gui.register_frame.destroy()
+                self.gui.setup_main()
+            else:
+                self.response = None
+                self.gui.register_username_exists_label.pack()
+        elif action == "load_chat":
+            self.gui.loaded_messages = self.response["messages"]
+            self.response = None
+            self.gui.rerender_messages()
+        elif action == "send_message":
+            self.gui.loaded_messages += [
+                (self.gui.credentials, self.gui.connected_to, self.gui.chat_entry.get(), self.response["message_id"])
+            ]
+            self.response = None
+            self.gui.chat_entry.delete(0, tk.END)
+            self.gui.rerender_messages()
+        elif action == "view_undelivered":
+            self.gui.undelivered_messages = self.response["messages"]
+            self.response = None
+            self.gui.rerender_undelivered()
+        elif action == "ping":
+            if self.gui.connected_to == self.response["sender"]:
+                self.gui.loaded_messages += [
+                    (self.gui.connected_to, self.gui.credentials, self.response["sent_message"], self.response["message_id"])
+                ]
+                self.response = None
+                self.gui.rerender_messages()
+            else:
+                self.gui.incoming_pings += [(
+                    self.response["sender"],
+                    self.response["sent_message"]
+                    )]
+                self.response = None
+                self.gui.rerender_pings()
+        elif action == "delete_message":
+            self.response = None
+            del self.gui.loaded_messages[self.gui.chat_text.curselection()[0] - 1]
+            self.gui.chat_entry.delete(0, tk.END)
+            self.gui.rerender_messages()
+        elif action == "delete_account":
+            if self.response["result"]:
+                self.response = None
+                self.gui.reset_login_vars() 
+                self.gui.destroy_settings() 
+                self.gui.setup_deleted()
+            else:
+                self.response = None
+                self.gui.destroy_settings()
+                self.gui.setup_settings(failed = True)
+        elif action == "ping_user":
+            pinging_user = self.response["ping_user"]
+            # if user is already in users, remove them; user exists but deleted account
+            if pinging_user in self.gui.users:
+                self.gui.users = [user for user in self.gui.users if user != pinging_user]
+                self.gui.rerender_users()
+                if self.gui.connected_to == self.response["ping_user"][0]:
+                    self.gui.connected_to = None
+                    self.gui.loaded_messages = []
+                    self.gui.rerender_messages()
+                self.gui.incoming_pings = [ping for ping in self.gui.incoming_pings if ping[0] != pinging_user]
+                self.gui.rerender_pings()
+            # user is not in users, add them; created new account
+            elif pinging_user not in self.gui.users:
+                print("wrong turn here")
+                self.gui.users += [pinging_user]
+                self.gui.rerender_users()
+            self.response = None
 
     def write(self):
         if self.request:
@@ -218,12 +315,16 @@ class Bolt:
             }
             message = self._create_message(**temp_request)
         elif self.protocol_type == "custom":
-            # the first byte is the version number
-            # the second + third bytes are the length of the message
-            # the fourth byte is the encoding
             content_bytes = self._byte_encode(content, content_encoding)
-            message_hdr = struct.pack(">H", len(content_bytes))
-            message = bytes([1]) + message_hdr + bytes([content_encoding]) + content_bytes
+            customheader = {
+                "version": 1,
+                "byteorder": sys.byteorder,
+                "content-encoding": content_encoding,
+                "content-length": len(content_bytes)
+            }
+            customheader_bytes = self._byte_encode(customheader, content_encoding)
+            message_hdr = struct.pack(">H", len(customheader_bytes))
+            message = message_hdr + customheader_bytes + content_bytes
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
@@ -252,11 +353,9 @@ class Bolt:
         if self.protocol_type == "json":
             return json.dumps(obj, ensure_ascii=False).encode(encoding)
         elif self.protocol_type == "custom":
-            # convert dict to list
-            # convert list to string
+            # convert dict to string
+            obj = parse_helpers.dict_to_string(obj)
             # encode string as bytes
-            obj = parse_helpers.dict_to_list(obj, True)
-            obj = parse_helpers.list_to_string(obj)
             return obj.encode(encoding)
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
@@ -267,12 +366,7 @@ class Bolt:
             obj = json.load(tiow)
             tiow.close()
         elif self.protocol_type == "custom":
-            # decode bytes as a string
-            # convert string to list
-            # convert list to dict, clientside
-            decoded_data = bytes.decode(encoding)
-            obj = parse_helpers.string_to_list(decoded_data)
-            obj = parse_helpers.list_to_dict(obj, False)
+            obj = parse_helpers.string_to_dict(bytes.decode(encoding))
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
         return obj
