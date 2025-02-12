@@ -33,6 +33,8 @@ When first opened, you will be prompted to enter a username.
 If it exists, you will be prompted to login. If not, you will be prompted to register.
 If you received messages while you were offline, you will also be prompted to select how many messages you would like to read before logging back in.
 
+NOTE: Sometimes, tkiner can take a little bit (~3-5 seconds) to correctly render entry boxes. To speed this up, you can click on the entry box. In addition, sometimes buttons are a bit finicky, but this has always been a commonplace with tkinter in python.
+
 Once you are logged in on the home page, select any of the people on the left hand side and click "message" to start messaging them. Use the window on the right to send messages. You can select messages you have sent and delete them.
 You will also be pinged from other people you are currently not messaging.
 
