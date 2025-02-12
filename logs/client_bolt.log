@@ -35,3 +35,5 @@
 2025-02-12 02:49:36 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
 2025-02-12 02:49:39 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
 2025-02-12 02:49:56 - INFO - Received response {'action': 'send_message', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:52:32 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:52:37 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)

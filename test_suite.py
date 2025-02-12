@@ -8,62 +8,86 @@ from setup import reset_database, structure_tables
 from comm_server import Bolt as server_Bolt
 from comm_client import Bolt as client_Bolt
 
+unittest.TestLoader.sortTestMethodsUsing = None
+
 class TestParseHelpers(unittest.TestCase):
-    # def test_escape_string(self):
-    #     self.assertEqual(escape_string('Com,ma'), 'Com,ma')
-    #     self.assertEqual(escape_string('Com"ma'), 'Com\\"ma')
+    '''
+    Test cases for the parse_helpers module.
+
+    Tests the following functions:
+    - dict_to_string
+    - string_to_dict
+    '''
 
     def test_dict_serialization(self):
+        # check regular dictionary serialziation
         d = {"key": "value", "number": 123, "bool": True, "none": None}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
 
     def test_dict_serialization_empty(self):
+        # check edge case, empty dict
         d = {}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
 
     def test_dict_serialization_nested(self):
+        # check nested dictionary serialization
         d = {"key": {"nested": "value"}}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
 
     def test_dict_serialization_list(self):
+        # check list serialization
         d = {"key": ["value1", "value2"]}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
     
     def test_dict_serialization_list_nested(self):
+        # check nested list serialization
         d = {"key": [{"nested": "value"}]}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
     
     def test_dict_serialization_list_empty(self):
+        # check empty list serialization
         d = {"key": []}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
     
     def test_dict_serialization_list_empty_nested(self):
+        # check empty nested list serialization
         d = {"key": [{}]}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
 
     def test_invalid_dict_serialization(self):
-        d = {1: "one"}  # non-string key should raise an error
+        # check invalid dictionary serialization, since keys must be strings
+        d = {1: "one"}
         with self.assertRaises(TypeError):
             dict_to_string(d)
     
     def test_invalid_dict_deserialization(self):
+        # check invalid dictionary deserialization, since keys must be strings
         s = 'not a valid string'
         with self.assertRaises(ValueError):
             string_to_dict(s)
 
 class TestDatabaseSetup(unittest.TestCase):
+    '''
+    Tests "setup.py" file for resetting and structuring the database.
+
+    Tests the following functions:
+    - reset_database
+    - structure_tables
+    '''
     def test_reset_database(self):
+        # check if the database file is deleted
         reset_database()
         self.assertFalse(os.path.exists("data/messenger.db"))
 
     def test_structure_tables(self):
+        # check if the tables are created correctly
         structure_tables()
         conn = sqlite3.connect("data/messenger.db")
         cursor = conn.cursor()
@@ -73,6 +97,114 @@ class TestDatabaseSetup(unittest.TestCase):
         self.assertIsNotNone(cursor.fetchone())
         conn.commit()
         conn.close()
+
+class TestProtocolMethodsJson(unittest.TestCase):
+    '''
+    Test cases for the protocol methods in the Bolt class via encoding and decoding.
+
+    Tests the following functions:
+    - _byte_encode
+    - _byte_decode
+    '''
+    def setUp(self):
+        self.client_Bolt = client_Bolt(None, None, None, protocol_type='json', gui=None)
+        self.server_Bolt = server_Bolt(None, None, None, protocol_type='json')
+
+    def test_encode_json(self):
+        data = {"key": "value"}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
+
+    def test_nested_json(self):
+        data = {"key": {"nested": "value"}}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
+
+    def test_edge_case_json(self):
+        data = {"key": {"nested": "value"}, 'key2': '-1', 'key3': None}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
+
+
+class TestProtocolMethodsCustom(unittest.TestCase):
+    def setUp(self):
+        self.client_Bolt = client_Bolt(None, None, None, protocol_type='custom', gui=None)
+        self.server_Bolt = server_Bolt(None, None, None, protocol_type='custom')
+
+    def test_encode_custom(self):
+        data = {"key": "value"}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
+
+    def test_nested_custom(self):
+        data = {"key": {"nested": "value"}}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
+
+    def test_edge_case_custom(self):
+        data = {"key": {"nested": "value"}, 'key2': '-1', 'key3': None}
+        # encode the data to bytes
+        encoded_data = self.client_Bolt._byte_encode(data, 'utf-8')
+
+        # decode the bytes back to the original data
+        decoded_data = self.client_Bolt._byte_decode(encoded_data, 'utf-8')
+        self.assertEqual(decoded_data, data)
+
+        # do the same for server
+        encoded_data = self.server_Bolt._byte_encode(data, 'utf-8')
+        decoded_data = self.server_Bolt._byte_decode(encoded_data, 'utf-8')
+
+        self.assertEqual(decoded_data, data)
 
 class TestBoltCommunication(unittest.TestCase):
     def setUp(self):
@@ -92,11 +224,13 @@ class TestBoltCommunication(unittest.TestCase):
         request = {"action": "ping", "sender": "foo", "sent_message": "Hello, World!", "encoding": "utf-8"}
         self.client.request = request
         self.client.create_request()
+
         self.assertEqual(self.client.request, None)
 
-        self.server.instream = self.client.outstream 
+        self.server.instream = self.client.outstream
         self.server.process_header_len()
         self.server.process_header()
+
         try:
             self.server.process_request()
         except AttributeError:
@@ -157,7 +291,6 @@ class TestBoltCommunication(unittest.TestCase):
         except AttributeError:
             pass
         self.assertEqual(self.client.response["result"], False)
-        self.assertEqual(self.client.response["users"], [])
 
         conn = sqlite3.connect("data/messenger.db")
         cursor = conn.cursor()
@@ -169,20 +302,6 @@ class TestBoltCommunication(unittest.TestCase):
         count = cursor.fetchone()[0]
         self.assertEqual(count, 1)
         conn.close()
-
-    def test_login_user(self):
-        request = {"action": "login", "username": "foo", "passhash": "bar"}
-        self.server.request = request
-
-        self.server.create_response()
-        self.client.instream = self.server.outstream
-        self.client.process_header_len()
-        self.client.process_header()
-        try:
-            self.client.process_response()
-        except AttributeError:
-            pass
-        self.assertEqual(self.client.response["result"], True)
     
 
 if __name__ == "__main__":

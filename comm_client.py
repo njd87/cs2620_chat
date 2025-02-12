@@ -6,7 +6,6 @@ import selectors
 import struct
 import sys
 import parse_helpers
-import socket
 import tkinter as tk
 
 # log to a file

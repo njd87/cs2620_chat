@@ -148,3 +148,70 @@
 2025-02-12 02:49:56 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53173)> at 2025-02-12 02:49:56
 2025-02-12 02:49:56 - ERROR - Exception: Peer closed.
 2025-02-12 02:49:56 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53173)>, 'bolt': <comm_server.Bolt object at 0x104df7450>}}
+2025-02-12 02:51:16 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:16 - INFO - Received response {'action': 'login', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:16 - INFO - Received response {'action': 'register', 'result': True, 'users': ['nick']} from ('127.0.0.1', 65432)
+2025-02-12 02:51:16 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:16 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 02:51:28 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:28 - INFO - Received response {'action': 'login', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:28 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 02:51:28 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:28 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 02:51:37 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:37 - INFO - Received response {'action': 'login', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:37 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 02:51:37 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:51:37 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 02:52:27 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:52:27
+2025-02-12 02:52:28 - INFO - Listening on 127.0.0.1:65432 at 2025-02-12 02:52:28
+2025-02-12 02:52:29 - INFO - Accepted connection from ('127.0.0.1', 53217) at 2025-02-12 02:52:29
+2025-02-12 02:52:32 - INFO - Received request {'username': 'nick', 'action': 'check_username'} from ('127.0.0.1', 53217)
+2025-02-12 02:52:32 - INFO - Preparing to write b'\x00!{"version":1,"content-length":42}{"action":"check_username","result":false}' to ('127.0.0.1', 53217)
+2025-02-12 02:52:37 - INFO - Received request {'username': 'nick', 'passhash': 'nick', 'action': 'register'} from ('127.0.0.1', 53217)
+2025-02-12 02:52:37 - INFO - Preparing to write b'\x00!{"version":1,"content-length":46}{"action":"register","result":true,"users":[]}' to ('127.0.0.1', 53217)
+2025-02-12 02:52:37 - INFO - New user nick at 2025-02-12 02:52:37
+2025-02-12 02:52:37 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53217)>, 'bolt': <comm_server.Bolt object at 0x10490b450>}}
+2025-02-12 02:52:41 - ERROR - Connection closed by peer: <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53217)> at 2025-02-12 02:52:41
+2025-02-12 02:52:41 - ERROR - Exception: Peer closed.
+2025-02-12 02:52:41 - INFO - Connected users: {'nick': {'socket': <socket.socket fd=6, family=2, type=1, proto=0, laddr=('127.0.0.1', 65432), raddr=('127.0.0.1', 53217)>, 'bolt': <comm_server.Bolt object at 0x10490b450>}}
+2025-02-12 02:52:42 - ERROR - KeyboardInterrupt, exiting at 2025-02-12 02:52:42
+2025-02-12 02:53:19 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:53:19 - INFO - Received response {'action': 'login', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:53:19 - INFO - Received response {'action': 'register', 'result': True, 'users': ['nick']} from ('127.0.0.1', 65432)
+2025-02-12 02:53:19 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 02:53:19 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:11:22 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:22 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:11:22 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:22 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:11:33 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:33 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:11:33 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:33 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:11:53 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:53 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:11:53 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:11:53 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:11:53 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from None
+2025-02-12 03:12:17 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:12:17 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:12:17 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:12:17 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:12:29 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:12:29 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:12:29 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:12:29 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:12:29 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from None
+2025-02-12 03:14:25 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:14:25 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:14:25 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:14:25 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:15:12 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:15:12 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:15:12 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:15:12 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
+2025-02-12 03:15:43 - INFO - Received response {'action': 'check_username', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:15:43 - INFO - Received response {'action': 'register', 'result': True, 'users': []} from ('127.0.0.1', 65432)
+2025-02-12 03:15:43 - INFO - Received response {'action': 'register', 'result': False} from ('127.0.0.1', 65432)
+2025-02-12 03:15:43 - INFO - Received request {'sender': 'foo', 'sent_message': 'Hello, World!', 'action': 'ping'} from ('127.0.0.1', 65432)
