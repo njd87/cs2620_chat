@@ -3,10 +3,12 @@
 This is a live chat application built for Harvard's CS 2620. It is programmed to run a single server that can connect to multiple clients and communicate to a database based on those interactions.
 
 # How to run
-First, make sure you install all of the requirements.txt. This program was built for Python 3.10.x and above.
+This program was built for Python 3.10.x and above. It uses all built-in libraries, so no requirements.txt necessary.
+
+First, you'll need to setup the database by running:
 
 ```bash
-pip install -r requirements.txt
+python 
 ```
 
 Next, you will want to run the server. This can be done by simply running:

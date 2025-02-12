@@ -4,7 +4,6 @@ import selectors
 import struct
 import sys
 import sqlite3
-import socket
 
 # import sha256 password hashing
 import hashlib
@@ -24,10 +23,21 @@ class Bolt:
 
     def __init__(self, sel, sock, addr, protocol_type="json"):
         """
-        Initialize the Memo object.
+        Initialize the Bolt object.
         We need to keep the selector, socket, and address here.
-        We also have an instream and outstream for holding transferred information.
 
+        Instream + outstream are used to store data coming in and going out.
+
+        Parameters
+        ----------
+        sel : selectors.DefaultSelector
+            The selector object.
+        sock : socket.socket
+            The socket object.
+        addr : tuple
+            The address of the client.
+        protocol_type : str
+            The protocol type to use (default is 'json').
         """
         self.sel = sel
         self.sock = sock
@@ -48,12 +58,20 @@ class Bolt:
         self.response_created = False
 
     def process_events(self, mask):
+        '''
+        Process events for the given socket whenever the selector detects an event.
+        '''
         if mask & selectors.EVENT_READ:
             self.read()
         if mask & selectors.EVENT_WRITE:
             return self.write()
 
     def read(self):
+        '''
+        Read in info from instream and process it.
+
+        First reads raw bytes, then reads header length, then reads header, then reads response.
+        '''
         self._read()
 
         if self._header_len is None:
@@ -62,14 +80,15 @@ class Bolt:
         if self._header_len is not None:
             if self.header is None:
                 self.process_header()
-                print("processes header")
 
         if self.header is not None:
             if self.request is None:
                 self.process_request()
-                print("processes request")
 
     def _read(self):
+        '''
+        Read in raw bytes from the socket.
+        '''
         try:
             data = self.sock.recv(4096) 
         except BlockingIOError:
@@ -81,6 +100,11 @@ class Bolt:
                 raise RuntimeError("Peer closed.")
 
     def process_header_len(self):
+        '''
+        Process the header length.
+
+        For json and custom, the length is represented as a 2 byte unsigned integer.
+        '''
         if self.protocol_type == "json" or self.protocol_type == "custom":
             processlen = 2
             if len(self.instream):
@@ -90,7 +114,18 @@ class Bolt:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_header(self):
+        '''
+        Process the header of the message.
+
+        More information on how this works can be found in comments within this function.
+        '''
         if self.protocol_type == "json":
+            '''
+            For json, the header is a json object that contains the following fields:
+            - byteorder
+            - content-length
+            - content-encoding
+            '''
             hdrlen = self._header_len
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
@@ -103,6 +138,13 @@ class Bolt:
                     if reqhdr not in self.header:
                         raise ValueError(f"Missing required header '{reqhdr}'.")
         elif self.protocol_type == "custom":
+            '''
+            For custom, the header is a dict that contains the following fields:
+
+            - version
+            - byteorder
+            - content-encoding
+            '''
             hdrlen = self._header_len
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
@@ -125,6 +167,11 @@ class Bolt:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_request(self):
+        '''
+        When the header is processed, process the request by decoding the bytes.
+
+        This looks the same for both json and custom.
+        '''
         if self.protocol_type == "json" or self.protocol_type == "custom":
             content_len = self.header["content-length"]
             if not len(self.instream) >= content_len:
@@ -165,8 +212,12 @@ class Bolt:
                     self._set_selector_events_mask("rw")
 
     def create_response(self):
-        # back to server is a dictionary that is sent back to the backend for logic
-        # regarding text sending and mapping ports to users
+        '''
+        Create a response to the request.
+
+        Note: sometimes, back to server is a dictionary that is sent back to the backend for logic
+        regarding text sending and mapping ports to users.
+        '''
         back_to_server = {}
         action = self.request.get("action")
         if action == "login":
@@ -435,6 +486,9 @@ class Bolt:
         return message
 
     def _byte_encode(self, obj, encoding):
+        '''
+        Encode message into bytes.
+        '''
         if self.protocol_type == "json":
             return json.dumps(obj, ensure_ascii=False).encode(encoding)
         elif self.protocol_type == "custom":
@@ -446,6 +500,9 @@ class Bolt:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def _byte_decode(self, bytes, encoding):
+        '''
+        Decode message from bytes.
+        '''
         if self.protocol_type == "json":
             tiow = io.TextIOWrapper(io.BytesIO(bytes), encoding=encoding, newline="")
             obj = json.load(tiow)
@@ -457,7 +514,16 @@ class Bolt:
         return obj
 
     def _set_selector_events_mask(self, mode):
-        """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
+        '''
+        Set the selector events mask.
+        
+        references online pointed to this function as specifications, but we only use rw
+
+        Parameters
+        ----------
+        mode : str
+            The mode to set the selector events mask to.
+        '''
         if mode == "r":
             events = selectors.EVENT_READ
         elif mode == "w":

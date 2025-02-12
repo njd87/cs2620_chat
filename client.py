@@ -7,6 +7,23 @@ import threading
 import tkinter as tk
 import json
 from comm_client import Bolt
+import logging
+
+# log to a file
+log_file = "logs/client.log"
+db_file = "data/messenger.db"
+
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+# if the file does not exist in the current directory, create it
+if not os.path.exists(log_file):
+    with open(log_file, "w") as f:
+        pass
 
 sel = selectors.DefaultSelector()
 
@@ -39,7 +56,7 @@ class ClientUI:
         The port to connect to.
     """
 
-    def __init__(self, host, port):
+    def __init__(self):
         """
         Initialize the client UI.
         """
@@ -51,7 +68,6 @@ class ClientUI:
 
         # start connection
         # MUST be run in separate thread
-        # self.conn, self.conn_data = start_connection(host, port)
         threading.Thread(target=event_loop, args=(self,), daemon=True).start()
 
         # setup first screen
@@ -78,7 +94,7 @@ class ClientUI:
         # run the tkinter main loop
         self.root.mainloop()
 
-    def reset_login_vars(self): #KG: maybe move this?
+    def reset_login_vars(self):
         """
         Reset the login variables.
         """
@@ -89,15 +105,6 @@ class ClientUI:
         self.undelivered_messages = []
         self.n_undelivered = 0
         self.connected_to = None
-
-
-    # """
-    # Functions starting with "check_" are used to check for responses from the server.
-    # These are to be run when in different states of the tkinter window.
-
-    # Once a response is received, the response is processed and the window is updated accordingly.
-    # Then, the function "returns" to make sure it doesn't keep looking for the response.
-    # """
 
     """
     Functions starting with "send_" are used to send requests to the server.
@@ -231,7 +238,7 @@ class ClientUI:
         """
         Delete a message from the chat.
         """
-        print("deleting index:", self.loaded_messages[message_inx])
+        logging.info(f"Deleting Message: {self.loaded_messages[message_inx]} from {self.credentials} to {self.connected_to}")
         # check if the message is from the user
         if self.loaded_messages[message_inx][0] == self.credentials:
             message_id = self.loaded_messages[message_inx][3]
@@ -246,13 +253,13 @@ class ClientUI:
 
             send_request(request)
         else:
-            print("not allowed to delete")
+            logging.info(f"Cannot delete message. Message not from {self.credentials}")
 
     def send_delete_request(self, password):
         """
         Send a request to delete the account.
         """
-        print("credentials:", self.credentials) 
+        logging.info(f"Deleting Account: {self.credentials}")
         self.request = {
             "action": "delete_account",
             "username": self.credentials,
@@ -445,12 +452,7 @@ class ClientUI:
         self.register_password_label.pack()
         self.register_password_entry = tk.Entry(self.register_frame)
         self.register_password_entry.pack()
-        # self.register_password_confirm_label = tk.Label(
-        #     self.register_frame, text="Confirm your password - reg:"
-        # )
-        # self.register_password_confirm_label.pack()
-        # self.register_password_confirm_entry = tk.Entry(self.register_frame)
-        # self.register_password_confirm_entry.pack()
+
         self.register_button = tk.Button(
             self.register_frame,
             text="Register",
@@ -535,8 +537,6 @@ class ClientUI:
         self.incoming_pings_label = tk.Label(self.ping_frame, text="Incoming Pings")
         self.incoming_pings_label.pack()
         self.incoming_pings_listbox = tk.Listbox(self.ping_frame)
-        # for ping in self.incoming_pings:
-        #     self.incoming_pings_listbox.insert(tk.END, ping)
         self.incoming_pings_listbox.pack()
 
         self.chat_frame = tk.Frame(self.main_frame)
@@ -579,9 +579,16 @@ class ClientUI:
         """
         self.main_frame.destroy()
 
-    def setup_settings(self, failed = False): #KG : needs documentation
+    def setup_settings(self, failed = False):
         """
         Set up the settings screen.
+
+        Has a button that says "Delete Account" that opens a new window.
+
+        Parameters
+        ----------
+        failed : bool
+            Whether the delete failed. If so, show a label that says "Failed to delete account, password incorrect".
         """
         self.settings_frame = tk.Frame(self.root)
         self.settings_frame.pack()
@@ -665,13 +672,11 @@ class ClientUI:
         """
         self.incoming_pings_listbox.delete(0, tk.END)
 
-        print(self.incoming_pings)
-
         for ping in self.incoming_pings:
             self.incoming_pings_listbox.insert(tk.END, f"{ping[0]}: {ping[1]}")
 
     
-    def rerender_users(self): # KG: not used?
+    def rerender_users(self):
         """
         Rerender the users in the users listbox.
         Needs to be called whenever new users are received.
@@ -708,7 +713,7 @@ The rest of the code is for setting up the connection and running the client.
 
 # load config file, config/config.json
 if not os.path.exists("config/config.json"):
-    print("Config file does not exist, exiting")
+    logging.error("Config file does not exist, exiting")
     sys.exit(1)
 
 # load the config file
@@ -720,7 +725,7 @@ protocol = 'json'
 try:
     protocol = config['client_config']['protocol']
 except KeyError:
-    print("Error reading protocol from config file, exiting")
+    logging.error("Error reading protocol from config file, exiting")
     sys.exit(1)
 
 def start_connection(
@@ -747,13 +752,14 @@ def start_connection(
     try:
         sock.connect_ex(server_addr)
     except Exception as e:
-        print("Connection error:", e)
+        logging.error(f"Error connecting to server: {e}")
         sys.exit(1)
 
     # Register the socket with the selector to send events.
     events = selectors.EVENT_READ | selectors.EVENT_WRITE
     data = Bolt(sel=sel, sock=sock, addr=server_addr, protocol_type=protocol, gui=gui)
     sel.register(sock, events, data=data)
+
     return sock, data
 
 
@@ -770,7 +776,7 @@ def event_loop(gui: ClientUI):
                 if key.data:
                     key.data.process_events(mask)
     except KeyboardInterrupt:
-        print("Interrupted, exiting")
+        logging.error("Caught keyboard interrupt, exiting")
     finally:
         sel.close()
 
@@ -783,11 +789,11 @@ def send_request(request):
         return
 
 if len(sys.argv) != 3:
-    print("Usage: python client.py <host> <port>")
+    logging.error("Usage: python client.py <host> <port>")
     sys.exit(1)
 
 host = sys.argv[1]
 port = int(sys.argv[2])
 
 if __name__ == "__main__":
-    client_ui = ClientUI(host, port)
+    client_ui = ClientUI()

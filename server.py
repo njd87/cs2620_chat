@@ -122,6 +122,8 @@ def main_loop() -> None:
                     try:
                         # back to server contains information a bolt might want to communicate back to the main server
                         back_to_server = key.data.process_events(mask)
+
+                        # if we have something to send back to the server, we need to update the connected users
                         if back_to_server:
                             if "new_user" in back_to_server:
                                 logging.info(
@@ -130,6 +132,7 @@ def main_loop() -> None:
                                     time.strftime("%Y-%m-%d %H:%M:%S"),
                                 )
                                 if "registering" in back_to_server:
+                                    # ping all users to let them know a new user has joined
                                     for user in connected_users:
                                         connected_users[user]["bolt"].request = {
                                             "action": "ping_user",
@@ -142,6 +145,7 @@ def main_loop() -> None:
 
                                 logging.info("Connected users: %s", connected_users)
                             elif "new_message" in back_to_server:
+                                # ping connected recipient to let them know there is a new message
                                 logging.info(
                                     "Message from %s to %s at %s",
                                     back_to_server["new_message"]["sender"],
@@ -157,6 +161,7 @@ def main_loop() -> None:
                                         "message_id": back_to_server["new_message"]["message_id"]
                                     }
                             elif "delete_user" in back_to_server:
+                                # delete user from connected users
                                 logging.info(
                                     "Deleting user %s at %s",
                                     back_to_server["delete_user"],

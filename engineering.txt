@@ -1,5 +1,5 @@
 02/04/2025
-Today was the "testing phase" of the project. From what I can tell, Waldo sourced his code (or the reverse) from:
+Today was the "testing phase" of the project. From what we can tell, Waldo sourced his code (or the reverse) from:
 https://realpython.com/python-sockets/
 
 Two files were created today:

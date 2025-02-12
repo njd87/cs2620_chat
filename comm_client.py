@@ -20,11 +20,25 @@ class Bolt:
 
     def __init__(self, sel, sock, addr, gui, protocol_type="json"):
         """
-        Initialize the Memo object.
-        We need to keep the selector, socket, and address here.
-        We also have an instream and outstream for holding transferred information.
+        Initialize the Bolt object.
+        We need to keep the selector, socket, and address here, as well as the gui on the client side.
 
+        Instream + outstream are used to store data coming in and going out.
+
+        Parameters
+        ----------
+        sel : selectors.DefaultSelector
+            The selector object.
+        sock : socket.socket
+            The socket object.
+        addr : tuple
+            The address of the client.
+        gui : tkinter.Tk
+            The tkinter GUI object.
+        protocol_type : str
+            The protocol type to use (default is 'json').
         """
+
         self.sel = sel
         self.sock = sock
         self.addr = addr
@@ -46,12 +60,20 @@ class Bolt:
         self.request_created = False
 
     def process_events(self, mask):
+        '''
+        Process events for the given socket whenever the selector detects an event.
+        '''
         if mask & selectors.EVENT_READ:
             self.read()
         if mask & selectors.EVENT_WRITE:
             self.write()
 
     def read(self):
+        '''
+        Read in info from instream and process it.
+
+        First reads raw bytes, then reads header length, then reads header, then reads response.
+        '''
         self._read()
 
         if self._header_len is None:
@@ -64,14 +86,17 @@ class Bolt:
         if self.header is not None:
             if self.response is None:
                 self.process_response()
-        
+
         if self.response is not None:
             if self.responded is None:
                 self.respond()
 
     def _read(self):
+        '''
+        Read in raw bytes from the socket.
+        '''
         try:
-            data = self.sock.recv(4096)  # KG: why this amount, client
+            data = self.sock.recv(4096)
         except BlockingIOError:
             pass
         else:
@@ -81,6 +106,11 @@ class Bolt:
                 raise RuntimeError("Peer closed.")
 
     def process_header_len(self):
+        '''
+        Process the header length.
+
+        For json and custom, the length is represented as a 2 byte unsigned integer.
+        '''
         if self.protocol_type == "json" or self.protocol_type == "custom":
             processlen = 2
             if len(self.instream):
@@ -90,7 +120,18 @@ class Bolt:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_header(self):
+        '''
+        Process the header of the message.
+
+        More information on how this works can be found in comments within this function.
+        '''
         if self.protocol_type == "json":
+            '''
+            For json, the header is a json object that contains the following fields:
+            - byteorder
+            - content-length
+            - content-encoding
+            '''
             hdrlen = self._header_len
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
@@ -102,14 +143,24 @@ class Bolt:
                 ):
                     if reqhdr not in self.header:
                         raise ValueError(f"Missing required header '{reqhdr}'.")
+                    
         elif self.protocol_type == "custom":
+            '''
+            For custom, the header is a dict that contains the following fields:
+
+            - version
+            - byteorder
+            - content-encoding
+            '''
             hdrlen = self._header_len
             if len(self.instream) >= hdrlen:
                 self.header = self._byte_decode(self.instream[:hdrlen], "utf-8")
                 print(self.header)
                 self.instream = self.instream[hdrlen:]
                 if len(self.header) != 4:
-                    raise ValueError(f"Header must have 4 fields, not {len(self.header)}.")
+                    raise ValueError(
+                        f"Header must have 4 fields, not {len(self.header)}."
+                    )
                 for reqhdr in (
                     "version",
                     "byteorder",
@@ -126,6 +177,11 @@ class Bolt:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
 
     def process_response(self):
+        '''
+        When the header is processed, process the response by decoding the bytes.
+
+        This looks the same for both json and custom.
+        '''
         if self.protocol_type == "json" or self.protocol_type == "custom":
             content_len = self.header["content-length"]
             if not len(self.instream) >= content_len:
@@ -142,8 +198,23 @@ class Bolt:
             self._set_selector_events_mask("rw")
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
-        
+
     def respond(self):
+        '''
+        Respond to the response by processing the action.
+
+        Action possibilites include:
+        - check_username
+        - login
+        - register
+        - load_chat
+        - send_message
+        - ping
+        - view_undelivered
+        - delete_message
+        - delete_account
+        - ping_user
+        '''
         action = self.response["action"]
         if action == "check_username":
             # no matter what, we destroy the user entry screen
@@ -169,16 +240,18 @@ class Bolt:
             else:
                 self.response = None
                 self.gui.login_frame.destroy()
-                self.gui.setup_login(failed = True)
-        
+                self.gui.setup_login(failed=True)
+
         elif action == "register":
             if self.response["result"]:
+                # registered successfully
                 self.gui.users = self.response["users"]
                 self.response = None
                 self.gui.credentials = self.gui.register_entry.get()
                 self.gui.register_frame.destroy()
                 self.gui.setup_main()
             else:
+                # username already exists
                 self.response = None
                 self.gui.register_username_exists_label.pack()
         elif action == "load_chat":
@@ -186,8 +259,14 @@ class Bolt:
             self.response = None
             self.gui.rerender_messages()
         elif action == "send_message":
+            # locally load sent message
             self.gui.loaded_messages += [
-                (self.gui.credentials, self.gui.connected_to, self.gui.chat_entry.get(), self.response["message_id"])
+                (
+                    self.gui.credentials,
+                    self.gui.connected_to,
+                    self.gui.chat_entry.get(),
+                    self.response["message_id"],
+                )
             ]
             self.response = None
             self.gui.chat_entry.delete(0, tk.END)
@@ -199,15 +278,19 @@ class Bolt:
         elif action == "ping":
             if self.gui.connected_to == self.response["sender"]:
                 self.gui.loaded_messages += [
-                    (self.gui.connected_to, self.gui.credentials, self.response["sent_message"], self.response["message_id"])
+                    (
+                        self.gui.connected_to,
+                        self.gui.credentials,
+                        self.response["sent_message"],
+                        self.response["message_id"],
+                    )
                 ]
                 self.response = None
                 self.gui.rerender_messages()
             else:
-                self.gui.incoming_pings += [(
-                    self.response["sender"],
-                    self.response["sent_message"]
-                    )]
+                self.gui.incoming_pings += [
+                    (self.response["sender"], self.response["sent_message"])
+                ]
                 self.response = None
                 self.gui.rerender_pings()
         elif action == "delete_message":
@@ -218,24 +301,28 @@ class Bolt:
         elif action == "delete_account":
             if self.response["result"]:
                 self.response = None
-                self.gui.reset_login_vars() 
-                self.gui.destroy_settings() 
+                self.gui.reset_login_vars()
+                self.gui.destroy_settings()
                 self.gui.setup_deleted()
             else:
                 self.response = None
                 self.gui.destroy_settings()
-                self.gui.setup_settings(failed = True)
+                self.gui.setup_settings(failed=True)
         elif action == "ping_user":
             pinging_user = self.response["ping_user"]
             # if user is already in users, remove them; user exists but deleted account
             if pinging_user in self.gui.users:
-                self.gui.users = [user for user in self.gui.users if user != pinging_user]
+                self.gui.users = [
+                    user for user in self.gui.users if user != pinging_user
+                ]
                 self.gui.rerender_users()
                 if self.gui.connected_to == self.response["ping_user"][0]:
                     self.gui.connected_to = None
                     self.gui.loaded_messages = []
                     self.gui.rerender_messages()
-                self.gui.incoming_pings = [ping for ping in self.gui.incoming_pings if ping[0] != pinging_user]
+                self.gui.incoming_pings = [
+                    ping for ping in self.gui.incoming_pings if ping[0] != pinging_user
+                ]
                 self.gui.rerender_pings()
             # user is not in users, add them; created new account
             elif pinging_user not in self.gui.users:
@@ -264,9 +351,25 @@ class Bolt:
                     self._set_selector_events_mask("rw")
 
     def create_request(self):
+        '''
+        When a request is created, it is created based on the action that is passed in.
+
+        Actions include:
+        - login
+        - register
+        - check_username
+        - load_chat
+        - send_message
+        - ping
+        - view_undelivered
+        - delete_message
+        - delete_account
+        
+        Once it is put into a dictionary, it can be encoded into bytes.
+        '''
         action = self.request.get("action")
         if action in ["login", "register"]:
-            username = self.request.get("username")  # KG: what if doesn't match
+            username = self.request.get("username")
             passhash = self.request.get("passhash")
             content = {"username": username, "passhash": passhash, "action": action}
         elif action == "check_username":
@@ -290,7 +393,7 @@ class Bolt:
             content = {
                 "sender": self.request.get("sender"),
                 "sent_message": self.request.get("sent_message"),
-                "action": action
+                "action": action,
             }
         elif action == "view_undelivered":
             username = self.request.get("username")
@@ -320,7 +423,7 @@ class Bolt:
                 "version": 1,
                 "byteorder": sys.byteorder,
                 "content-encoding": content_encoding,
-                "content-length": len(content_bytes)
+                "content-length": len(content_bytes),
             }
             customheader_bytes = self._byte_encode(customheader, content_encoding)
             message_hdr = struct.pack(">H", len(customheader_bytes))
@@ -344,12 +447,16 @@ class Bolt:
             message_hdr = struct.pack(">H", len(jsonheader_bytes))
             message = message_hdr + jsonheader_bytes + content_bytes
         elif self.protocol_type == "custom":
+            # it should never get here, but in case it does, it shouldn't do anything
             pass
         else:
             raise ValueError(f"Invalid protocol type '{self.protocol_type}'.")
         return message
 
     def _byte_encode(self, obj, encoding):
+        '''
+        Encode the object into bytes based on the protocol type.
+        '''
         if self.protocol_type == "json":
             return json.dumps(obj, ensure_ascii=False).encode(encoding)
         elif self.protocol_type == "custom":
@@ -372,7 +479,16 @@ class Bolt:
         return obj
 
     def _set_selector_events_mask(self, mode):
-        """Set selector to listen for events: mode is 'r', 'w', or 'rw'."""
+        '''
+        Set the selector events mask.
+        
+        references online pointed to this function as specifications, but we only use rw
+
+        Parameters
+        ----------
+        mode : str
+            The mode to set the selector events mask to.
+        '''
         if mode == "r":
             events = selectors.EVENT_READ
         elif mode == "w":
