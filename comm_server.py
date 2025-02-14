@@ -39,7 +39,7 @@ class Bolt:
     Transmitter
     """
 
-    def __init__(self, sel, sock, addr, protocol_type="json"):
+    def __init__(self, sel, sock, addr, protocol_type="json", data_path="data/messenger.db"):
         """
         Initialize the Bolt object.
         We need to keep the selector, socket, and address here.
@@ -67,6 +67,7 @@ class Bolt:
         self.outstream = b""
 
         self.protocol_type = protocol_type
+        self.data_path = data_path
 
         # necessary for json header (json header is variable)
         self._header_len = None
@@ -240,7 +241,7 @@ class Bolt:
         back_to_server = {}
         action = self.request.get("action")
         if action == "login":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username")
@@ -278,7 +279,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "register":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username")
@@ -307,7 +308,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "check_username":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username")
@@ -321,7 +322,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "load_chat":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username")
@@ -339,7 +340,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "send_message":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             sender = self.request.get("sender")
@@ -380,7 +381,7 @@ class Bolt:
 
             # update the message to delivered
             message_id = self.request.get("message_id")
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             logging.info(f"Updating message {message_id} to delivered.")
@@ -392,7 +393,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "view_undelivered":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username")
@@ -412,7 +413,7 @@ class Bolt:
 
             sqlcon.close()
         elif action == "delete_message":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             message_id = self.request.get("message_id")
@@ -422,7 +423,7 @@ class Bolt:
             sqlcon.close()
             content = {"action": action, "result": True}
         elif action == "delete_account":
-            sqlcon = sqlite3.connect("data/messenger.db")
+            sqlcon = sqlite3.connect(self.data_path)
             sqlcur = sqlcon.cursor()
 
             username = self.request.get("username") 

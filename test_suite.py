@@ -1,8 +1,6 @@
 import unittest
 import os
 import sqlite3
-import json
-import struct
 from parse_helpers import dict_to_string, string_to_dict, escape_string
 from setup import reset_database, structure_tables
 from comm_server import Bolt as server_Bolt
@@ -24,6 +22,11 @@ class TestParseHelpers(unittest.TestCase):
         d = {"key": "value", "number": 123, "bool": True, "none": None}
         s = dict_to_string(d)
         self.assertEqual(string_to_dict(s), d)
+
+    def test_escape_string(self):
+        # check string escaping
+        s = 'Hello, "World"!'
+        self.assertEqual(escape_string(s), 'Hello, \\"World\\"!')
 
     def test_dict_serialization_empty(self):
         # check edge case, empty dict
@@ -83,13 +86,13 @@ class TestDatabaseSetup(unittest.TestCase):
     '''
     def test_reset_database(self):
         # check if the database file is deleted
-        reset_database()
-        self.assertFalse(os.path.exists("data/messenger.db"))
+        reset_database("data/test_database.db")
+        self.assertFalse(os.path.exists("data/test_database.db"))
 
     def test_structure_tables(self):
         # check if the tables are created correctly
-        structure_tables()
-        conn = sqlite3.connect("data/messenger.db")
+        structure_tables("data/test_database.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users';")
         self.assertIsNotNone(cursor.fetchone())
@@ -108,7 +111,7 @@ class TestProtocolMethodsJson(unittest.TestCase):
     '''
     def setUp(self):
         self.client_Bolt = client_Bolt(None, None, None, protocol_type='json', gui=None)
-        self.server_Bolt = server_Bolt(None, None, None, protocol_type='json')
+        self.server_Bolt = server_Bolt(None, None, None, protocol_type='json', data_path="data/test_database.db")
 
     def test_encode_json(self):
         data = {"key": "value"}
@@ -159,7 +162,7 @@ class TestProtocolMethodsJson(unittest.TestCase):
 class TestProtocolMethodsCustom(unittest.TestCase):
     def setUp(self):
         self.client_Bolt = client_Bolt(None, None, None, protocol_type='custom', gui=None)
-        self.server_Bolt = server_Bolt(None, None, None, protocol_type='custom')
+        self.server_Bolt = server_Bolt(None, None, None, protocol_type='custom', data_path="data/test_database.db")
 
     def test_encode_custom(self):
         data = {"key": "value"}
@@ -215,7 +218,7 @@ class TestSendReceiveJSON(unittest.TestCase):
         self.mock_socket = None
         self.mock_addr = ('127.0.0.1', 65432)
         self.mock_gui = None  # Dummy GUI input
-        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json')
+        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json', data_path="data/test_database.db")
         self.client = client_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='json', gui=self.mock_gui)
 
     def test_protocol_type(self):
@@ -248,7 +251,7 @@ class TestSendReceiveJSON(unittest.TestCase):
         self.mock_socket = None
         self.mock_addr = ('127.0.0.1', 65432)
         self.mock_gui = None  # Dummy GUI input
-        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='custom')
+        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='custom', data_path="data/test_database.db")
         self.client = client_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type='custom', gui=self.mock_gui)
 
     def test_protocol_type(self):
@@ -281,14 +284,19 @@ class TestServerProcessResponse(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Code to run once at the beginning of the test class
-        reset_database()
-        structure_tables()
+        # check to see if data/test_database.db exists
+        # if it does, delete it
+        if os.path.exists("data/test_database.db"):
+            os.remove("data/test_database.db")
+            print("Deleted existing test_database.db")
+
+        structure_tables("data/test_database.db")
     def setUp(self):
         self.mock_selector = None
         self.mock_socket = None
         self.mock_addr = ('127.0.0.1', 65432)
         self.mock_gui = None  # Dummy GUI input
-        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type=self.protocol_type)
+        self.server = server_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type=self.protocol_type, data_path="data/test_database.db")
         self.client = client_Bolt(self.mock_selector, self.mock_socket, self.mock_addr, protocol_type=self.protocol_type, gui=self.mock_gui)
 
     def test1a_check_username_none(self):
@@ -322,7 +330,7 @@ class TestServerProcessResponse(unittest.TestCase):
         self.assertEqual(self.client.response["result"], True)
         self.assertEqual(self.client.response["users"], [])
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM users WHERE username='foo';")
         user = cursor.fetchone()
@@ -351,7 +359,7 @@ class TestServerProcessResponse(unittest.TestCase):
         self.assertEqual(self.client.response["result"], False)
 
         # double check if user is in database
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM users WHERE username='foo';")
         user = cursor.fetchone()
@@ -423,7 +431,7 @@ class TestServerProcessResponse(unittest.TestCase):
             pass
         self.assertIsNotNone(self.client.response["message_id"])
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM messages WHERE message_id=?;", (self.client.response["message_id"],))
         message = cursor.fetchone()
@@ -449,7 +457,7 @@ class TestServerProcessResponse(unittest.TestCase):
                 pass
             self.assertIsNotNone(self.client.response["message_id"])
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM messages WHERE sender='foo' AND recipient='bar';")
         count = cursor.fetchone()[0]
@@ -470,7 +478,7 @@ class TestServerProcessResponse(unittest.TestCase):
         except AttributeError:
             pass
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM messages WHERE sender='foo' AND delivered=1;")
         count = cursor.fetchone()[0]
@@ -522,7 +530,7 @@ class TestServerProcessResponse(unittest.TestCase):
             pass
 
         # check if undelieverd are marked as delivered
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM messages WHERE recipient='bar' AND delivered=0;")
         count = cursor.fetchone()[0]
@@ -543,7 +551,7 @@ class TestServerProcessResponse(unittest.TestCase):
         except AttributeError:
             pass
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM messages WHERE message_id=1;")
         count = cursor.fetchone()[0]
@@ -565,7 +573,7 @@ class TestServerProcessResponse(unittest.TestCase):
             pass
         self.assertEqual(self.client.response["result"], False)
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM users WHERE username='foo';")
         count = cursor.fetchone()[0]
@@ -591,7 +599,7 @@ class TestServerProcessResponse(unittest.TestCase):
             pass
         self.assertEqual(self.client.response["result"], False)
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM users WHERE username='baz';")
         count = cursor.fetchone()[0]
@@ -613,7 +621,7 @@ class TestServerProcessResponse(unittest.TestCase):
             pass
         self.assertEqual(self.client.response["result"], True)
 
-        conn = sqlite3.connect("data/messenger.db")
+        conn = sqlite3.connect("data/test_database.db")
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM users WHERE username='foo';")
         count = cursor.fetchone()[0]
@@ -630,6 +638,10 @@ class TestServerProcessResponseCustom(TestServerProcessResponse):
 
 if __name__ == "__main__":
     unittest.main()
+    # delete data/test_database.db
+    if os.path.exists("data/test_database.db"):
+        os.remove("data/test_database.db")
+        print("Deleted test_database.db")
 
 '''
 Manual UI unit tests:

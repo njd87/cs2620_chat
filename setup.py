@@ -1,10 +1,7 @@
 import os
 import sqlite3
 
-database_path = "data/messenger.db"
-
-
-def reset_database() -> None:
+def reset_database(data_path="data/messenger.db") -> None:
     """
     Reset the database by deleting the file if it exists.
     """
@@ -14,17 +11,17 @@ def reset_database() -> None:
     os.makedirs("data", exist_ok=True)
 
     # delete database if exists to reset it
-    if os.path.exists(database_path):
-        os.remove(database_path)
-        print(f"Deleted existing {database_path}")
+    if os.path.exists(data_path):
+        os.remove(data_path)
+        print(f"Deleted existing {data_path}")
 
 
-def structure_tables() -> None:
+def structure_tables(data_path="data/messenger.db") -> None:
     """
     Create the tables for the database.
     """
 
-    with sqlite3.connect(database_path) as conn:
+    with sqlite3.connect(data_path) as conn:
         cursor = conn.cursor()
 
         # set up users table in messenger.db file

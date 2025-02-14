@@ -171,6 +171,7 @@ def string_to_dict(s):
         return arr
 
     # a lot of the logic for tuple is the same as array
+    # in fact, when we parse a tuple, we want to change it to a list
     def parse_tuple():
         nonlocal i
         if s[i] != "(":
@@ -180,7 +181,7 @@ def string_to_dict(s):
         items = []
         if i < len(s) and s[i] == ")":
             i += 1
-            return tuple(items)
+            return items
         while True:
             skip_whitespace()
             items.append(parse_value())
@@ -196,7 +197,7 @@ def string_to_dict(s):
                         i, s[i] if i < len(s) else "EOF"
                     )
                 )
-        return tuple(items)
+        return items
 
     def parse_string():
         nonlocal i

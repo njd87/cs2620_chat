@@ -326,14 +326,14 @@ class Bolt:
                 self.gui.destroy_settings()
                 self.gui.setup_settings(failed=True)
         elif action == "ping_user":
-            pinging_user = self.response["ping_user"]
+            pinging_user = self.response["ping_user"][0]
             # if user is already in users, remove them; user exists but deleted account
             if pinging_user in self.gui.users:
                 self.gui.users = [
                     user for user in self.gui.users if user != pinging_user
                 ]
                 self.gui.rerender_users()
-                if self.gui.connected_to == self.response["ping_user"][0]:
+                if self.gui.connected_to == pinging_user:
                     self.gui.connected_to = None
                     self.gui.loaded_messages = []
                     self.gui.rerender_messages()
