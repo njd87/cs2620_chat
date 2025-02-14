@@ -23011,3 +23011,4 @@
 2025-02-13 21:11:30 - INFO - Received response {'action': 'delete_account', 'result': False} from ('127.0.0.1', 65432)
 2025-02-13 21:11:30 - INFO - Received response {'action': 'delete_account', 'result': False} from ('127.0.0.1', 65432)
 2025-02-13 21:11:30 - INFO - Received response {'action': 'delete_account', 'result': True} from ('127.0.0.1', 65432)
+2025-02-13 21:12:23 - ERROR - KeyboardInterrupt, exiting at 2025-02-13 21:12:23

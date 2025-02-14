@@ -56,6 +56,8 @@ class Bolt:
             The address of the client.
         protocol_type : str
             The protocol type to use (default is 'json').
+        data_path : str
+            The path to the database file (default is 'data/messenger.db').
         """
         self.sel = sel
         self.sock = sock
